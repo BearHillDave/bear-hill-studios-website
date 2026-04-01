@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Get in Touch | Bear Hill Studios</title>
+  <meta name="description" content="Contact Bear Hill Studios about voice acting, voice coaching, sound design or audiobook production. Based in Bath, England." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html" aria-label="Bear Hill Studios — home">
+        <img src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/8b0f55a7-4867-447f-a712-dfae8020209a/Bear+Hill+Studios+Black.png?format=400w" alt="" />
+      </a>
+      <nav class="nav-links" aria-label="Main">
+        <a href="index.html">Home</a>
+        <a href="voice-acting.html">Voice Acting</a>
+        <a href="voice-coaching.html">Voice Coaching</a>
+        <a href="sound-design.html">Sound Design</a>
+        <a href="audiobooks.html">Audiobooks</a>
+      </nav>
+      <a class="nav-cta" href="contact.html" aria-current="page">Get in Touch</a>
+      <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="nav-mobile" id="mobile-menu" aria-label="Mobile" aria-hidden="true">
+    <a href="index.html">Home</a>
+    <a href="voice-acting.html">Voice Acting</a>
+    <a href="voice-coaching.html">Voice Coaching</a>
+    <a href="sound-design.html">Sound Design</a>
+    <a href="audiobooks.html">Audiobooks</a>
+    <a href="contact.html">Get in Touch</a>
+  </nav>
+
+  <main class="page" id="main-content">
+
+    <div class="page-hero">
+      <div class="container page-hero-inner">
+        <p class="eyebrow">Bear Hill Studios</p>
+        <h1>Get in touch</h1>
+        <p>Whether it's a voiceover project, a coaching enquiry, or a sound design brief — we'd love to hear from you. We'll usually reply within one working day.</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container">
+        <div class="contact-grid">
+
+          <div>
+            <p class="eyebrow">Send a message</p>
+            <h2 style="margin-bottom: 2rem;">Tell us about your project</h2>
+            <form class="contact-form" id="contact-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Your name</label>
+                  <input type="text" id="name" name="name" placeholder="Jane Smith" required />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email address</label>
+                  <input type="email" id="email" name="email" placeholder="jane@company.com" required />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="service">I'm enquiring about</label>
+                <select id="service" name="service">
+                  <option value="">Select a service…</option>
+                  <option value="Voice Acting">Voice Acting</option>
+                  <option value="Voice Coaching">Voice Coaching</option>
+                  <option value="Sound Design">Sound Design</option>
+                  <option value="Audiobook Production">Audiobook Production</option>
+                  <option value="Something else">Something else</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="message">Tell us more</label>
+                <textarea id="message" name="message" placeholder="Describe your project, timeline, and any other relevant details…"></textarea>
+              </div>
+              <div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+              </div>
+            </form>
+          </div>
+
+          <div class="contact-aside">
+            <p class="eyebrow">Our services</p>
+            <h3>What can we help with?</h3>
+            <p>Click any service below to pre-fill your enquiry.</p>
+            <div class="contact-services">
+              <button type="button" class="contact-service" data-service="Voice Acting">
+                <div class="cs-icon" aria-hidden="true">🎙</div>
+                <div class="cs-text">
+                  <h4>Voice Acting</h4>
+                  <p>Commercials, narration, characters &amp; audiobooks</p>
+                </div>
+              </button>
+              <button type="button" class="contact-service" data-service="Voice Coaching">
+                <div class="cs-icon" aria-hidden="true">✦</div>
+                <div class="cs-text">
+                  <h4>Voice Coaching</h4>
+                  <p>In-person (Bath) or online via Zoom</p>
+                </div>
+              </button>
+              <button type="button" class="contact-service" data-service="Sound Design">
+                <div class="cs-icon" aria-hidden="true">🎚</div>
+                <div class="cs-text">
+                  <h4>Sound Design</h4>
+                  <p>Games, XR, interactive &amp; digital media</p>
+                </div>
+              </button>
+              <button type="button" class="contact-service" data-service="Audiobook Production">
+                <div class="cs-icon" aria-hidden="true">📖</div>
+                <div class="cs-text">
+                  <h4>Audiobook Production</h4>
+                  <p>Full production from script to final audio</p>
+                </div>
+              </button>
+            </div>
+            <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgba(28,52,41,0.1);">
+              <p style="font-size: 0.82rem; opacity: 0.7;"><strong style="display: block; margin-bottom: 0.3rem; opacity: 1;">Based in Bath, England</strong>Available for remote projects worldwide. Voice coaching sessions in-person or online.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/8b0f55a7-4867-447f-a712-dfae8020209a/Bear+Hill+Studios+Black.png?format=400w" alt="Bear Hill Studios" />
+          <p>Voices and sound that stay with you. Based in Bath, England.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="voice-acting.html">Voice Acting</a></li>
+            <li><a href="voice-coaching.html">Voice Coaching</a></li>
+            <li><a href="sound-design.html">Sound Design</a></li>
+            <li><a href="audiobooks.html">Audiobooks</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="contact.html">Get in touch</a></li>
+            <li><a href="https://www.bearhillstudios.co.uk" target="_blank" rel="noopener">Original site</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2025 Bear Hill Studios Ltd. All rights reserved.</span>
+        <span>Bath, England</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js" defer></script>
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = this.querySelector('button[type="submit"]');
+      btn.textContent = 'Sent! We\u2019ll be in touch soon.';
+      btn.disabled = true;
+      btn.style.opacity = '0.6';
+    });
+
+    document.querySelectorAll('.contact-service[data-service]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        document.getElementById('service').value = this.dataset.service;
+      });
+    });
+  </script>
+</body>
+</html>
