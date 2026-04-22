@@ -31,6 +31,7 @@ function initPlayers() {
           <circle class="r-prog" cx="${svgSize/2}" cy="${svgSize/2}" r="${ringR}" stroke="${strokeColor}"
             stroke-dasharray="${circ}" stroke-dashoffset="${circ}"
             transform="rotate(-90 ${svgSize/2} ${svgSize/2})"/>
+          <circle class="r-dot" cx="${svgSize/2}" cy="${svgSize/2 - ringR}" r="5" fill="${strokeColor}" opacity="0"/>
         </svg>
         <svg class="player-icon" viewBox="0 0 24 24" width="${isLg?30:isSm?16:22}" height="${isLg?30:isSm?16:22}" fill="var(--${colorVar}t)">
           <path d="M8 5v14l11-7z"/>
@@ -40,15 +41,17 @@ function initPlayers() {
       <span class="player-time${isDark?' player--dark':''}" style="${isDark?'color:oklch(55% 0.010 80)':''}">0:00 / ${fmtTime(dur)}</span>
     `;
 
-    const state = { playing: false, time: 0, dur, interval: null, circ };
+    const cx = svgSize / 2;
+    const state = { playing: false, time: 0, dur, interval: null, circ, cx };
     const inner = el.querySelector('.player-inner');
     const prog = el.querySelector('.r-prog');
+    const dot = el.querySelector('.r-dot');
     const timeEl = el.querySelector('.player-time');
     const iconPath = el.querySelector('.player-icon path');
 
     inner.addEventListener('click', () => {
-      if (state.playing) pausePlayer(state, inner, iconPath);
-      else playPlayer(state, inner, iconPath, prog, timeEl);
+      if (state.playing) pausePlayer(state, inner, iconPath, dot);
+      else playPlayer(state, inner, iconPath, prog, timeEl, dot);
     });
 
     players[el.dataset.player] = state;
@@ -111,32 +114,28 @@ function renderBarPlayer(el) {
   players[id] = state;
 }
 
-function playPlayer(s, inner, iconPath, prog, timeEl) {
-  // Pause any other playing player first
-  Object.values(players).forEach(p => {
-    if (p !== s && p.playing) {
-      p.pauseFn && p.pauseFn();
-    }
-  });
+function playPlayer(s, inner, iconPath, prog, timeEl, dot) {
+  Object.values(players).forEach(p => { if (p !== s && p.playing) p.pauseFn && p.pauseFn(); });
   s.playing = true;
   iconPath.setAttribute('d', 'M6 19h4V5H6v14zm8-14v14h4V5h-4z');
   inner.style.transform = 'scale(1)';
+  if (dot) dot.setAttribute('opacity', '1');
   s.interval = setInterval(() => {
-    s.time++;
-    if (s.time > s.dur) { s.time = 0; pausePlayer(s, inner, iconPath); return; }
-    const offset = s.circ * (1 - s.time / s.dur);
-    prog.style.strokeDashoffset = offset;
-    const cur = fmtTime(s.time);
-    const tot = fmtTime(s.dur);
-    timeEl.textContent = `${cur} / ${tot}`;
-  }, 1000);
-  s.pauseFn = () => pausePlayer(s, inner, iconPath);
+    s.time += 0.04;
+    if (s.time > s.dur) { s.time = 0; pausePlayer(s, inner, iconPath, dot); return; }
+    const progress = s.time / s.dur;
+    prog.style.strokeDashoffset = s.circ * (1 - progress);
+    if (dot) dot.setAttribute('transform', `rotate(${progress * 360}, ${s.cx}, ${s.cx})`);
+    timeEl.textContent = `${fmtTime(Math.floor(s.time))} / ${fmtTime(s.dur)}`;
+  }, 40);
+  s.pauseFn = () => pausePlayer(s, inner, iconPath, dot);
 }
 
-function pausePlayer(s, inner, iconPath) {
+function pausePlayer(s, inner, iconPath, dot) {
   s.playing = false;
   clearInterval(s.interval);
   iconPath.setAttribute('d', 'M8 5v14l11-7z');
+  if (dot) dot.setAttribute('opacity', '0');
 }
 
 /* ===== SCROLL REVEAL ===== */
