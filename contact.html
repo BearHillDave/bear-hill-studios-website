@@ -1,187 +1,120 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="c">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Get in Touch | Bear Hill Studios</title>
-  <meta name="description" content="Contact Bear Hill Studios about voice acting, voice coaching, sound design or audiobook production. Based in Bath, England." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — Bear Hill Studios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="main.css">
 </head>
 <body>
 
-  <a class="skip-link" href="#main-content">Skip to content</a>
+<!-- =====================================================
+     NAVIGATION
+     ===================================================== -->
+<nav class="nav" id="nav">
+  <div class="logo">
+    <a href="index.html">
+      <svg class="logo-img logo-img--white" width="82" height="82" viewBox="0 0 126 126" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Bear Hill Studios"><circle cx="63" cy="63" r="63" fill="white"></circle><path d="M27.4373 39.6515L19.5625 33.8123L20.4381 32.6266C20.828 32.0985 21.1796 31.708 21.4926 31.455C21.8082 31.1987 22.1434 31.0333 22.4983 30.959C22.8624 30.8862 23.2419 30.8961 23.6367 30.9885C24.0375 31.08 24.3926 31.2404 24.702 31.4699C25.2664 31.8884 25.5844 32.459 25.6558 33.1816C26.1081 32.8684 26.6021 32.7232 27.1377 32.7461C27.6725 32.7629 28.1745 32.9453 28.6437 33.2933C29.2591 33.7496 29.6183 34.3534 29.7213 35.1047C29.7894 35.5612 29.7537 35.9908 29.6141 36.3935C29.4486 36.8244 29.167 37.309 28.7695 37.8473L27.4373 39.6515ZM23.8233 35.1289L24.0988 34.7558C24.4259 34.3128 24.568 33.9173 24.5251 33.5692C24.4814 33.2151 24.2691 32.8969 23.8883 32.6145C23.5177 32.3397 23.1592 32.2373 22.8128 32.3074C22.463 32.3749 22.1396 32.6097 21.8428 33.0117L21.5333 33.4308L23.8233 35.1289ZM27.1997 37.6324L27.7431 36.8965C28.1406 36.3581 28.3271 35.8847 28.3025 35.4763C28.2709 35.0416 28.08 34.6944 27.7298 34.4347C27.3898 34.1826 27.0098 34.0986 26.5899 34.1827C26.1784 34.2625 25.7362 34.6227 25.2632 35.2632L24.8179 35.8663L27.1997 37.6324Z" fill="black"></path><path d="M32.5913 22.0042L29.5882 24.5405L31.1052 26.3441L34.0209 23.8816L34.9164 24.9462L32.0007 27.4088L34.1106 29.9173L37.1136 27.381L38.0091 28.4457L33.8757 31.9367L27.5624 24.4305L31.6958 20.9396L32.5913 22.0042Z" fill="black"></path><path d="M44.8374 21.8247L41.0924 23.7162L41.1888 26.3375L39.7667 27.0558L39.409 15.5528L48.2709 22.7604L46.8261 23.4901L44.8374 21.8247ZM43.6737 20.8532L40.877 18.5278L41.0165 22.1953L43.6737 20.8532Z" fill="black"></path><path d="M52.8789 17.3429L56.7952 20.7099L55.036 21.129L51.3863 17.8684L51.127 17.9302L52.0546 21.8394L50.6164 22.1821L48.3503 12.6318L50.0354 12.2303C51.2946 11.9302 52.2603 11.9507 52.9325 12.2915C53.675 12.6723 54.149 13.2956 54.3545 14.1616C54.5149 14.8379 54.4595 15.4654 54.1881 16.0441C53.9168 16.6229 53.4804 17.0558 52.8789 17.3429ZM50.8291 16.6746L51.2859 16.5657C52.648 16.2412 53.2052 15.5573 52.9577 14.514C52.7258 13.5367 51.9473 13.2059 50.6223 13.5216L50.1099 13.6437L50.8291 16.6746Z" fill="black"></path><path d="M72.1722 15.2974L76.2832 16.2769L77.1697 12.5409L78.6079 12.8836L76.3418 22.4339L74.9035 22.0912L75.9617 17.6315L71.8508 16.652L70.7926 21.1117L69.3544 20.769L71.6205 11.2188L73.0587 11.5614L72.1722 15.2974Z" fill="black"></path><path d="M87.157 16.5792L82.7477 25.3452L81.4276 24.6784L85.8369 15.9124L87.157 16.5792Z" fill="black"></path><path d="M96.4333 22.8212L91.0155 29.2627L93.2181 31.1229L92.3226 32.1876L88.9897 29.3727L95.3029 21.8665L96.4333 22.8212Z" fill="black"></path><path d="M104.754 31.667L97.9967 36.6779L99.7101 38.9982L98.5931 39.8264L96.0004 36.3153L103.875 30.4762L104.754 31.667Z" fill="black"></path><path d="M35.5153 97.6967L34.1508 97.4108C34.2485 96.9729 34.2624 96.6419 34.1927 96.4176C34.1282 96.1752 33.9728 95.9413 33.7264 95.7158C33.4238 95.4389 33.0941 95.2948 32.7373 95.2834C32.3833 95.2689 32.0891 95.3894 31.8548 95.6449C31.5318 95.9969 31.5337 96.5201 31.8605 97.2146L32.3109 98.1684C32.6801 98.9418 32.8432 99.624 32.8002 100.215C32.76 100.803 32.5127 101.344 32.0582 101.84C31.4494 102.503 30.7249 102.849 29.8847 102.877C29.0385 102.904 28.2848 102.616 27.6235 102.011C26.9965 101.437 26.6488 100.778 26.5803 100.033C26.5181 99.2942 26.7457 98.5426 27.2633 97.7784L28.5904 98.5459C28.2516 99.0153 28.0703 99.388 28.0464 99.6642C27.9852 100.181 28.1698 100.637 28.6002 101.031C28.9402 101.342 29.3269 101.486 29.7601 101.464C30.1933 101.443 30.57 101.257 30.8901 100.908C31.0187 100.768 31.1156 100.622 31.1808 100.469C31.252 100.317 31.2898 100.154 31.2942 99.9801C31.3046 99.8062 31.2828 99.6172 31.229 99.4133C31.178 99.2061 31.0978 98.9809 30.9883 98.7374L30.557 97.8097C29.9512 96.4875 30.0171 95.4245 30.7545 94.6208C31.2518 94.0787 31.8751 93.8153 32.6244 93.8305C33.3765 93.8425 34.0613 94.1312 34.6789 94.6964C35.5118 95.4585 35.7906 96.4586 35.5153 97.6967Z" fill="black"></path><path d="M42.8822 102.254L38.8916 109.645L37.5901 108.944L41.5807 101.553L39.5978 100.485L40.2574 99.2633L45.5192 102.097L44.8596 103.318L42.8822 102.254Z" fill="black"></path><path d="M50.5646 103.914L49.1202 109.629C48.9141 110.444 48.8968 111.074 49.0681 111.518C49.3283 112.163 49.8194 112.577 50.5414 112.759C51.2674 112.942 51.8982 112.811 52.4339 112.367C52.7926 112.069 53.0766 111.507 53.2858 110.679L54.7302 104.964L56.1639 105.326L54.62 111.434C54.3674 112.434 53.8475 113.178 53.0604 113.668C52.1767 114.213 51.2242 114.356 50.2028 114.098C49.1814 113.841 48.4131 113.264 47.898 112.367C47.4381 111.563 47.3345 110.661 47.5871 109.661L49.1309 103.553L50.5646 103.914Z" fill="black"></path><path d="M59.4898 115.485V105.7H61.5459C62.5317 105.7 63.3101 105.797 63.8813 105.991C64.4947 106.181 65.0511 106.505 65.5503 106.961C66.5614 107.882 67.067 109.093 67.067 110.593C67.067 112.097 66.5403 113.314 65.4868 114.243C64.958 114.708 64.4038 115.031 63.8242 115.213C63.2826 115.394 62.5148 115.485 61.5205 115.485H59.4898ZM60.9684 114.097H61.6348C62.299 114.097 62.8511 114.028 63.2911 113.888C63.7311 113.74 64.1288 113.506 64.4841 113.185C65.2118 112.521 65.5757 111.657 65.5757 110.593C65.5757 109.519 65.2161 108.649 64.4968 107.981C63.8495 107.386 62.8955 107.088 61.6348 107.088H60.9684V114.097Z" fill="black"></path><path d="M74.1306 104.202L76.5286 113.69L75.095 114.052L72.6969 104.564L74.1306 104.202Z" fill="black"></path><path d="M80.9542 107.263C80.2996 106.051 80.1824 104.77 80.6026 103.42C81.019 102.073 81.8491 101.064 83.0929 100.394C84.3218 99.7325 85.6126 99.6038 86.9652 100.008C88.3217 100.411 89.3322 101.227 89.9968 102.458C90.6654 103.697 90.7895 104.986 90.369 106.326C89.9469 107.672 89.1065 108.684 87.8478 109.361C86.7344 109.961 85.5267 110.115 84.2248 109.822C82.7893 109.496 81.6991 108.643 80.9542 107.263ZM82.2759 106.573C82.7899 107.525 83.5328 108.135 84.5046 108.404C85.4727 108.675 86.3738 108.585 87.208 108.136C88.1129 107.649 88.7076 106.926 88.9922 105.966C89.2727 104.999 89.168 104.062 88.6781 103.154C88.1821 102.235 87.4593 101.631 86.5095 101.341C85.5615 101.045 84.6369 101.14 83.7357 101.625C82.8383 102.108 82.2491 102.829 81.9683 103.786C81.6834 104.737 81.786 105.665 82.2759 106.573Z" fill="black"></path><path d="M94.811 93.5895L94.4068 94.9221C93.9786 94.7868 93.6496 94.7441 93.4198 94.7939C93.1724 94.8369 92.9255 94.9712 92.679 95.1967C92.3765 95.4736 92.204 95.789 92.1616 96.143C92.1163 96.4939 92.2108 96.7971 92.4452 97.0525C92.7682 97.4045 93.2903 97.4482 94.0115 97.1836L95.0022 96.8186C95.8058 96.5187 96.5005 96.416 97.0863 96.5103C97.6692 96.6015 98.1879 96.8947 98.6423 97.39C99.2511 98.0536 99.5327 98.8045 99.4871 99.6428C99.4412 100.487 99.0876 101.212 98.4263 101.817C97.7994 102.391 97.1115 102.679 96.3628 102.682C95.6203 102.68 94.8904 102.388 94.1732 101.807L95.0545 100.553C95.4931 100.931 95.8491 101.144 96.1225 101.192C96.6329 101.298 97.1034 101.154 97.5338 100.76C97.8738 100.449 98.0518 100.077 98.0677 99.6437C98.0836 99.2108 97.9315 98.8199 97.6114 98.471C97.4828 98.3308 97.3453 98.2217 97.199 98.1435C97.053 98.0594 96.8936 98.0076 96.7207 97.9881C96.5482 97.9626 96.3578 97.9678 96.1496 98.0036C95.9386 98.0362 95.7069 98.0964 95.4545 98.1841L94.4916 98.5323C93.1198 99.0198 92.0652 98.8617 91.3278 98.058C90.8304 97.5159 90.622 96.8729 90.7024 96.1287C90.78 95.3815 91.1276 94.7253 91.7452 94.1601C92.578 93.398 93.5999 93.2078 94.811 93.5895Z" fill="black"></path><path d="M59.4192 45.4511C55.4859 37.3892 45.2892 42.2224 46.9211 50.6555C44.0544 55.2774 45.8438 59.2651 43.492 67.3939C40.3005 75.6123 38.3796 79.3059 33.3696 84.265C45.9946 82.4395 51.2059 74.9274 61.5393 74.9274C72.2871 74.9274 74.072 79.9836 91.662 84.265C87.9286 83.2221 83.964 80.4685 81.2864 78.3859C78.7542 76.4165 78.8671 75.0931 79.0571 73.9488C79.2425 71.7583 81.4702 70.5347 86.112 68.3538C90.0591 65.9411 91.7919 64.0678 92.3683 58.0026C92.8184 55.0424 90.8933 53.8609 86.2949 53.1985C81.6965 52.5361 79.9654 51.7404 77.7513 49.3293C74.8977 45.9336 69.5159 45.713 68.0549 45.5553C65.5207 45.3592 64.5112 45.1858 59.4192 45.4511Z" fill="black" stroke="black" stroke-linejoin="round"></path><ellipse cx="71.0922" cy="54.3501" rx="2.04536" ry="2.04536" fill="white"></ellipse></svg>
+    </a>
+  </div>
+  <ul class="nav-links">
+    <li><a class="nav-link" href="work.html">Work</a></li>
+    <li><a class="nav-link" href="laura.html">Laura</a></li>
+    <li><a class="nav-link" href="about.html">About</a></li>
+    <li><a class="nav-link active" href="contact.html">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="contact.html">Get in touch</a>
+</nav>
 
-  <header class="site-header" role="banner">
-    <div class="nav-inner">
-      <a class="nav-logo" href="index.html" aria-label="Bear Hill Studios — home">
-        <img src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/8b0f55a7-4867-447f-a712-dfae8020209a/Bear+Hill+Studios+Black.png?format=400w" alt="" />
-      </a>
-      <nav class="nav-links" aria-label="Main">
-        <a href="index.html">Home</a>
-        <a href="voice-acting.html">Voice Acting</a>
-        <a href="voice-coaching.html">Voice Coaching</a>
-        <a href="sound-design.html">Sound Design</a>
-        <a href="audiobooks.html">Audiobooks</a>
-      </nav>
-      <a class="nav-cta" href="contact.html" aria-current="page">Get in Touch</a>
-      <button class="nav-burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
-        <span></span><span></span><span></span>
-      </button>
+  <div class="page-head">
+    <div class="page-head-bg" style="background-image:url('assets/leaves.jpg')"></div>
+    <div class="page-head-inner wrap">
+      <p class="eyebrow" style="color:oklch(72% 0.010 80)">Bath, UK</p>
+      <h1>Get in touch.</h1>
+      <p class="sub">Tell us a little about your project and we'll come back to you within two working days.</p>
     </div>
-  </header>
+  </div>
 
-  <nav class="nav-mobile" id="mobile-menu" aria-label="Mobile" aria-hidden="true">
-    <a href="index.html">Home</a>
-    <a href="voice-acting.html">Voice Acting</a>
-    <a href="voice-coaching.html">Voice Coaching</a>
-    <a href="sound-design.html">Sound Design</a>
-    <a href="audiobooks.html">Audiobooks</a>
-    <a href="contact.html">Get in Touch</a>
-  </nav>
-
-  <main class="page" id="main-content">
-
-    <div class="page-hero">
-      <div class="container page-hero-inner">
-        <p class="eyebrow">Bear Hill Studios</p>
-        <h1>Get in touch</h1>
-        <p>Whether it's a voiceover project, a coaching enquiry, or a sound design brief — we'd love to hear from you. We'll usually reply within one working day.</p>
-      </div>
-    </div>
-
-    <section class="section">
-      <div class="container">
-        <div class="contact-grid">
-
-          <div>
-            <p class="eyebrow">Send a message</p>
-            <h2 style="margin-bottom: 2rem;">Tell us about your project</h2>
-            <form class="contact-form" id="contact-form">
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="name">Your name</label>
-                  <input type="text" id="name" name="name" placeholder="Jane Smith" required />
-                </div>
-                <div class="form-group">
-                  <label for="email">Email address</label>
-                  <input type="email" id="email" name="email" placeholder="jane@company.com" required />
-                </div>
+  <section class="sec">
+    <div class="wrap">
+      <div class="contact-layout">
+        <div>
+          <form class="form" onsubmit="return false">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.25rem">
+              <div class="form-group reveal">
+                <label class="form-label">Your name</label>
+                <input class="form-input" type="text" placeholder="Jane Smith">
               </div>
-              <div class="form-group">
-                <label for="service">I'm enquiring about</label>
-                <select id="service" name="service">
-                  <option value="">Select a service…</option>
-                  <option value="Voice Acting">Voice Acting</option>
-                  <option value="Voice Coaching">Voice Coaching</option>
-                  <option value="Sound Design">Sound Design</option>
-                  <option value="Audiobook Production">Audiobook Production</option>
-                  <option value="Something else">Something else</option>
-                </select>
+              <div class="form-group reveal d1">
+                <label class="form-label">Email address</label>
+                <input class="form-input" type="email" placeholder="jane@publisher.com">
               </div>
-              <div class="form-group">
-                <label for="message">Tell us more</label>
-                <textarea id="message" name="message" placeholder="Describe your project, timeline, and any other relevant details…"></textarea>
-              </div>
-              <div>
-                <button type="submit" class="btn btn-primary">Send Message</button>
-              </div>
-            </form>
-          </div>
-
-          <div class="contact-aside">
-            <p class="eyebrow">Our services</p>
-            <h3>What can we help with?</h3>
-            <p>Click any service below to pre-fill your enquiry.</p>
-            <div class="contact-services">
-              <button type="button" class="contact-service" data-service="Voice Acting">
-                <div class="cs-icon" aria-hidden="true">🎙</div>
-                <div class="cs-text">
-                  <h4>Voice Acting</h4>
-                  <p>Commercials, narration, characters &amp; audiobooks</p>
-                </div>
-              </button>
-              <button type="button" class="contact-service" data-service="Voice Coaching">
-                <div class="cs-icon" aria-hidden="true">✦</div>
-                <div class="cs-text">
-                  <h4>Voice Coaching</h4>
-                  <p>In-person (Bath) or online via Zoom</p>
-                </div>
-              </button>
-              <button type="button" class="contact-service" data-service="Sound Design">
-                <div class="cs-icon" aria-hidden="true">🎚</div>
-                <div class="cs-text">
-                  <h4>Sound Design</h4>
-                  <p>Games, XR, interactive &amp; digital media</p>
-                </div>
-              </button>
-              <button type="button" class="contact-service" data-service="Audiobook Production">
-                <div class="cs-icon" aria-hidden="true">📖</div>
-                <div class="cs-text">
-                  <h4>Audiobook Production</h4>
-                  <p>Full production from script to final audio</p>
-                </div>
-              </button>
             </div>
-            <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgba(28,52,41,0.1);">
-              <p style="font-size: 0.82rem; opacity: 0.7;"><strong style="display: block; margin-bottom: 0.3rem; opacity: 1;">Based in Bath, England</strong>Available for remote projects worldwide. Voice coaching sessions in-person or online.</p>
+            <div class="form-group reveal d2">
+              <label class="form-label">What are you looking for?</label>
+              <div class="service-grid">
+                <label class="service-opt"><input type="checkbox"><div><div class="service-opt-label">Full immersive production</div><div class="service-opt-sub">End-to-end — voice, sound design, production</div></div></label>
+                <label class="service-opt"><input type="checkbox"><div><div class="service-opt-label">Narration + production</div><div class="service-opt-sub">Laura narrating, Dave producing</div></div></label>
+                <label class="service-opt"><input type="checkbox"><div><div class="service-opt-label">Voice talent only</div><div class="service-opt-sub">Laura for your own production</div></div></label>
+                <label class="service-opt"><input type="checkbox"><div><div class="service-opt-label">Not sure yet</div><div class="service-opt-sub">Happy to advise</div></div></label>
+              </div>
             </div>
+            <div class="form-group reveal d3">
+              <label class="form-label">Tell us about your project <span style="font-weight:300;opacity:0.7">(optional)</span></label>
+              <textarea class="form-textarea" placeholder="Genre, length, timeline, anything else useful…"></textarea>
+            </div>
+            <div class="form-group reveal d4">
+              <label class="form-label">How did you find us? <span style="font-weight:300;opacity:0.7">(optional)</span></label>
+              <input class="form-input" type="text" placeholder="ACX, Google, referral…">
+            </div>
+            <button type="submit" class="btn btn-forest reveal" style="margin-top:0.5rem;">Send message</button>
+          </form>
+          <div style="margin-top:2.5rem;padding-top:2rem;border-top:1px solid oklch(88% 0.012 80)">
+            <p style="font-size:0.85rem;color:var(--muted);margin-bottom:0.4rem">Prefer a direct line?</p>
+            <a href="mailto:hello@bearhillstudios.co.uk" style="color:var(--forest);text-decoration:underline;text-underline-offset:3px">hello@bearhillstudios.co.uk</a>
           </div>
-
         </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="site-footer" role="contentinfo">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <img src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/8b0f55a7-4867-447f-a712-dfae8020209a/Bear+Hill+Studios+Black.png?format=400w" alt="Bear Hill Studios" />
-          <p>Voices and sound that stay with you. Based in Bath, England.</p>
+        <div class="reveal d2">
+          <p class="eyebrow">Prefer a direct line?</p>
+          <div class="direct-item" style="margin-top:1rem">
+            <p class="direct-label">Email</p>
+            <p class="direct-value"><a href="mailto:hello@bearhillstudios.co.uk">hello@bearhillstudios.co.uk</a></p>
+          </div>
+          <div class="direct-item">
+            <p class="direct-label">Based in</p>
+            <p class="direct-value">Bath, UK — working worldwide</p>
+          </div>
+          <div style="margin-top:2rem;padding-top:1.75rem;border-top:1px solid oklch(88% 0.012 80)">
+            <p class="eyebrow" style="margin-bottom:0.75rem">Separate sites</p>
+            <p style="font-size:0.82rem;color:var(--muted);margin-bottom:0.4rem">Voice coaching → <strong style="color:var(--text)">Laura Cox Voice Coaching</strong></p>
+            <p style="font-size:0.82rem;color:var(--muted)">Interactive &amp; digital → <strong style="color:var(--text)">Dave Cox Interactive</strong></p>
+          </div>
         </div>
-        <div class="footer-col">
-          <h4>Services</h4>
-          <ul>
-            <li><a href="voice-acting.html">Voice Acting</a></li>
-            <li><a href="voice-coaching.html">Voice Coaching</a></li>
-            <li><a href="sound-design.html">Sound Design</a></li>
-            <li><a href="audiobooks.html">Audiobooks</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>Contact</h4>
-          <ul>
-            <li><a href="contact.html">Get in touch</a></li>
-            <li><a href="https://www.bearhillstudios.co.uk" target="_blank" rel="noopener">Original site</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>&copy; 2025 Bear Hill Studios Ltd. All rights reserved.</span>
-        <span>Bath, England</span>
       </div>
     </div>
-  </footer>
+  </section>
 
-  <script src="main.js" defer></script>
-  <script>
-    document.getElementById('contact-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      var btn = this.querySelector('button[type="submit"]');
-      btn.textContent = 'Sent! We\u2019ll be in touch soon.';
-      btn.disabled = true;
-      btn.style.opacity = '0.6';
-    });
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+<footer class="footer" style="background-color: var(--charcoal)">
+  <div class="wrap footer-inner">
+    <div class="footer-logo">
+      <svg width="36" height="36" viewBox="0 0 126 126" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="63" cy="63" r="63" fill="white"></circle><path d="M27.4373 39.6515L19.5625 33.8123L20.4381 32.6266C20.828 32.0985 21.1796 31.708 21.4926 31.455C21.8082 31.1987 22.1434 31.0333 22.4983 30.959C22.8624 30.8862 23.2419 30.8961 23.6367 30.9885C24.0375 31.08 24.3926 31.2404 24.702 31.4699C25.2664 31.8884 25.5844 32.459 25.6558 33.1816C26.1081 32.8684 26.6021 32.7232 27.1377 32.7461C27.6725 32.7629 28.1745 32.9453 28.6437 33.2933C29.2591 33.7496 29.6183 34.3534 29.7213 35.1047C29.7894 35.5612 29.7537 35.9908 29.6141 36.3935C29.4486 36.8244 29.167 37.309 28.7695 37.8473L27.4373 39.6515ZM23.8233 35.1289L24.0988 34.7558C24.4259 34.3128 24.568 33.9173 24.5251 33.5692C24.4814 33.2151 24.2691 32.8969 23.8883 32.6145C23.5177 32.3397 23.1592 32.2373 22.8128 32.3074C22.463 32.3749 22.1396 32.6097 21.8428 33.0117L21.5333 33.4308L23.8233 35.1289ZM27.1997 37.6324L27.7431 36.8965C28.1406 36.3581 28.3271 35.8847 28.3025 35.4763C28.2709 35.0416 28.08 34.6944 27.7298 34.4347C27.3898 34.1826 27.0098 34.0986 26.5899 34.1827C26.1784 34.2625 25.7362 34.6227 25.2632 35.2632L24.8179 35.8663L27.1997 37.6324Z" fill="black"></path><path d="M59.4192 45.4511C55.4859 37.3892 45.2892 42.2224 46.9211 50.6555C44.0544 55.2774 45.8438 59.2651 43.492 67.3939C40.3005 75.6123 38.3796 79.3059 33.3696 84.265C45.9946 82.4395 51.2059 74.9274 61.5393 74.9274C72.2871 74.9274 74.072 79.9836 91.662 84.265C87.9286 83.2221 83.964 80.4685 81.2864 78.3859C78.7542 76.4165 78.8671 75.0931 79.0571 73.9488C79.2425 71.7583 81.4702 70.5347 86.112 68.3538C90.0591 65.9411 91.7919 64.0678 92.3683 58.0026C92.8184 55.0424 90.8933 53.8609 86.2949 53.1985C81.6965 52.5361 79.9654 51.7404 77.7513 49.3293C74.8977 45.9336 69.5159 45.713 68.0549 45.5553C65.5207 45.3592 64.5112 45.1858 59.4192 45.4511Z" fill="black" stroke="black" stroke-linejoin="round"></path><ellipse cx="71.0922" cy="54.3501" rx="2.04536" ry="2.04536" fill="white"></ellipse></svg>
+      <span class="footer-note">Bear Hill Studios · Bath, UK</span>
+    </div>
+    <p class="footer-note">© 2026 Bear Hill Studios. All rights reserved.</p>
+    <div class="footer-links">
+      <a class="footer-link" href="work.html">Work</a>
+      <a class="footer-link" href="laura.html">Laura</a>
+      <a class="footer-link" href="about.html">About</a>
+      <a class="footer-link" href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
 
-    document.querySelectorAll('.contact-service[data-service]').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        document.getElementById('service').value = this.dataset.service;
-      });
-    });
-  </script>
+<script src="main.js"></script>
 </body>
 </html>

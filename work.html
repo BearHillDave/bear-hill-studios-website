@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home — Bear Hill Studios</title>
+  <title>Work — Bear Hill Studios</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="main.css">
@@ -20,7 +20,7 @@
     </a>
   </div>
   <ul class="nav-links">
-    <li><a class="nav-link" href="work.html">Work</a></li>
+    <li><a class="nav-link active" href="work.html">Work</a></li>
     <li><a class="nav-link" href="laura.html">Laura</a></li>
     <li><a class="nav-link" href="about.html">About</a></li>
     <li><a class="nav-link" href="contact.html">Contact</a></li>
@@ -28,113 +28,153 @@
   <a class="nav-cta" href="contact.html">Get in touch</a>
 </nav>
 
-  <section class="hero">
-    <div class="hero-bg" id="hero-bg"></div>
-    <div class="hero-vignette"></div>
-    <div class="hero-content">
-      <p class="hero-est">Bear Hill Studios — Est. 2026</p>
-      <h1 class="hero-quote">"Some chord in unison with what we hear is touch'd within us, and the heart replies."</h1>
-      <p class="hero-attr">— William Cowper</p>
-      <p class="hero-strapline">Immersive audiobooks and production.</p>
-      <div class="hero-player-row">
-        <div class="player player-lg player--dark" data-player="hero-sample" data-dur="48" data-label="HEAR THE WORK" data-color="c1">
-        </div>
-        <span class="hero-player-note">An immersive sample — hear what Bear Hill sounds like</span>
-      </div>
+  <div class="page-head">
+    <div class="page-head-bg" style="background-image:url('assets/moss-bark.jpg')"></div>
+    <div class="page-head-inner wrap">
+      <p class="eyebrow" style="color:oklch(72% 0.010 80)">What we've made</p>
+      <h1>The work.</h1>
+      <p class="sub">Immersive audiobooks, ambient sound design, interactive audio. Everything listed here is something we're proud of.</p>
     </div>
-    <div class="hero-scroll">
-      <span class="hero-scroll-label">Scroll</span>
-      <div class="hero-scroll-line"></div>
-    </div>
-  </section>
+  </div>
 
   <section class="sec">
-    <div class="wrap-n">
-      <p class="eyebrow reveal">The studio</p>
-      <p class="intro-text reveal d1" style="font-family:var(--serif);font-size:clamp(1.25rem,2.2vw,1.65rem);line-height:1.6;letter-spacing:-0.01em;text-wrap:pretty;">
-        Laura Cox and Dave Cox are a husband-and-wife creative studio based in Bath. Laura is a voice artist and audiobook narrator. Dave is a sound and interaction designer.
-      </p>
-      <p class="intro-text reveal d2" style="font-family:var(--serif);font-size:clamp(1.25rem,2.2vw,1.65rem);line-height:1.6;letter-spacing:-0.01em;text-wrap:pretty;margin-top:1rem;">
-        We work end-to-end on immersive productions, or we step in at any point. Every project is owned by the two of us.
-      </p>
+    <div class="wrap">
+      <div class="reveal"><p class="eyebrow">Immersive Audiobooks</p><h2 class="heading">Stories with a world inside them.</h2></div>
+      <div class="project-rows">
+
+        <div class="project-row reveal d1">
+          <p class="proj-tag">Immersive audiobook · 2024</p>
+          <h3 class="proj-title">Millions of Cats and Stars</h3>
+          <p class="proj-desc">An immersive retelling of Wanda Gág's classic — spatial sound design, original score elements and full narration.</p>
+          <div class="pill-row">
+            <span class="pill pill-green">Laura Cox — narrator</span>
+            <span class="pill pill-green">Dave Cox — sound design</span>
+            <span class="pill">Audible · 2024</span>
+          </div>
+          <div data-player="work-mc" data-dur="134" data-style="bar" data-label="Immersive sample">
+            <div class="ab-wrap">
+              <button class="ab-btn" aria-label="Play Immersive sample">
+                <svg viewBox="0 0 24 24" width="14" height="14"><path d="M8 5v14l11-7z"></path></svg>
+              </button>
+              <div class="ab-track"><div class="ab-progress"></div></div>
+              <span class="ab-time">0:00 / 2:14</span>
+              <span class="ab-label">Immersive sample</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-row reveal d2">
+          <p class="proj-tag">Immersive audiobook · 2023</p>
+          <h3 class="proj-title">The Velveteen Rabbit</h3>
+          <p class="proj-desc">Margery Williams' beloved story, brought to life with intimate narration and layered environmental audio.</p>
+          <div class="pill-row">
+            <span class="pill pill-green">Laura Cox — narrator</span>
+            <span class="pill pill-green">Dave Cox — sound design</span>
+            <span class="pill">Audible · 2023</span>
+          </div>
+          <div data-player="work-vr" data-dur="118" data-style="bar" data-label="Immersive sample">
+            <div class="ab-wrap">
+              <button class="ab-btn" aria-label="Play Immersive sample">
+                <svg viewBox="0 0 24 24" width="14" height="14"><path d="M8 5v14l11-7z"></path></svg>
+              </button>
+              <div class="ab-track"><div class="ab-progress"></div></div>
+              <span class="ab-time">0:00 / 1:58</span>
+              <span class="ab-label">Immersive sample</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-row reveal d3">
+          <p class="proj-tag">Immersive audiobook · 2023</p>
+          <h3 class="proj-title">'Twas the Night Before Christmas</h3>
+          <p class="proj-desc">Clement Clarke Moore's classic poem — every creak, sleigh bell and crunching snowstep placed in space.</p>
+          <div class="pill-row">
+            <span class="pill pill-green">Laura Cox — narrator</span>
+            <span class="pill pill-green">Dave Cox — sound design</span>
+            <span class="pill">Audible · 2023</span>
+          </div>
+          <div data-player="work-tnbc" data-dur="90" data-style="bar" data-label="Immersive sample">
+            <div class="ab-wrap">
+              <button class="ab-btn" aria-label="Play Immersive sample">
+                <svg viewBox="0 0 24 24" width="14" height="14"><path d="M8 5v14l11-7z"></path></svg>
+              </button>
+              <div class="ab-track"><div class="ab-progress"></div></div>
+              <span class="ab-time">0:00 / 1:30</span>
+              <span class="ab-label">Immersive sample</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-row reveal d4" style="opacity:0.65">
+          <p class="proj-tag">Narration · in progress</p>
+          <h3 class="proj-title">Untitled thriller <span style="font-family:var(--sans);font-size:0.65rem;font-weight:500;letter-spacing:0.10em;text-transform:uppercase;color:var(--muted);vertical-align:middle;margin-left:0.5rem;">In progress</span></h3>
+          <p class="proj-desc">Straight narration for ACX. Laura performing, Dave producing. No sample available until published.</p>
+          <div class="pill-row">
+            <span class="pill">Laura Cox — narrator</span>
+            <span class="pill">Dave Cox — producer</span>
+            <span class="pill">ACX</span>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
   <section class="sec bg-mid">
     <div class="wrap">
-      <div class="reveal"><p class="eyebrow">Featured work</p><h2 class="heading">Immersive audiobooks.</h2></div>
-      <div class="feat-grid">
-        <div class="feat-card reveal d1">
-          <div class="feat-cover">
-            <div class="feat-cover-ph">audiobook cover — The Velveteen Rabbit</div>
-          </div>
-          <span class="feat-tag">Immersive Audiobook</span>
-          <h3 class="feat-title">The Velveteen Rabbit</h3>
-          <p class="feat-year">Margery Williams · Audible, 2023</p>
-          <div class="feat-player">
-            <div class="player player-md" data-player="feat-1" data-dur="35" data-label="" data-color="c1">
-            </div>
-          </div>
-        </div>
-        <div class="feat-card reveal d2">
-          <div class="feat-cover">
-            <div class="feat-cover-ph">audiobook cover — Millions of Cats and Stars</div>
-          </div>
-          <span class="feat-tag">Immersive Audiobook</span>
-          <h3 class="feat-title">Millions of Cats and Stars</h3>
-          <p class="feat-year">Audible, 2024</p>
-          <div class="feat-player">
-            <div class="player player-md" data-player="feat-2" data-dur="38" data-label="" data-color="c2">
-            </div>
-          </div>
-        </div>
-      </div>
-      <p style="margin-top:2rem;font-size:0.78rem;letter-spacing:0.08em;text-transform:uppercase;font-weight:500;">
-        <a class="team-link" href="work.html">See all work →</a>
-      </p>
-    </div>
-  </section>
+      <div class="reveal"><p class="eyebrow">Beyond the Book</p><h2 class="heading">Audio that goes elsewhere.</h2>
+      <p class="body-text" style="margin-bottom:0">Not everything we make is an audiobook. These pieces show range — listed here honestly, without overstatement.</p></div>
+      <div class="project-rows">
 
-  <section class="sec bg-mid">
-    <div class="wrap">
-      <div class="reveal"><p class="eyebrow">The team</p><h2 class="heading">Two people. One studio.</h2></div>
-      <div class="team-grid">
-        <div class="team-card reveal d1">
-          <div class="team-portrait">portrait — Laura Cox</div>
-          <h3 class="team-name">Laura Cox</h3>
-          <p class="team-role">Voice Artist &amp; Narrator</p>
-          <p class="team-bio">Trained at the Bristol Old Vic Theatre School. Additional voices on Chicken Run (Aardman). BBC Studios Natural History, BBC Radio 4. Speech and language therapist specialising in voice.</p>
-          <div style="margin-bottom:1.5rem;">
-            <div class="player player-sm" data-player="laura-reel" data-dur="42" data-label="" data-color="c1">
+        <div class="project-row reveal d1">
+          <p class="proj-tag">Ambient · YouTube</p>
+          <h3 class="proj-title">Sleep Soundscape — Forest at Night</h3>
+          <p class="proj-desc">An hour-long immersive ambient piece with original sound design and visual accompaniment. Designed as craft, not content.</p>
+          <div class="pill-row">
+            <span class="pill pill-green">Dave Cox — sound design</span>
+            <span class="pill">YouTube</span>
+          </div>
+          <div data-player="work-ss" data-dur="90" data-style="bar" data-label="Excerpt">
+            <div class="ab-wrap">
+              <button class="ab-btn" aria-label="Play Excerpt">
+                <svg viewBox="0 0 24 24" width="14" height="14"><path d="M8 5v14l11-7z"></path></svg>
+              </button>
+              <div class="ab-track"><div class="ab-progress"></div></div>
+              <span class="ab-time">0:00 / 1:30</span>
+              <span class="ab-label">Excerpt</span>
             </div>
           </div>
-          <a class="team-link" href="laura.html">Laura's page →</a>
         </div>
-        <div class="team-card reveal d2">
-          <div class="team-portrait">portrait — Dave Cox</div>
-          <h3 class="team-name">Dave Cox</h3>
-          <p class="team-role">Sound &amp; Interaction Designer</p>
-          <p class="team-bio">Co-founded Lean Mean Fighting Machine (sold to M&amp;C Saatchi). Product Director at Melody VR. Nearly 30 years as a creative, technologist and interactive designer.</p>
-          <div style="margin-bottom:1.5rem;height:68px"></div><!-- spacer to align -->
-          <a class="team-link" href="work.html">Our work →</a>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <section class="testimonial">
-    <div class="testimonial-bg" style="background-image:url('assets/flowers2.jpg')"></div>
-    <div class="testimonial-veil"></div>
-    <div class="wrap-n">
-      <blockquote>"Laura and Dave bring a rare combination of voice craft and sonic world-building. The result is genuinely immersive — you don't just hear the story, you're inside it."</blockquote>
-      <cite>Kevin Moss — Important Small Things</cite>
+        <div class="project-row reveal d2">
+          <p class="proj-tag">Voice · Interactive · Wellbeing</p>
+          <h3 class="proj-title">Catmasonic — Important Small Things</h3>
+          <p class="proj-desc">Voice production for an interactive wellbeing app. An ongoing relationship with the team behind Melody VR.</p>
+          <div class="pill-row">
+            <span class="pill pill-green">Laura Cox — voice</span>
+            <span class="pill pill-green">Bear Hill Studios — production</span>
+            <span class="pill">Important Small Things</span>
+          </div>
+          <div data-player="work-cat" data-dur="70" data-style="bar" data-label="Excerpt">
+            <div class="ab-wrap">
+              <button class="ab-btn" aria-label="Play Excerpt">
+                <svg viewBox="0 0 24 24" width="14" height="14"><path d="M8 5v14l11-7z"></path></svg>
+              </button>
+              <div class="ab-track"><div class="ab-progress"></div></div>
+              <span class="ab-time">0:00 / 1:10</span>
+              <span class="ab-label">Excerpt</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
   <section class="cta-band">
     <div class="wrap-n">
-      <h2 class="cta-title">Ready to make something?</h2>
-      <p class="cta-body">Whether you need an end-to-end immersive production, narration and production, or Laura's voice for your own project — we'd like to hear from you.</p>
+      <h2 class="cta-title">Want to make something together?</h2>
+      <p class="cta-body">We're open to projects at every point of the spectrum — from full immersive production to narration only.</p>
       <a href="contact.html" class="btn btn-amber">Get in touch</a>
     </div>
   </section>
