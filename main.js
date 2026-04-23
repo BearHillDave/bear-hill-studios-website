@@ -37,7 +37,6 @@ function initPlayers() {
           <path d="M8 5v14l11-7z"/>
         </svg>
       </div>
-      <span class="player-time${isDark?' player--dark':''}" style="${isDark?'color:oklch(55% 0.010 80)':''}">0:00 / ${fmtTime(dur)}</span>
     `;
 
     const cx = svgSize / 2;
@@ -45,7 +44,7 @@ function initPlayers() {
     const inner = el.querySelector('.player-inner');
     const prog = el.querySelector('.r-prog');
     const dot = el.querySelector('.r-dot');
-    const timeEl = el.querySelector('.player-time');
+    const timeEl = null;
     const iconPath = el.querySelector('.player-icon path');
 
     inner.addEventListener('click', () => {
@@ -125,7 +124,7 @@ function playPlayer(s, inner, iconPath, prog, timeEl, dot) {
     const progress = s.time / s.dur;
     prog.style.strokeDashoffset = s.circ * (1 - progress);
     if (dot) dot.setAttribute('transform', `rotate(${progress * 360}, ${s.cx}, ${s.cx})`);
-    timeEl.textContent = `${fmtTime(Math.floor(s.time))} / ${fmtTime(s.dur)}`;
+    if (timeEl) timeEl.textContent = `${fmtTime(Math.floor(s.time))} / ${fmtTime(s.dur)}`;
   }, 40);
   s.pauseFn = () => pausePlayer(s, inner, iconPath, dot);
 }
