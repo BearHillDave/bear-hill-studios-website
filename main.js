@@ -38,7 +38,7 @@ function initPlayers() {
         </svg>
         ${(label && isLg) ? `<span class="player-inner-label" style="color:var(--${colorVar}t)">${label}</span>` : ''}
       </div>
-      ${isLg ? `<span class="player-time${isDark?' player--dark':''}" style="${isDark?'color:oklch(55% 0.010 80)':''}">0:00 / ${fmtTime(dur)}</span>` : ''}
+      <span class="player-time${isDark?' player--dark':''}" style="${isDark?'color:oklch(55% 0.010 80)':''}">0:00 / ${fmtTime(dur)}</span>
     `;
 
     const cx = svgSize / 2;
