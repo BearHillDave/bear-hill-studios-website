@@ -65,10 +65,13 @@ Two styles, both initialised by `initPlayers()` on page load:
 **Circular** (`[data-player]` without `data-style="bar"`):
 - SVG ring shows progress arc (`r-prog`) and a dot (`r-dot`) that orbits while playing
 - Dot is hidden when paused; visible and rotating at 25 fps while playing
-- Renders only the play/pause arrow — no label or time display inside the circle
 - Sizes: `.player-lg` 148px (hero), `.player-md` 76px (default), `.player-sm` 64px (reels)
 - `data-dur` sets duration in seconds; `data-color` sets accent token (e.g. `c1`, `c2`, `c3`)
-- `data-label` is read by JS but not rendered inside the circle — use `.player-unit` for external labels
+
+**Size behaviour differs — do not homogenise:**
+- `.player-lg` — renders label inside circle (`player-inner-label`) + time readout below. `flex-direction: column` on `.player-inner` is required for this stacking — do not remove it.
+- `.player-md` / `.player-sm` — arrow only. No label, no time. Use `.player-unit` wrapper for external labels.
+- `data-label` on md/sm is stored as data but intentionally not rendered inside the circle.
 
 **Colour convention** (theme c — Red + Cobalt):
 - `c3` (Yellow) — audiobook players
