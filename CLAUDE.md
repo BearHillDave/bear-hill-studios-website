@@ -87,7 +87,9 @@ Real images in `/assets/`:
 - `laura.jpeg` — Laura portrait
 - `david.jpg` — David portrait
 
-Do not use the preview tool for UI verification — test directly in the browser at `http://localhost:8081`.
+Do not use the in-app preview tool for UI verification. The user reviews changes directly at:
+- `http://localhost:8081` (local dev server)
+- `https://bearhilldave.github.io/bear-hill-studios-website` (GitHub Pages)
 
 ## Figma
 

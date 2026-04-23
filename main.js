@@ -36,7 +36,6 @@ function initPlayers() {
         <svg class="player-icon" viewBox="0 0 24 24" width="${isLg?30:isSm?16:22}" height="${isLg?30:isSm?16:22}" fill="var(--${colorVar}t)">
           <path d="M8 5v14l11-7z"/>
         </svg>
-        ${label ? `<span class="player-inner-label" style="color:var(--${colorVar}t)">${label}</span>` : ''}
       </div>
       <span class="player-time${isDark?' player--dark':''}" style="${isDark?'color:oklch(55% 0.010 80)':''}">0:00 / ${fmtTime(dur)}</span>
     `;
