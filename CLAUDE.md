@@ -65,12 +65,36 @@ Two styles, both initialised by `initPlayers()` on page load:
 **Circular** (`[data-player]` without `data-style="bar"`):
 - SVG ring shows progress arc (`r-prog`) and a dot (`r-dot`) that orbits while playing
 - Dot is hidden when paused; visible and rotating at 25 fps while playing
-- Sizes: default 76px, `.player-lg` 148px, `.player-sm` 64px
-- `data-dur` sets duration in seconds; `data-color` sets accent token (e.g. `c1`)
+- Renders only the play/pause arrow — no label or time display inside the circle
+- Sizes: `.player-lg` 148px (hero), `.player-md` 76px (default), `.player-sm` 64px (reels)
+- `data-dur` sets duration in seconds; `data-color` sets accent token (e.g. `c1`, `c2`, `c3`)
+- `data-label` is read by JS but not rendered inside the circle — use `.player-unit` for external labels
+
+**Colour convention** (theme c — Red + Cobalt):
+- `c3` (Yellow) — audiobook players
+- `c2` (Cobalt) — digital / interactive (e.g. Important Small Things)
+- `c1` (Red) — everything else
+
+**Player unit** (`.player-unit`) — standard wrapper for players with external labels:
+```html
+<div class="player-unit">
+  <div class="player player-md" data-player="id" data-dur="120" data-color="c3"></div>
+  <div class="player-unit-meta">
+    <span class="player-unit-label">Label text</span>
+    <a class="player-unit-dl" href="sample.mp3" download>
+      <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+      MP3
+    </a>
+  </div>
+</div>
+```
+- Circle left, label + download link right
+- Download `href` is a placeholder `#` until real audio files exist
 
 **Bar** (`data-style="bar"`):
 - Horizontal progress bar with play/pause button
 - `data-dark="true"` for on-dark-background variant
+- Not currently used on any live page (replaced by circular players)
 
 Only one player plays at a time — starting any player pauses the others.
 

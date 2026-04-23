@@ -36,7 +36,9 @@ function initPlayers() {
         <svg class="player-icon" viewBox="0 0 24 24" width="${isLg?30:isSm?16:22}" height="${isLg?30:isSm?16:22}" fill="var(--${colorVar}t)">
           <path d="M8 5v14l11-7z"/>
         </svg>
+        ${(label && isLg) ? `<span class="player-inner-label" style="color:var(--${colorVar}t)">${label}</span>` : ''}
       </div>
+      ${isLg ? `<span class="player-time${isDark?' player--dark':''}" style="${isDark?'color:oklch(55% 0.010 80)':''}">0:00 / ${fmtTime(dur)}</span>` : ''}
     `;
 
     const cx = svgSize / 2;
@@ -44,7 +46,7 @@ function initPlayers() {
     const inner = el.querySelector('.player-inner');
     const prog = el.querySelector('.r-prog');
     const dot = el.querySelector('.r-dot');
-    const timeEl = null;
+    const timeEl = el.querySelector('.player-time');
     const iconPath = el.querySelector('.player-icon path');
 
     inner.addEventListener('click', () => {
