@@ -2,47 +2,48 @@
    BEAR HILL STUDIOS — Design System
    ===================================================== */
 :root {
-  /* ── Palette tokens ── */
-  --green-deep:   #1c3429;
-  --green-moss:   #2a4a39;
-  --green-mid:    #3d6b52;
-  --charcoal:     #2c2823;
-  --stone:        #7a7065;
-  --stone-light:  #a89e94;
-  --gold:         #b8872a;
-  --gold-light:   #d4a84b;
-  --cream:        #f5f0e8;
-  --cream-dark:   #ede6d8;
-  /* Signal — British countryside palette */
-  --yellow:       #F5C800;   /* Daffodil / buttercup */
-  --red:          #C8102E;   /* Royal Mail letterbox red */
-  --cobalt:       #0047AB;   /* Cobalt blue */
-  /* ── Aliases for existing code ── */
-  --cream-mid:    var(--cream-dark);
-  --text:         var(--charcoal);
-  --muted:        var(--stone);
-  --forest:       var(--green-deep);
-  --forest-mid:   var(--green-moss);
+  /* ── Palette ── */
+  --true-black: #000000;
+  --black:    #2C2823;
+  --tan:      #E9CC9C;
+  --cream:    #F6EBDA;
+  --yellow:   #F5C800;
+  --red:      #EE1111;
+  --cobalt:   #0055FF;
+  /* ── Aliases ── */
+  --charcoal:   var(--black);
+  --cream-mid:  var(--tan);
+  --cream-dark: var(--tan);
+  --forest:     var(--black);
+  --forest-mid: var(--black);
+  --green-deep: var(--black);
+  --text:       var(--black);
+  --muted:      oklch(50% 0.010 80);
   /* ── Type ── */
   --serif:  'Cormorant Garamond', Georgia, serif;
   --sans:   'Jost', Helvetica, sans-serif;
   /* ── Motion ── */
   --ease:    cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
-  /* ── Theme A — Yellow + Red (default signal pair) ── */
-  --c1: var(--yellow); --c1t: var(--green-deep);
+  /* ── Theme c — Red + Cobalt (default) ── */
+  --c1: var(--red);    --c1t: var(--cream);
+  --c2: var(--cobalt); --c2t: var(--cream);
+  --c3: var(--yellow); --c3t: var(--black);
+}
+[data-theme="a"] { /* Yellow + Red */
+  --c1: var(--yellow); --c1t: var(--black);
   --c2: var(--red);    --c2t: var(--cream);
   --c3: var(--cobalt); --c3t: var(--cream);
 }
 [data-theme="b"] { /* Yellow + Cobalt */
-  --c1: var(--yellow); --c1t: var(--green-deep);
+  --c1: var(--yellow); --c1t: var(--black);
   --c2: var(--cobalt); --c2t: var(--cream);
   --c3: var(--red);    --c3t: var(--cream);
 }
 [data-theme="c"] { /* Red + Cobalt */
   --c1: var(--red);    --c1t: var(--cream);
   --c2: var(--cobalt); --c2t: var(--cream);
-  --c3: var(--yellow); --c3t: var(--green-deep);
+  --c3: var(--yellow); --c3t: var(--black);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -375,6 +376,7 @@ h3.subhead {
 .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 3rem; }
 @media (max-width: 620px) { .team-grid { grid-template-columns: 1fr; } }
 .team-card { background: var(--cream-mid); padding: 3rem 2.75rem; }
+.team-portrait img, .bio-portrait img { width: 100%; height: 100%; object-fit: cover; }
 .team-portrait {
   width: 72px; height: 72px; border-radius: 50%; overflow: hidden;
   margin-bottom: 1.75rem;
