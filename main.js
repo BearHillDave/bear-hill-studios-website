@@ -310,3 +310,19 @@ if (document.readyState === 'loading') {
     });
   });
 }());
+
+/* ── YouTube lazy-embed ── */
+function initYouTube() {
+  document.querySelectorAll('.yt-thumb[data-yt]').forEach(thumb => {
+    thumb.addEventListener('click', () => {
+      const id = thumb.dataset.yt;
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${id}?autoplay=1`;
+      iframe.allow = 'autoplay; encrypted-media; picture-in-picture';
+      iframe.allowFullscreen = true;
+      thumb.innerHTML = '';
+      thumb.appendChild(iframe);
+    });
+  });
+}
+initYouTube();
