@@ -197,3 +197,116 @@ if (document.readyState === 'loading') {
 } else {
   init();
 }
+
+// =====================================================
+// DEV TOOL — Floating palette editor
+// =====================================================
+(function initPaletteEditor() {
+  const COLOURS = [
+    { v: 'true-black', label: 'True Black', def: '#000000' },
+    { v: 'black',      label: 'Black',      def: '#2C2823' },
+    { v: 'tan',        label: 'Tan',        def: '#E9CC9C' },
+    { v: 'cream',      label: 'Cream',      def: '#F6EBDA' },
+    { v: 'yellow',     label: 'Yellow',     def: '#F5C800' },
+    { v: 'red',        label: 'Red',        def: '#EE1111' },
+    { v: 'cobalt',     label: 'Cobalt',     def: '#0055FF' },
+  ];
+  const KEY = 'bhs-palette';
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch(e) {}
+
+  // Apply saved overrides immediately on load
+  COLOURS.forEach(c => {
+    if (saved[c.v]) document.documentElement.style.setProperty(`--${c.v}`, saved[c.v]);
+  });
+
+  const style = document.createElement('style');
+  style.textContent = `
+    #pal {
+      position: fixed; right: 0; top: 50%; transform: translateY(-50%);
+      z-index: 9999; display: flex; align-items: stretch;
+      font-family: 'Jost', sans-serif; font-size: 11px;
+    }
+    #pal-handle {
+      background: #111; color: #888; padding: 12px 7px;
+      cursor: pointer; border-radius: 6px 0 0 6px;
+      writing-mode: vertical-rl; letter-spacing: 0.14em;
+      font-size: 9px; text-transform: uppercase; user-select: none;
+      display: flex; align-items: center; gap: 6px;
+      border: 1px solid #222; border-right: none;
+      transition: color 0.15s;
+    }
+    #pal-handle:hover { color: #fff; }
+    #pal-body {
+      background: #111; border: 1px solid #222;
+      padding: 14px 12px; display: none; flex-direction: column;
+      gap: 9px; min-width: 170px;
+    }
+    #pal.open #pal-body { display: flex; }
+    #pal-top {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-bottom: 8px; border-bottom: 1px solid #222; margin-bottom: 2px;
+    }
+    #pal-title {
+      font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; font-size: 9px; color: #666;
+    }
+    #pal-reset {
+      background: none; border: 1px solid #333; color: #555;
+      padding: 3px 7px; font-size: 9px; cursor: pointer;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      font-family: inherit; border-radius: 2px; transition: color 0.15s, border-color 0.15s;
+    }
+    #pal-reset:hover { color: #fff; border-color: #666; }
+    .pal-row { display: flex; align-items: center; gap: 9px; }
+    .pal-row input[type=color] {
+      width: 30px; height: 20px; padding: 1px 2px;
+      border: 1px solid #333; background: none;
+      cursor: pointer; border-radius: 3px; flex-shrink: 0;
+    }
+    .pal-row label {
+      cursor: pointer; letter-spacing: 0.06em; color: #999;
+      font-size: 10px; user-select: none;
+    }
+    .pal-row label:hover { color: #fff; }
+  `;
+  document.head.appendChild(style);
+
+  const el = document.createElement('div');
+  el.id = 'pal';
+  el.innerHTML = `
+    <div id="pal-handle">Palette</div>
+    <div id="pal-body">
+      <div id="pal-top">
+        <span id="pal-title">Palette</span>
+        <button id="pal-reset">Reset</button>
+      </div>
+      ${COLOURS.map(c => `
+        <div class="pal-row">
+          <input type="color" id="pal-${c.v}" value="${saved[c.v] || c.def}">
+          <label for="pal-${c.v}">${c.label}</label>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  document.body.appendChild(el);
+
+  document.getElementById('pal-handle').addEventListener('click', () => el.classList.toggle('open'));
+
+  COLOURS.forEach(c => {
+    document.getElementById(`pal-${c.v}`).addEventListener('input', e => {
+      document.documentElement.style.setProperty(`--${c.v}`, e.target.value);
+      saved[c.v] = e.target.value;
+      localStorage.setItem(KEY, JSON.stringify(saved));
+    });
+  });
+
+  document.getElementById('pal-reset').addEventListener('click', () => {
+    saved = {};
+    localStorage.removeItem(KEY);
+    COLOURS.forEach(c => {
+      document.documentElement.style.removeProperty(`--${c.v}`);
+      document.getElementById(`pal-${c.v}`).value = c.def;
+    });
+  });
+}());
