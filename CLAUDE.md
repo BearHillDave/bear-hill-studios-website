@@ -109,16 +109,42 @@ Uses `IntersectionObserver` with a `getBoundingClientRect` fallback (runs at 100
 ## Assets
 
 Real images in `/assets/`:
+- `hero-moss.jpg` — moss-covered forest branch (hero background, home page)
 - `VR Cover 3000x3000.png` — Velveteen Rabbit audiobook cover
 - `TTNBC Cover 3000x3000.jpg` — The Tiger No Body Could... audiobook cover
 - `laura.jpeg` — Laura portrait
 - `david.jpg` — David portrait
+- `stream.jpg` — rocky stream (Work page hero)
+- `flowers1.jpg`, `flowers2.jpg` — yellow meadow flowers (Laura page hero)
+- `meadow-clover.jpg`, `meadow-daisies.jpg`, `meadow-dark.jpg`, `meadow-poppie.jpg`, `meadow-yellow.jpg` — meadow photography
+- `forest.jpg`, `leaves.jpg`, `moss-bark.jpg` — forest textures
+- `fairy-door.jpg`, `fairy-door2.jpg` — fairy door photography
+- `cars.jpg`, `gramerphone.jpg`, `paper37.jpg`, `radio.jpg` — object photography
+- `velvet-grass.png` — texture (pull quote background)
+- `bear-icon.png`, `logo-black.svg`, `logo-white.svg` — logo assets
 
 Do not use the in-app preview tool for UI verification. The user reviews changes directly at:
 - `http://localhost:8081` (local dev server)
 - `https://bearhilldave.github.io/bear-hill-studios-website` (GitHub Pages)
 
+## Current branch: `style-experiments`
+
+Exploring a **full dark theme** on the home page. Changes live in an inline `<style>` block at the top of `index.html` — not yet moved to `main.css`. Key additions:
+
+- `body { background: #000 }` — base is pure black
+- `.sec-dark` — dark section: `#000` background, `--cream` text
+- `.sec-img` — section with a low-opacity background image behind content (using `.sec-img-bg` child div)
+- `.feat-card-dk`, `.team-card-dk` — dark variants of feature and team cards (`rgba(237,230,216,0.09)` background)
+- `.testimonial`, `.cta-band`, `.footer` — all overridden to `#000`
+- Footer link colours forced to `#f6ebda`
+
+Other pages (`work.html`, `laura.html`, `about.html`, `contact.html`) remain on the default cream theme.
+
+The branch also contains experimental homepage files (`index_1.html` – `index_4.html`) and extra photography assets that aren't yet used in the live pages.
+
 ## Figma
 
 Design file: `https://www.figma.com/design/OdCJuGJR63vyKEcnofSUqR/Bear-Hill-Studios-—-Website`  
 Figma MCP is available but the Starter plan has rate limits — fall back to reading local files in `/Design/` if it errors.
+
+**Site 3 page** (`node-id=129-996`): Contains 5 page frames (Home `125:996`, Work `135:996`, Laura `136:996`, About `136:1089`, Contact `137:996`) plus a Style Guide frame (`123:996`). As of April 2026, the 5 page frames have screenshot image fills (flat, uneditable) — a previous sync attempt went wrong. They need to be rebuilt as proper layered Figma designs (text nodes, rectangles, image fills). The Style Guide frame is the most accurate reference for the design system.
