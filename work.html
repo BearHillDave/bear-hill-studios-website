@@ -9,21 +9,28 @@
   <link rel="stylesheet" href="main.css">
   <style>
     /* ── Work items V2 — matches Figma Work Section Template ──
+       Spacing derived from Figma Auto Layout tokens:
+         --spacing/sm = 8px   (row gap)
+         --spacing/md = 16px  (eyebrow top pad)
+         --spacing/lg = 24px  (cover/tags/player section padding)
+         --spacing/xl = 40px  (item top/bottom padding)
        Inline for now; move to main.css once design is signed off. */
 
     .wi-list { margin: 0; }
 
+    /* Each item: 40px top/bottom, rows separated by 8px gap */
     .wi {
       padding: 40px 0;
       border-bottom: 1px solid rgba(246,235,218,0.2);
       display: flex;
       flex-direction: column;
+      gap: 8px;
     }
     .wi:first-child {
       border-top: 1px solid rgba(246,235,218,0.2);
     }
 
-    /* Eyebrow label */
+    /* Eyebrow: extra 16px top pad (matches Figma row pt:md) */
     .wi-eyebrow {
       font-family: var(--sans);
       font-size: 10.7px;
@@ -31,15 +38,17 @@
       letter-spacing: 0.643px;
       text-transform: uppercase;
       color: rgba(246,235,218,0.5);
-      margin: 0 0 16px;
+      margin: 0;
+      padding-top: 16px;
     }
 
-    /* ── Audiobook with cover: flex row (cover | meta) ── */
+    /* ── Audiobook with cover: flex row (cover | meta) ──
+       Extra 24px bottom pad (matches Figma cover row pb:lg) */
     .wi-header {
       display: flex;
       align-items: flex-start;
       gap: 24px;
-      padding-bottom: 8px;
+      padding-bottom: 24px;
     }
 
     .wi-cover {
@@ -105,7 +114,7 @@
       display: block;
     }
 
-    /* Body copy */
+    /* Body copy: 8px breathing room top/bottom (matches Figma copy row py:sm) */
     .wi-body {
       font-family: var(--sans);
       font-weight: 300;
@@ -113,17 +122,18 @@
       color: var(--cream);
       line-height: 1.7;
       max-width: 750px;
-      margin: 8px 0;
+      margin: 0;
+      padding: 8px 0;
     }
 
-    /* Content tags */
+    /* Tags: extra 24px below (matches Figma tags row pb:lg) */
     .wi-tags {
       display: flex;
       gap: 13px;
       align-items: center;
       flex-wrap: wrap;
-      margin: 8px 0 0;
-      padding-bottom: 8px;
+      margin: 0;
+      padding-bottom: 24px;
     }
     .wi-tag {
       display: inline-flex;
@@ -143,10 +153,10 @@
     .wi-tag--red    { background: rgba(238,17,17,0.2); }
     .wi-tag--blue   { background: rgba(114,167,183,0.2); }
 
-    /* Player / video row */
+    /* Player / video: 24px top and bottom (matches Figma player row py:lg) */
     .wi-player-row,
     .wi-video-row {
-      padding-top: 24px;
+      padding: 24px 0;
     }
 
     /* YouTube thumbnail — 274px wide to match Figma */
