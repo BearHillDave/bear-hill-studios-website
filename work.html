@@ -7,6 +7,205 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="main.css">
+  <style>
+    /* ── Work items V2 — matches Figma Work Section Template ──
+       Inline for now; move to main.css once design is signed off. */
+
+    .wi-list { margin: 0; }
+
+    .wi {
+      padding: 40px 0;
+      border-bottom: 1px solid rgba(246,235,218,0.2);
+      display: flex;
+      flex-direction: column;
+    }
+    .wi:first-child {
+      border-top: 1px solid rgba(246,235,218,0.2);
+    }
+
+    /* Eyebrow label */
+    .wi-eyebrow {
+      font-family: var(--sans);
+      font-size: 10.7px;
+      font-weight: 500;
+      letter-spacing: 0.643px;
+      text-transform: uppercase;
+      color: rgba(246,235,218,0.5);
+      margin: 0 0 16px;
+    }
+
+    /* ── Audiobook with cover: flex row (cover | meta) ── */
+    .wi-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 24px;
+      padding-bottom: 8px;
+    }
+
+    .wi-cover {
+      width: 173px;
+      height: 173px;
+      border-radius: 6px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .wi-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .wi-cover-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Title — used standalone or inside .wi-cover-info */
+    .wi-title {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-style: normal;
+      font-size: 30px;
+      line-height: 1.1;
+      color: var(--cream);
+      margin: 0 0 4px;
+    }
+
+    .wi-subtitle {
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 12.8px;
+      line-height: 1.65;
+      color: rgba(246,235,218,0.5);
+      margin: 0;
+    }
+
+    /* Streaming platform icon links */
+    .wi-streaming {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 16px;
+    }
+    .wi-stream-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      color: rgba(246,235,218,0.55);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .wi-stream-icon:hover { color: var(--cream); }
+    .wi-stream-icon svg {
+      width: 24px;
+      height: 24px;
+      display: block;
+    }
+
+    /* Body copy */
+    .wi-body {
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 14.5px;
+      color: var(--cream);
+      line-height: 1.7;
+      max-width: 750px;
+      margin: 8px 0;
+    }
+
+    /* Content tags */
+    .wi-tags {
+      display: flex;
+      gap: 13px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 8px 0 0;
+      padding-bottom: 8px;
+    }
+    .wi-tag {
+      display: inline-flex;
+      align-items: center;
+      height: 20px;
+      padding: 0 10px;
+      border-radius: 200px;
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 10.7px;
+      letter-spacing: 0.856px;
+      text-transform: uppercase;
+      color: rgba(246,235,218,0.75);
+      white-space: nowrap;
+    }
+    .wi-tag--yellow { background: rgba(254,165,51,0.2); }
+    .wi-tag--red    { background: rgba(238,17,17,0.2); }
+    .wi-tag--blue   { background: rgba(114,167,183,0.2); }
+
+    /* Player / video row */
+    .wi-player-row,
+    .wi-video-row {
+      padding-top: 24px;
+    }
+
+    /* YouTube thumbnail — 274px wide to match Figma */
+    .wi-yt-thumb {
+      display: block;
+      position: relative;
+      width: 274px;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #000;
+      text-decoration: none;
+    }
+    .wi-yt-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.25s;
+    }
+    .wi-yt-thumb:hover img { opacity: 0.8; }
+
+    .wi-yt-play {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(246,235,218,0.15);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(246,235,218,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s var(--ease), background 0.2s;
+      pointer-events: none;
+    }
+    .wi-yt-thumb:hover .wi-yt-play {
+      transform: translate(-50%, -50%) scale(1.1);
+      background: rgba(246,235,218,0.25);
+    }
+
+    .wi-yt-link {
+      display: inline-block;
+      margin-top: 10px;
+      font-family: var(--sans);
+      font-size: 10.7px;
+      font-weight: 500;
+      letter-spacing: 0.856px;
+      text-transform: uppercase;
+      color: rgba(246,235,218,0.5);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .wi-yt-link:hover { color: var(--cream); }
+  </style>
 </head>
 <body>
 
@@ -29,156 +228,127 @@
   <a class="nav-cta" href="contact.html">Get in touch</a>
 </nav>
 
-  <div id="page-head" class="page-head">
-    <div class="page-head-bg" style="background-image:url('assets/stream.jpg')"></div>
-    <div class="page-head-vignette"></div>
-    <div class="page-head-inner wrap">
-      <p class="eyebrow" style="color:oklch(72% 0.010 80)">What we've made</p>
-      <h1>The work.</h1>
-      <p class="sub">Immersive audiobooks, ambient sound design, interactive audio. Everything listed here is something we're proud of.</p>
+<!-- =====================================================
+     PAGE HEADER
+     ===================================================== -->
+<div id="page-head" class="page-head">
+  <div class="page-head-bg" style="background-image:url('assets/stream.jpg')"></div>
+  <div class="page-head-vignette"></div>
+  <div class="page-head-inner wrap">
+    <p class="eyebrow" style="color:oklch(72% 0.010 80)">What we've made</p>
+    <h1>The work.</h1>
+    <p class="sub">Immersive audiobooks, ambient sound design, interactive audio. Everything listed here is something we're proud of.</p>
+  </div>
+</div>
+
+<!-- =====================================================
+     WORK ITEMS
+     ===================================================== -->
+<section class="sec">
+  <div class="wrap">
+    <div class="wi-list">
+
+      <!-- ── 1. Audiobook with Cover: The Velveteen Rabbit ── -->
+      <article class="wi reveal">
+        <p class="wi-eyebrow">Immersive Audiobook</p>
+        <div class="wi-header">
+          <div class="wi-cover">
+            <img src="assets/VR Cover 3000x3000.png" alt="The Velveteen Rabbit audiobook cover">
+          </div>
+          <div class="wi-cover-info">
+            <h2 class="wi-title">The Velveteen Rabbit</h2>
+            <p class="wi-subtitle">Margery Williams</p>
+            <nav class="wi-streaming" aria-label="Listen on">
+              <a class="wi-stream-icon" href="#" aria-label="Spotify">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.36-.66.48-1.021.24-2.82-1.74-6.36-2.1-10.561-1.14-.42.12-.779-.18-.899-.54-.12-.42.18-.78.54-.9 4.56-1.02 8.52-.6 11.64 1.32.42.18.479.66.3 1.02zm1.44-3.3c-.3.42-.84.6-1.26.3-3.24-1.98-8.16-2.58-11.94-1.38-.48.12-1.02-.12-1.14-.6-.12-.48.12-1.02.6-1.14 4.26-1.26 9.72-.96 13.44 1.32.36.18.54.78.24 1.2zm.12-3.36c-2.64-1.56-7.2-1.68-9.96-.84-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 3.24-.96 8.28-.84 11.4.96.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.56.3z"/></svg>
+              </a>
+              <a class="wi-stream-icon" href="#" aria-label="Apple Books">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+              </a>
+              <a class="wi-stream-icon" href="#" aria-label="Audible">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h1v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-2v8h1c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/></svg>
+              </a>
+            </nav>
+          </div>
+        </div>
+        <p class="wi-body">Margery Williams' beloved story, brought to life with intimate narration and layered environmental audio. Warmly performed by Laura Cox and produced by Bear Hill Studios.</p>
+        <div class="wi-tags">
+          <span class="wi-tag wi-tag--yellow">Narrator — Laura Cox</span>
+          <span class="wi-tag wi-tag--red">Sound — David Cox</span>
+        </div>
+        <div class="wi-player-row">
+          <div class="player-unit">
+            <div class="player player-md" data-player="work-vr" data-dur="118" data-color="c3"></div>
+            <div class="player-unit-meta">
+              <span class="player-unit-label">Immersive sample</span>
+              <a class="player-unit-dl" href="#" download>
+                <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                MP3
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── 2. Audio no Image: placeholder ── -->
+      <article class="wi reveal d1">
+        <p class="wi-eyebrow">TV Demo</p>
+        <h2 class="wi-title">Car Boot Kings</h2>
+        <p class="wi-body">Warm, energetic narration for a TV documentary series. Laura's range moves between knowing warmth and dry wit throughout.</p>
+        <div class="wi-tags">
+          <span class="wi-tag wi-tag--yellow">Narrator — Laura Cox</span>
+          <span class="wi-tag wi-tag--red">Sound — David Cox</span>
+        </div>
+        <div class="wi-player-row">
+          <div class="player-unit">
+            <div class="player player-md" data-player="work-cbk" data-dur="90" data-color="c1"></div>
+            <div class="player-unit-meta">
+              <span class="player-unit-label">Demo excerpt</span>
+              <a class="player-unit-dl" href="#" download>
+                <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                MP3
+              </a>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- ── 3. Video: Millions of Cats, and Stars ── -->
+      <article class="wi reveal d2">
+        <p class="wi-eyebrow">Video</p>
+        <h2 class="wi-title">Millions of Cats, and Stars</h2>
+        <p class="wi-subtitle">Wanda Gág</p>
+        <p class="wi-body">An immersive retelling of Wanda Gág's classic — spatial sound design, original score elements and full narration by Laura Cox.</p>
+        <div class="wi-tags">
+          <span class="wi-tag wi-tag--yellow">Narrator — Laura Cox</span>
+          <span class="wi-tag wi-tag--red">Sound — David Cox</span>
+          <span class="wi-tag wi-tag--blue">Video — David Cox</span>
+        </div>
+        <div class="wi-video-row">
+          <a class="wi-yt-thumb" href="https://www.youtube.com/watch?v=-mW5If3EqFQ" target="_blank" rel="noopener">
+            <img src="https://img.youtube.com/vi/-mW5If3EqFQ/maxresdefault.jpg" alt="Millions of Cats and Stars on YouTube">
+            <span class="wi-yt-play" aria-hidden="true">
+              <svg width="12" height="12" viewBox="0 0 18 18" fill="none"><polygon points="5,2 16,9 5,16" fill="white"/></svg>
+            </span>
+          </a>
+          <a class="wi-yt-link" href="https://www.youtube.com/watch?v=-mW5If3EqFQ" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+        </div>
+      </article>
+
     </div>
   </div>
+</section>
 
-  <section id="sec-audiobooks" class="sec">
-    <div class="wrap">
-      <div class="reveal"><p class="eyebrow">Immersive Audiobooks</p><h2 class="heading">Stories with a world inside them.</h2></div>
-      <div class="project-rows">
-
-        <div class="project-row reveal d1">
-          <p class="proj-tag">Immersive audiobook · 2024</p>
-          <h3 class="proj-title">Millions of Cats and Stars</h3>
-          <p class="proj-desc">An immersive retelling of Wanda Gág's classic — spatial sound design, original score elements and full narration.</p>
-          <div class="pill-row">
-            <span class="pill pill-green">Laura Cox — narrator</span>
-            <span class="pill pill-green">Dave Cox — sound design</span>
-            <span class="pill">Audible · 2024</span>
-          </div>
-          <div class="yt-block">
-            <div class="yt-thumb" data-yt="-mW5If3EqFQ">
-              <img src="https://img.youtube.com/vi/-mW5If3EqFQ/maxresdefault.jpg" alt="Millions of Cats and Stars on YouTube">
-              <button class="yt-play" aria-label="Play video">
-                <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><polygon points="5,2 16,9 5,16" fill="white"/></svg>
-              </button>
-            </div>
-            <a class="yt-link" href="https://www.youtube.com/watch?v=-mW5If3EqFQ" target="_blank" rel="noopener">Watch on YouTube ↗</a>
-          </div>
-        </div>
-
-        <div class="project-row reveal d2">
-          <p class="proj-tag">Immersive audiobook · 2023</p>
-          <h3 class="proj-title">The Velveteen Rabbit</h3>
-          <p class="proj-desc">Margery Williams' beloved story, brought to life with intimate narration and layered environmental audio.</p>
-          <div class="pill-row">
-            <span class="pill pill-green">Laura Cox — narrator</span>
-            <span class="pill pill-green">Dave Cox — sound design</span>
-            <span class="pill">Audible · 2023</span>
-          </div>
-          <div class="player-unit">
-            <div class="player player-md" data-player="work-vr" data-dur="118" data-label="Immersive sample" data-color="c3"></div>
-            <div class="player-unit-meta">
-              <span class="player-unit-label">Immersive sample</span>
-              <a class="player-unit-dl" href="#" download>
-                <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-                MP3
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-row reveal d3">
-          <p class="proj-tag">Immersive audiobook · 2023</p>
-          <h3 class="proj-title">'Twas the Night Before Christmas</h3>
-          <p class="proj-desc">Clement Clarke Moore's classic poem — every creak, sleigh bell and crunching snowstep placed in space.</p>
-          <div class="pill-row">
-            <span class="pill pill-green">Laura Cox — narrator</span>
-            <span class="pill pill-green">Dave Cox — sound design</span>
-            <span class="pill">Audible · 2023</span>
-          </div>
-          <div class="player-unit">
-            <div class="player player-md" data-player="work-tnbc" data-dur="90" data-label="Immersive sample" data-color="c3"></div>
-            <div class="player-unit-meta">
-              <span class="player-unit-label">Immersive sample</span>
-              <a class="player-unit-dl" href="#" download>
-                <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-                MP3
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-row reveal d4" style="opacity:0.65">
-          <p class="proj-tag">Narration · in progress</p>
-          <h3 class="proj-title">Untitled thriller <span style="font-family:var(--sans);font-size:0.65rem;font-weight:500;letter-spacing:0.10em;text-transform:uppercase;color:var(--muted);vertical-align:middle;margin-left:0.5rem;">In progress</span></h3>
-          <p class="proj-desc">Straight narration for ACX. Laura performing, Dave producing. No sample available until published.</p>
-          <div class="pill-row">
-            <span class="pill">Laura Cox — narrator</span>
-            <span class="pill">Dave Cox — producer</span>
-            <span class="pill">ACX</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <section id="sec-beyond" class="sec bg-mid">
-    <div class="wrap">
-      <div class="reveal"><p class="eyebrow">Beyond the Book</p><h2 class="heading">Audio that goes elsewhere.</h2>
-      <p class="body-text" style="margin-bottom:0">Not everything we make is an audiobook. These pieces show range — listed here honestly, without overstatement.</p></div>
-      <div class="project-rows">
-
-        <div class="project-row reveal d1">
-          <p class="proj-tag">Ambient · YouTube</p>
-          <h3 class="proj-title">Sleep Soundscape — Forest at Night</h3>
-          <p class="proj-desc">An hour-long immersive ambient piece with original sound design and visual accompaniment. Designed as craft, not content.</p>
-          <div class="pill-row">
-            <span class="pill pill-green">Dave Cox — sound design</span>
-            <span class="pill">YouTube</span>
-          </div>
-          <div class="player-unit">
-            <div class="player player-md" data-player="work-ss" data-dur="90" data-label="Excerpt" data-color="c1"></div>
-            <div class="player-unit-meta">
-              <span class="player-unit-label">Excerpt</span>
-              <a class="player-unit-dl" href="#" download>
-                <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-                MP3
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-row reveal d2">
-          <p class="proj-tag">Voice · Interactive · Wellbeing</p>
-          <h3 class="proj-title">Catmasonic — Important Small Things</h3>
-          <p class="proj-desc">Voice production for an interactive wellbeing app. An ongoing relationship with the team behind Melody VR.</p>
-          <div class="pill-row">
-            <span class="pill pill-green">Laura Cox — voice</span>
-            <span class="pill pill-green">Bear Hill Studios — production</span>
-            <span class="pill">Important Small Things</span>
-          </div>
-          <div class="player-unit">
-            <div class="player player-md" data-player="work-cat" data-dur="70" data-label="Excerpt" data-color="c2"></div>
-            <div class="player-unit-meta">
-              <span class="player-unit-label">Excerpt</span>
-              <a class="player-unit-dl" href="#" download>
-                <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-                MP3
-              </a>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <section id="sec-cta" class="cta-band">
-    <div class="wrap-n">
-      <h2 class="cta-title">Want to make something together?</h2>
-      <p class="cta-body">We're open to projects at every point of the spectrum — from full immersive production to narration only.</p>
-      <a href="contact.html" class="btn btn-amber">Get in touch</a>
-    </div>
-  </section>
+<!-- =====================================================
+     CTA
+     ===================================================== -->
+<section id="sec-cta" class="cta-band">
+  <div class="wrap-n">
+    <h2 class="cta-title">Want to make something together?</h2>
+    <p class="cta-body">We're open to projects at every point of the spectrum — from full immersive production to narration only.</p>
+    <a href="contact.html" class="btn btn-amber">Get in touch</a>
+  </div>
+</section>
 
 <!-- =====================================================
      FOOTER
