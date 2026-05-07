@@ -68,6 +68,7 @@
     .wi-cover-info {
       display: flex;
       flex-direction: column;
+      align-self: stretch;
     }
 
     /* Title — used standalone or inside .wi-cover-info */
@@ -88,14 +89,17 @@
       line-height: 1.65;
       color: rgba(246,235,218,0.5);
       margin: 0;
+      flex: 1;          /* pushes streaming icons to bottom of cover area */
+      min-height: 0;
     }
 
     /* Streaming platform icon links */
     .wi-streaming {
       display: flex;
-      gap: 12px;
-      align-items: center;
-      margin-top: 16px;
+      gap: 16px;
+      align-items: flex-end;
+      padding: 0 7px;
+      margin-top: 0;
     }
     .wi-stream-icon {
       display: flex;
@@ -103,14 +107,14 @@
       justify-content: center;
       width: 36px;
       height: 36px;
-      color: rgba(246,235,218,0.55);
+      opacity: 0.55;
       text-decoration: none;
-      transition: color 0.2s;
+      transition: opacity 0.2s;
     }
-    .wi-stream-icon:hover { color: var(--cream); }
-    .wi-stream-icon svg {
-      width: 24px;
-      height: 24px;
+    .wi-stream-icon:hover { opacity: 1; }
+    .wi-stream-icon img {
+      width: 36px;
+      height: 36px;
       display: block;
     }
 
@@ -164,7 +168,7 @@
       display: block;
       position: relative;
       width: 274px;
-      aspect-ratio: 16/9;
+      aspect-ratio: 274/173;
       overflow: hidden;
       border-radius: 6px;
       cursor: pointer;
@@ -215,6 +219,70 @@
       transition: color 0.2s;
     }
     .wi-yt-link:hover { color: var(--cream); }
+
+    /* ── Audio player grid — matches Figma Audio Player Auto Layout ──
+       2×2 grid:  circle (r1 c1) | title + download (r1 c2)
+                  time   (r2 c1) | (empty)
+       Gap: 8px both axes (--spacing/sm) */
+    .wi-player {
+      display: inline-grid;
+      grid-template-columns: repeat(2, fit-content(100%));
+      grid-template-rows: repeat(2, fit-content(100%));
+      gap: 8px;
+    }
+    .wi-player-meta {
+      grid-column: 2;
+      grid-row: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 154px;
+    }
+    .wi-player-label {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 10.7px;
+      letter-spacing: 0.856px;
+      text-transform: uppercase;
+      color: var(--cream);
+      line-height: 1.4;
+    }
+    .wi-player-dl {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 10.7px;
+      letter-spacing: 0.856px;
+      text-transform: uppercase;
+      color: rgba(246,235,218,0.5);
+      text-decoration: none;
+      line-height: 1.4;
+      transition: color 0.2s;
+    }
+    .wi-player-dl:hover { color: var(--cream); }
+
+    /* Title + body/subtitle stacked in the same flex row (Audio no Image, Video) */
+    .wi-title-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    /* Inline body copy (inside wi-title-group) — no extra padding */
+    .wi-body-inline {
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 14.5px;
+      color: var(--cream);
+      line-height: 1.7;
+      max-width: 750px;
+      margin: 0;
+    }
+    /* Video eyebrow — no top padding (unlike Audiobook / Audio no Image) */
+    .wi-eyebrow--no-pt {
+      padding-top: 0;
+    }
   </style>
 </head>
 <body>
@@ -270,13 +338,13 @@
             <p class="wi-subtitle">Margery Williams</p>
             <nav class="wi-streaming" aria-label="Listen on">
               <a class="wi-stream-icon" href="#" aria-label="Spotify">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.36-.66.48-1.021.24-2.82-1.74-6.36-2.1-10.561-1.14-.42.12-.779-.18-.899-.54-.12-.42.18-.78.54-.9 4.56-1.02 8.52-.6 11.64 1.32.42.18.479.66.3 1.02zm1.44-3.3c-.3.42-.84.6-1.26.3-3.24-1.98-8.16-2.58-11.94-1.38-.48.12-1.02-.12-1.14-.6-.12-.48.12-1.02.6-1.14 4.26-1.26 9.72-.96 13.44 1.32.36.18.54.78.24 1.2zm.12-3.36c-2.64-1.56-7.2-1.68-9.96-.84-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 3.24-.96 8.28-.84 11.4.96.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.56.3z"/></svg>
+                <img src="assets/icons/Spotify.svg" alt="" width="36" height="36">
               </a>
               <a class="wi-stream-icon" href="#" aria-label="Apple Books">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+                <img src="assets/icons/Apple Books.svg" alt="" width="36" height="36">
               </a>
               <a class="wi-stream-icon" href="#" aria-label="Audible">
-                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h1v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-2v8h1c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/></svg>
+                <img src="assets/icons/Audible.svg" alt="" width="36" height="36">
               </a>
             </nav>
           </div>
@@ -287,11 +355,11 @@
           <span class="wi-tag wi-tag--red">Sound — David Cox</span>
         </div>
         <div class="wi-player-row">
-          <div class="player-unit">
+          <div class="wi-player">
             <div class="player player-md" data-player="work-vr" data-dur="118" data-color="c3"></div>
-            <div class="player-unit-meta">
-              <span class="player-unit-label">Immersive sample</span>
-              <a class="player-unit-dl" href="#" download>
+            <div class="wi-player-meta">
+              <span class="wi-player-label">Immersive sample</span>
+              <a class="wi-player-dl" href="#" download>
                 <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
                 MP3
               </a>
@@ -303,18 +371,20 @@
       <!-- ── 2. Audio no Image: placeholder ── -->
       <article class="wi reveal d1">
         <p class="wi-eyebrow">TV Demo</p>
-        <h2 class="wi-title">Car Boot Kings</h2>
-        <p class="wi-body">Warm, energetic narration for a TV documentary series. Laura's range moves between knowing warmth and dry wit throughout.</p>
+        <div class="wi-title-group">
+          <h2 class="wi-title">Car Boot Kings</h2>
+          <p class="wi-body-inline">Warm, energetic narration for a TV documentary series. Laura's range moves between knowing warmth and dry wit throughout.</p>
+        </div>
         <div class="wi-tags">
           <span class="wi-tag wi-tag--yellow">Narrator — Laura Cox</span>
           <span class="wi-tag wi-tag--red">Sound — David Cox</span>
         </div>
         <div class="wi-player-row">
-          <div class="player-unit">
+          <div class="wi-player">
             <div class="player player-md" data-player="work-cbk" data-dur="90" data-color="c1"></div>
-            <div class="player-unit-meta">
-              <span class="player-unit-label">Demo excerpt</span>
-              <a class="player-unit-dl" href="#" download>
+            <div class="wi-player-meta">
+              <span class="wi-player-label">Demo excerpt</span>
+              <a class="wi-player-dl" href="#" download>
                 <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
                 MP3
               </a>
@@ -325,9 +395,11 @@
 
       <!-- ── 3. Video: Millions of Cats, and Stars ── -->
       <article class="wi reveal d2">
-        <p class="wi-eyebrow">Video</p>
-        <h2 class="wi-title">Millions of Cats, and Stars</h2>
-        <p class="wi-subtitle">Wanda Gág</p>
+        <p class="wi-eyebrow wi-eyebrow--no-pt">Video</p>
+        <div class="wi-title-group">
+          <h2 class="wi-title">Millions of Cats, and Stars</h2>
+          <p class="wi-subtitle">Wanda Gág</p>
+        </div>
         <p class="wi-body">An immersive retelling of Wanda Gág's classic — spatial sound design, original score elements and full narration by Laura Cox.</p>
         <div class="wi-tags">
           <span class="wi-tag wi-tag--yellow">Narrator — Laura Cox</span>
