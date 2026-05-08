@@ -324,7 +324,7 @@ button {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.6rem;
+  gap: 20px; /* ring SVG extends 12px below .player-inner; 12+8 = 20px gives 8px visual gap (--spacing/sm) from ring edge to time */
   cursor: pointer;
 }
 .player-inner {

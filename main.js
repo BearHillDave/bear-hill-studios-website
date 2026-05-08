@@ -41,6 +41,10 @@ function initPlayers() {
       <span class="player-time${isDark?' player--dark':''}" style="${isDark?'color:oklch(55% 0.010 80)':''}">0:00 / ${fmtTime(dur)}</span>
     `;
 
+    // Set explicit width so layout containers (e.g. grid) allocate the full
+    // outer-ring size rather than just the inner disc width.
+    el.style.width = svgSize + 'px';
+
     const cx = svgSize / 2;
     const state = { playing: false, time: 0, dur, interval: null, circ, cx };
     const inner = el.querySelector('.player-inner');
