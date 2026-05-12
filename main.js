@@ -16,7 +16,8 @@ function initPlayers() {
     const colorVar = el.dataset.color || 'c1';
     const isLg = el.classList.contains('player-lg');
     const isSm = el.classList.contains('player-sm');
-    const size = isLg ? 148 : isSm ? 64 : 76;
+    const isWk = el.classList.contains('player-wk');
+    const size = isLg ? 148 : isSm ? 64 : isWk ? 100 : 76;
     const r = size / 2;
     const ringR = r + 9;
     const svgSize = ringR * 2 + 6;
@@ -33,7 +34,7 @@ function initPlayers() {
             transform="rotate(-90 ${svgSize/2} ${svgSize/2})"/>
           <circle class="r-dot" cx="${svgSize/2}" cy="${svgSize/2 - ringR}" r="5" fill="${strokeColor}" opacity="0"/>
         </svg>
-        <svg class="player-icon" viewBox="0 0 24 24" width="${isLg?30:isSm?16:22}" height="${isLg?30:isSm?16:22}" fill="var(--${colorVar}t)">
+        <svg class="player-icon" viewBox="0 0 24 24" width="${isLg?30:isSm?16:isWk?26:22}" height="${isLg?30:isSm?16:isWk?26:22}" fill="var(--${colorVar}t)">
           <path d="M8 5v14l11-7z"/>
         </svg>
         ${(label && isLg) ? `<span class="player-inner-label" style="color:var(--${colorVar}t)">${label}</span>` : ''}

@@ -29,6 +29,10 @@
     .wi:first-child {
       border-top: 1px solid rgba(246,235,218,0.2);
     }
+    /* Audio-no-image items use the warm near-black divider (Figma Section/Audio no Image) */
+    .wi--warm-border {
+      border-bottom-color: var(--black);
+    }
 
     /* Eyebrow: extra 16px top pad (matches Figma row pt:md) */
     .wi-eyebrow {
@@ -283,6 +287,86 @@
     .wi-eyebrow--no-pt {
       padding-top: 0;
     }
+
+    /* ── CTA button — Figma UI/Button (200×48 pill, cream outline, white text) ── */
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 200px;
+      height: 48px;
+      background: transparent;
+      color: #fff;
+      border: 1px solid var(--cream);
+      border-radius: 100px;
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 12px;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-cta:hover {
+      background: var(--cream);
+      color: var(--black);
+    }
+
+    /* ── Footer — Figma Layout/Footer (3-col, 128px) ── */
+    .footer { padding: 0; border-top: none; }
+    .footer-v2 {
+      display: flex;
+      align-items: center;
+      height: 128px;
+      padding: 0 64px;
+    }
+    .footer-v2-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .footer-v2-brand img {
+      width: 24px;
+      height: 24px;
+      display: block;
+    }
+    .footer-v2-copyright {
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 11.1px;
+      color: rgba(246,235,218,0.5);
+      white-space: nowrap;
+    }
+    .footer-v2-spacer { flex: 1; }
+    .footer-v2-nav {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+    .footer-v2-link {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 12.8px;
+      color: rgba(246,235,218,0.5);
+      text-transform: uppercase;
+      letter-spacing: 1.024px;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      transition: color 0.2s;
+    }
+    .footer-v2-link:hover { color: var(--cream); }
+    .footer-v2-link--active::after {
+      content: '';
+      display: block;
+      height: 1.5px;
+      width: 100%;
+      background: rgba(246,235,218,0.5);
+    }
   </style>
 </head>
 <body>
@@ -351,12 +435,12 @@
         </div>
         <p class="wi-body">Margery Williams' beloved story, brought to life with intimate narration and layered environmental audio. Warmly performed by Laura Cox and produced by Bear Hill Studios.</p>
         <div class="wi-tags">
-          <span class="wi-tag wi-tag--yellow">Narrator — Laura Cox</span>
-          <span class="wi-tag wi-tag--red">Sound — David Cox</span>
+          <span class="wi-tag wi-tag--yellow">Narrator - Laura Cox</span>
+          <span class="wi-tag wi-tag--red">Sound - David Cox</span>
         </div>
         <div class="wi-player-row">
           <div class="wi-player">
-            <div class="player player-md" data-player="work-vr" data-dur="118" data-color="c3"></div>
+            <div class="player player-wk" data-player="work-vr" data-dur="118" data-color="c3"></div>
             <div class="wi-player-meta">
               <span class="wi-player-label">Immersive sample</span>
               <a class="wi-player-dl" href="#" download>
@@ -369,19 +453,19 @@
       </article>
 
       <!-- ── 2. Audio no Image: placeholder ── -->
-      <article class="wi reveal d1">
+      <article class="wi wi--warm-border reveal d1">
         <p class="wi-eyebrow">TV Demo</p>
         <div class="wi-title-group">
           <h2 class="wi-title">Car Boot Kings</h2>
           <p class="wi-body-inline">Warm, energetic narration for a TV documentary series. Laura's range moves between knowing warmth and dry wit throughout.</p>
         </div>
         <div class="wi-tags">
-          <span class="wi-tag wi-tag--yellow">Narrator — Laura Cox</span>
-          <span class="wi-tag wi-tag--red">Sound — David Cox</span>
+          <span class="wi-tag wi-tag--yellow">Narrator - Laura Cox</span>
+          <span class="wi-tag wi-tag--red">Sound - David Cox</span>
         </div>
         <div class="wi-player-row">
           <div class="wi-player">
-            <div class="player player-md" data-player="work-cbk" data-dur="90" data-color="c1"></div>
+            <div class="player player-wk" data-player="work-cbk" data-dur="90" data-color="c1"></div>
             <div class="wi-player-meta">
               <span class="wi-player-label">Demo excerpt</span>
               <a class="wi-player-dl" href="#" download>
@@ -395,16 +479,16 @@
 
       <!-- ── 3. Video: Millions of Cats, and Stars ── -->
       <article class="wi reveal d2">
-        <p class="wi-eyebrow wi-eyebrow--no-pt">Video</p>
+        <p class="wi-eyebrow wi-eyebrow--no-pt">TV Demo</p>
         <div class="wi-title-group">
           <h2 class="wi-title">Millions of Cats, and Stars</h2>
           <p class="wi-subtitle">Wanda Gág</p>
         </div>
         <p class="wi-body">An immersive retelling of Wanda Gág's classic — spatial sound design, original score elements and full narration by Laura Cox.</p>
         <div class="wi-tags">
-          <span class="wi-tag wi-tag--yellow">Narrator — Laura Cox</span>
-          <span class="wi-tag wi-tag--red">Sound — David Cox</span>
-          <span class="wi-tag wi-tag--blue">Video — David Cox</span>
+          <span class="wi-tag wi-tag--yellow">Narrator - Laura Cox</span>
+          <span class="wi-tag wi-tag--red">Sound - David Cox</span>
+          <span class="wi-tag wi-tag--blue">Video - David Cox</span>
         </div>
         <div class="wi-video-row">
           <a class="wi-yt-thumb" href="https://www.youtube.com/watch?v=-mW5If3EqFQ" target="_blank" rel="noopener">
@@ -427,8 +511,8 @@
 <section id="sec-cta" class="cta-band">
   <div class="wrap-n">
     <h2 class="cta-title">Want to make something together?</h2>
-    <p class="cta-body">We're open to projects at every point of the spectrum — from full immersive production to narration only.</p>
-    <a href="contact.html" class="btn btn-amber">Get in touch</a>
+    <p class="cta-body">We're open to projects at every level of involvement, from full immersive production to narration only.</p>
+    <a href="contact.html" class="btn-cta">Get in touch</a>
   </div>
 </section>
 
@@ -436,18 +520,19 @@
      FOOTER
      ===================================================== -->
 <footer class="footer">
-  <div class="wrap footer-inner">
-    <div class="footer-logo">
-      <svg width="36" height="36" viewBox="0 0 126 126" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="63" cy="63" r="63" fill="white"></circle><path d="M27.4373 39.6515L19.5625 33.8123L20.4381 32.6266C20.828 32.0985 21.1796 31.708 21.4926 31.455C21.8082 31.1987 22.1434 31.0333 22.4983 30.959C22.8624 30.8862 23.2419 30.8961 23.6367 30.9885C24.0375 31.08 24.3926 31.2404 24.702 31.4699C25.2664 31.8884 25.5844 32.459 25.6558 33.1816C26.1081 32.8684 26.6021 32.7232 27.1377 32.7461C27.6725 32.7629 28.1745 32.9453 28.6437 33.2933C29.2591 33.7496 29.6183 34.3534 29.7213 35.1047C29.7894 35.5612 29.7537 35.9908 29.6141 36.3935C29.4486 36.8244 29.167 37.309 28.7695 37.8473L27.4373 39.6515ZM23.8233 35.1289L24.0988 34.7558C24.4259 34.3128 24.568 33.9173 24.5251 33.5692C24.4814 33.2151 24.2691 32.8969 23.8883 32.6145C23.5177 32.3397 23.1592 32.2373 22.8128 32.3074C22.463 32.3749 22.1396 32.6097 21.8428 33.0117L21.5333 33.4308L23.8233 35.1289ZM27.1997 37.6324L27.7431 36.8965C28.1406 36.3581 28.3271 35.8847 28.3025 35.4763C28.2709 35.0416 28.08 34.6944 27.7298 34.4347C27.3898 34.1826 27.0098 34.0986 26.5899 34.1827C26.1784 34.2625 25.7362 34.6227 25.2632 35.2632L24.8179 35.8663L27.1997 37.6324Z" fill="black"></path><path d="M59.4192 45.4511C55.4859 37.3892 45.2892 42.2224 46.9211 50.6555C44.0544 55.2774 45.8438 59.2651 43.492 67.3939C40.3005 75.6123 38.3796 79.3059 33.3696 84.265C45.9946 82.4395 51.2059 74.9274 61.5393 74.9274C72.2871 74.9274 74.072 79.9836 91.662 84.265C87.9286 83.2221 83.964 80.4685 81.2864 78.3859C78.7542 76.4165 78.8671 75.0931 79.0571 73.9488C79.2425 71.7583 81.4702 70.5347 86.112 68.3538C90.0591 65.9411 91.7919 64.0678 92.3683 58.0026C92.8184 55.0424 90.8933 53.8609 86.2949 53.1985C81.6965 52.5361 79.9654 51.7404 77.7513 49.3293C74.8977 45.9336 69.5159 45.713 68.0549 45.5553C65.5207 45.3592 64.5112 45.1858 59.4192 45.4511Z" fill="black" stroke="black" stroke-linejoin="round"></path><ellipse cx="71.0922" cy="54.3501" rx="2.04536" ry="2.04536" fill="white"></ellipse></svg>
-      <span class="footer-note">Bear Hill Studios · Bath, UK</span>
+  <div class="footer-v2 wrap">
+    <div class="footer-v2-brand">
+      <img src="assets/bear-icon.png" alt="Bear Hill Studios">
+      <span class="footer-v2-copyright">© 2026 Bear Hill Studios. All rights reserved.</span>
     </div>
-    <p class="footer-note">© 2026 Bear Hill Studios. All rights reserved.</p>
-    <div class="footer-links">
-      <a class="footer-link" href="work.html">Work</a>
-      <a class="footer-link" href="laura.html">Laura</a>
-      <a class="footer-link" href="about.html">About</a>
-      <a class="footer-link" href="contact.html">Contact</a>
-    </div>
+    <div class="footer-v2-spacer"></div>
+    <nav class="footer-v2-nav" aria-label="Footer navigation">
+      <a class="footer-v2-link" href="index.html">Home</a>
+      <a class="footer-v2-link footer-v2-link--active" href="work.html">Work</a>
+      <a class="footer-v2-link" href="laura.html">Laura</a>
+      <a class="footer-v2-link" href="about.html">About</a>
+      <a class="footer-v2-link" href="contact.html">Contact</a>
+    </nav>
   </div>
 </footer>
 

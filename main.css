@@ -398,6 +398,11 @@ button {
   width: 76px;
   height: 76px;
 }
+/* Work-page players — 100px (matches Figma Pages/Work) */
+.player-wk .player-inner {
+  width: 100px;
+  height: 100px;
+}
 /* Small — reel cards */
 .player-sm .player-inner {
   width: 64px;
