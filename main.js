@@ -166,11 +166,25 @@ function initReveals() {
   setTimeout(revealInViewport, 600);
 }
 
+/* ===== PARALLAX — blur layer scrolls at 50% of page ===== */
+let parallaxTicking = false;
+function updateParallax() {
+  const y = window.scrollY;
+  document.querySelectorAll('.page-blur').forEach(el => {
+    el.style.transform = `translateY(${y * 0.5}px)`;
+  });
+  parallaxTicking = false;
+}
+
 /* ===== NAV SCROLL ===== */
 window.addEventListener('scroll', () => {
   const nav = document.getElementById('nav');
   if (nav) nav.classList.toggle('scrolled', window.scrollY > 40);
   revealInViewport();
+  if (!parallaxTicking) {
+    requestAnimationFrame(updateParallax);
+    parallaxTicking = true;
+  }
 }, { passive: true });
 
 /* ===== INIT ===== */
