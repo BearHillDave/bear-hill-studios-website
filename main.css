@@ -76,6 +76,10 @@ img {
   display: block;
   max-width: 100%;
 }
+a {
+  color: inherit;
+  text-decoration: none;
+}
 a,
 button {
   cursor: pointer;
@@ -2608,6 +2612,62 @@ h3.subhead {
 }
 .wi-stream-icon:hover { opacity: 1; }
 .wi-stream-icon img { width: 36px; height: 36px; display: block; }
+
+/* ── Large Video work item (Component 4) — full-width stacked with 16:9 embed ── */
+.wi-large-video {
+  padding: var(--sp-xl) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-md);
+  position: relative;
+}
+.wi-large-video + .wi-large-video::before,
+.wi-large-video + .wi::before,
+.wi + .wi-large-video::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100vw;
+  height: 1px;
+  background: var(--cream-20);
+  transform: translateX(-50%);
+}
+/* Full-width 16:9 YouTube embed */
+.wi-yt-full {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #000;
+  border-radius: 4px;
+}
+.wi-yt-full iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+/* Watch on YouTube link */
+.wi-yt-watch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--dark-white);
+  text-decoration: underline;
+  text-decoration-color: var(--red);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.2s;
+}
+.wi-yt-watch:hover { color: var(--cream); }
 
 /* Player row — variants 2 and 3 */
 .wi-player-row { padding: var(--sp-lg) 0; }

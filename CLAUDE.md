@@ -32,7 +32,7 @@ Finals section node IDs: Home `289:7860`, Work `352:6823`, Laura `352:7144`, Pro
 | `index.html` | Home | ✅ V2 done |
 | `work.html` | Work / portfolio | ✅ V2 done |
 | `laura.html` | Laura's profile | ✅ V2 done |
-| `production.html` | Production services | 🔲 Stub (under construction) |
+| `production.html` | Production services | ✅ V2 done |
 | `about.html` | About | 🔲 Stub (under construction) |
 | `contact.html` | Contact | 🔲 Stub (under construction) |
 
@@ -139,7 +139,7 @@ Wrap hero + main content (including CTA) in `.page-canvas`. Footer sits **outsid
 <div class="page-canvas">            <!-- bg: --light-black, overflow: hidden -->
   <div class="page-photo"></div>     <!-- hero photo, absolute, hero height only -->
   <div class="page-vignette"></div>  <!-- gradient fade, hero height only -->
-  <div class="page-blur"></div>      <!-- blurred bg, height: 200%, opacity: 0.30, will-change: transform -->
+  <div class="page-blur"></div>      <!-- blurred bg, height: 100%, opacity: 0.30, mix-blend-mode: lighten, will-change: transform -->
 
   <header class="…-hero">…</header>  <!-- z-index: 1, transparent bg -->
   <section class="…-section">…</section>
@@ -193,6 +193,7 @@ Per-page blob values (from Figma, scaled to 1440px):
 - Home: `blur(50px)`, `r=100px`, `936×416px`, `top: 180px; left: 100px`
 - Work: `blur(50px)`, `r=100px`, `968×320px`, `top:50%; left:106px; transform:translateY(-50%)`
 - Laura: `blur(100px)`, `r=150px`, `968×416px`, `top:50%; left:106px; transform:translateY(-50%)`
+- Production: `blur(75px)`, `r=150px`, `968×416px`, `top:50%; left:106px; transform:translateY(-50%)`
 
 **Hero layout — all pages except home:**
 - `min-height: 100vh`
@@ -244,6 +245,14 @@ Uses `requestAnimationFrame` with a ticking flag for performance. Called inside 
   transform: translateX(-50%);
 }
 ```
+
+### Link baseline reset
+
+`main.css` resets all anchors early in the file:
+```css
+a { color: inherit; text-decoration: none; }
+```
+This prevents the browser UA `a:link { color: blue }` from bleeding through on any link that doesn't have an explicit colour rule. Every styled link class (`.nav-link`, `.footer-v2-link`, `.wi-yt-watch`, etc.) sets its own colour on top of this.
 
 ### Underlined links
 All underlines use `--red`:
@@ -372,6 +381,31 @@ No cover image. Used for voice demos (Laura page), radio/TV demos, etc.
 - `c1` (Red) — Audiobook demos
 - `c3` (Yellow/amber) — Commercial, Technical demos
 
+### Component 4 — Large Video (full-width 16:9 embed)
+
+No `.wi` article wrapper — uses `.wi-large-video` directly. Stacks eyebrow → title → body → iframe → watch link. Hairline dividers handled by adjacent-sibling rules covering `.wi-large-video + .wi-large-video`, `.wi-large-video + .wi`, and `.wi + .wi-large-video`.
+
+```html
+<div class="wi-large-video">
+  <p class="wi-eyebrow reveal">Video</p>
+  <div class="wi-title-group reveal d1">
+    <h2 class="wi-title">Title</h2>
+  </div>
+  <p class="wi-body reveal d2">Body copy…</p>
+  <div class="wi-yt-full reveal d3">
+    <iframe
+      src="https://www.youtube.com/embed/VIDEO_ID?rel=0&modestbranding=1"
+      title="…"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
+  </div>
+  <a class="wi-yt-watch reveal d4" href="https://www.youtube.com/watch?v=VIDEO_ID" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+</div>
+```
+
+`.wi-yt-full` uses `aspect-ratio: 16/9` so the iframe is always proportional. `.wi-yt-watch` is the underlined "Watch on YouTube ↗" link (Jost 500, 12px, UPPER, track 1.8px, `--dark-white`, red underline).
+
 ### CSS structure rationale
 
 **Why `.wi-copy-col` has a fixed `height: 173px`**  
@@ -452,9 +486,11 @@ Photos used per page:
 | `forest-blur.jpg` | Work blur layer (`page-blur`) |
 | `velvet.jpg` | Laura hero bg (`page-photo`) |
 | `velvet-blur.jpg` | Laura blur layer (`page-blur`) |
-| `stream-blur.jpg` | Available, unassigned |
+| `stream.jpg` | Production hero bg (`page-photo`) |
+| `stream-blur.jpg` | Production blur layer (`page-blur`) |
 | `VR Cover 3000x3000.png` | Velveteen Rabbit audiobook cover |
 | `TTNBC Cover 3000x3000.jpg` | 'Twas the Night Before Christmas cover |
+| `assets/laura-at-mic.jpg` | Laura circle portrait — hero, `laura.html` |
 | `laura.jpeg` | Laura portrait (not currently in use) |
 | `david.jpg` | David portrait (not currently in use) |
 | `bear-icon.png` | Footer logo |
@@ -467,6 +503,34 @@ Photos used per page:
 ## Laura page (`laura.html`)
 
 Full V2 — implemented from Figma node `352:7144`.
+
+**Hero circle portrait** — `assets/laura-at-mic.jpg` cropped to a 340px circle, absolutely positioned within `.laura-hero`. Sits behind the text (z-index: 1 vs text z-index: 2). Coordinates scaled from Figma 1750px canvas to 1440px site width.
+
+```css
+.laura-circle {
+  position: absolute;
+  left: 207px;
+  top: 160px;
+  width: 340px; height: 340px;
+  border-radius: 50%; overflow: hidden;
+  z-index: 1; pointer-events: none;
+}
+.laura-circle img {
+  display: block; width: 100%; height: 100%;
+  object-fit: cover; object-position: center 10%;
+}
+```
+
+```html
+<header class="laura-hero">
+  <div class="laura-circle">
+    <img src="assets/laura-at-mic.jpg" alt="Laura Cox">
+  </div>
+  <div class="laura-hero-content">  <!-- position: relative; z-index: 2 -->
+    …title, body…
+  </div>
+</header>
+```
 
 **Sections in order:**
 1. Hero — "Laura Cox" title + 3 short Cormorant Light 24px intro paragraphs
@@ -517,6 +581,22 @@ CSS rule that spaces categories: `.wi-list--narrow .wi-eyebrow:not(:first-of-typ
 
 ---
 
+## Production page (`production.html`)
+
+Full V2 — implemented from Figma node `352:7513`.
+
+Hero uses `stream.jpg` (photo) + `stream-blur.jpg` (blur layer). Same layer stack and vignette as other pages.
+
+**Sections in order:**
+1. Hero — "Production" title + Cormorant Light 24px/40lh body (4 sentences)
+2. Work items:
+   - **Millions of Cats and Stars** — Component 4 (Large Video), YouTube `-mW5If3EqFQ`, eyebrow "Video"
+   - **The Velveteen Rabbit** — Component 2 (Audiobook with cover), `VR Cover 3000x3000.png`, player `data-color="c1"`, `data-player="prod-vr"`
+   - **Melody** — Component 4 (Large Video), YouTube `GCAesHMC92k`, eyebrow "VR"
+3. CTA — "Want to make something together?" / "Get in Touch"
+
+---
+
 ## Figma workflow
 
 **Source of truth:** Figma V2 file Finals section.
@@ -533,7 +613,7 @@ CSS rule that spaces categories: `.wi-list--narrow .wi-eyebrow:not(:first-of-typ
 
 ## Under-construction pages
 
-`about.html`, `contact.html`, `production.html` are minimal stubs. They share the same template:
+`about.html` and `contact.html` are minimal stubs. They share the same template:
 - Dark bg (`--light-black`), nav, footer
 - Cormorant italic large title
 - "This page is on its way. Check back soon."
