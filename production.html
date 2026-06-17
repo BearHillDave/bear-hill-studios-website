@@ -109,6 +109,57 @@
         z-index: 1;
         padding: 0 0 80px;
       }
+
+      /* FACILITIES / EQUIPMENT */
+      .facility-section {
+        padding-top: var(--sp-2xl);
+      }
+      .facility-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 100vw;
+        height: 1px;
+        background: var(--cream-20);
+        transform: translateX(-50%);
+      }
+      .facility-intro {
+        margin-bottom: var(--sp-xl);
+      }
+      .facility-gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--sp-md);
+        margin-bottom: var(--sp-lg);
+      }
+      .facility-photo {
+        position: relative;
+        aspect-ratio: 3 / 4;
+        border-radius: 4px;
+        overflow: hidden;
+        background: rgba(246, 235, 218, 0.06);
+      }
+      .facility-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .facility-list {
+        font-family: var(--sans);
+        font-weight: 500;
+        font-size: 10.7px;
+        letter-spacing: 0.856px;
+        text-transform: uppercase;
+        color: var(--cream-50);
+        margin: 0;
+      }
+      @media (max-width: 640px) {
+        .facility-gallery {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
     </style>
   </head>
   <body style="background: var(--light-black); color: var(--dark-white)">
@@ -307,6 +358,28 @@
             <a class="wi-yt-watch reveal d4" href="https://www.youtube.com/watch?v=GCAesHMC92k" target="_blank" rel="noopener">Watch on YouTube ↗</a>
           </div>
 
+        </div>
+      </section>
+
+      <!-- FACILITIES / EQUIPMENT -->
+      <section class="wi-section facility-section">
+        <div class="wi-list">
+          <h2 class="section-heading reveal">The Studio</h2>
+          <p class="wi-body facility-intro reveal d1">A simple, reliable setup built for clean, consistent voice recording — from quick voiceover turnarounds to full audiobook productions. We also keep a selection of electric, acoustic, and MIDI instruments on hand for original music and sound design.</p>
+
+          <div class="facility-gallery reveal d2">
+            <div class="facility-photo">
+              <img src="assets/sm7b-logic.jpg" alt="Shure SM7B microphone on a boom arm, with Logic Pro and a MacBook Pro in the background">
+            </div>
+            <div class="facility-photo">
+              <img src="assets/curtain.jpg" alt="Microphone set up in the acoustically treated recording booth">
+            </div>
+            <div class="facility-photo">
+              <img src="assets/nt1.jpg" alt="Røde NT1 microphone with pop filter, studio monitors in the background">
+            </div>
+          </div>
+
+          <p class="facility-list reveal d3">Shure SM7B&nbsp; &middot; &nbsp;Røde NT1&nbsp; &middot; &nbsp;Focusrite Scarlett 2i2&nbsp; &middot; &nbsp;Logic Pro&nbsp; &middot; &nbsp;MacBook Pro&nbsp; &middot; &nbsp;Treated vocal booth&nbsp; &middot; &nbsp;Electric, acoustic &amp; MIDI instruments</p>
         </div>
       </section>
 
