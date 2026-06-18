@@ -130,6 +130,11 @@ Loaded from Google Fonts. Request weight range `0,300;0,400;0,500;0,600;1,300;1,
 - Toggling: `initNavToggle()` in `main.js` adds/removes `.menu-open` on `.nav`, syncs `aria-expanded`, and locks `document.body` scroll while open. Closes on link click and on `Escape`. Hamburger bars animate into an X via the `.nav.menu-open .nav-toggle span` rules.
 - Auto-reset on breakpoint cross: a `matchMedia('(max-width: 900px)')` `change` listener **and** a `window` `resize` listener both call a `syncToBreakpoint()` that force-closes the menu when the viewport grows back to desktop. Without this, opening the menu on mobile and resizing up leaves `.menu-open` set — so collapsing back to mobile shows a stuck X (and body scroll stays locked) instead of the hamburger. (Both listeners are used because some environments update `matchMedia.matches` without firing its `change` event.)
 - Mobile bar also shrinks: `height: 88px`, padding `0 24px`, logo `54px`.
+- Accessibility (`initNavToggle`, mobile only — desktop is unaffected because the menu *is* the visible nav there):
+  - **Closed:** `nav-menu.inert = true` so the off-screen overlay's links aren't tabbable or announced.
+  - **Open:** every `document.body` child except `.nav` is set `inert` (focus stays trapped in the menu, screen readers ignore the background), and focus moves to the first menu link. This relies on `<nav>` being a **direct child of `<body>`** on every page — keep it that way.
+  - **Close:** focus returns to the `.nav-toggle`; `inert` is cleared from the page and re-applied to the closed menu. `Escape` closes only when open.
+  - `inert` degrades gracefully on browsers without support (links simply stay focusable, as before).
 
 ### Footer (all pages)
 - Height 128px, horizontal padding 64px

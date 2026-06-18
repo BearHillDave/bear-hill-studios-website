@@ -194,21 +194,44 @@ window.addEventListener('scroll', () => {
 function initNavToggle() {
   const nav = document.getElementById('nav');
   const toggle = document.getElementById('nav-toggle');
-  if (!nav || !toggle) return;
+  const menu = document.getElementById('nav-menu');
+  if (!nav || !toggle || !menu) return;
+  const mobileMq = window.matchMedia('(max-width: 900px)');
   const setOpen = (open) => {
     nav.classList.toggle('menu-open', open);
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     document.body.style.overflow = open ? 'hidden' : '';
+    // Closed mobile overlay is off-screen — keep its links out of the tab order.
+    menu.inert = mobileMq.matches && !open;
+    // While open, make the rest of the page inert so Tab stays inside the menu
+    // and screen readers ignore the background behind the overlay.
+    for (const el of document.body.children) {
+      if (el !== nav) el.inert = open;
+    }
+    if (open) {
+      const first = menu.querySelector('a');
+      if (first) first.focus();
+    }
   };
-  toggle.addEventListener('click', () => setOpen(!nav.classList.contains('menu-open')));
-  nav.querySelectorAll('.nav-menu a').forEach(a => a.addEventListener('click', () => setOpen(false)));
-  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
-  // When the viewport grows back to the desktop nav, reset to closed so the
-  // icon returns to the hamburger (not a stuck X) and body scroll is unlocked.
-  const mobileMq = window.matchMedia('(max-width: 900px)');
-  const syncToBreakpoint = () => { if (!mobileMq.matches) setOpen(false); };
+  toggle.addEventListener('click', () => {
+    const willOpen = !nav.classList.contains('menu-open');
+    setOpen(willOpen);
+    if (!willOpen) toggle.focus();
+  });
+  menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && nav.classList.contains('menu-open')) { setOpen(false); toggle.focus(); }
+  });
+  // Returning to the desktop nav resets to closed so the icon shows the
+  // hamburger (not a stuck X), body scroll is unlocked, and inert is cleared.
+  const syncToBreakpoint = () => {
+    if (!mobileMq.matches) setOpen(false);
+    else menu.inert = !nav.classList.contains('menu-open');
+  };
   mobileMq.addEventListener('change', syncToBreakpoint);
   window.addEventListener('resize', syncToBreakpoint, { passive: true });
+  // Initial state: closed mobile overlay starts inert; desktop nav stays interactive.
+  menu.inert = mobileMq.matches;
 }
 
 /* ===== INIT ===== */
