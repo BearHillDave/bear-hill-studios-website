@@ -190,6 +190,27 @@ window.addEventListener('scroll', () => {
   }
 }, { passive: true });
 
+/* ===== MOBILE NAV (hamburger) ===== */
+function initNavToggle() {
+  const nav = document.getElementById('nav');
+  const toggle = document.getElementById('nav-toggle');
+  if (!nav || !toggle) return;
+  const setOpen = (open) => {
+    nav.classList.toggle('menu-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    document.body.style.overflow = open ? 'hidden' : '';
+  };
+  toggle.addEventListener('click', () => setOpen(!nav.classList.contains('menu-open')));
+  nav.querySelectorAll('.nav-menu a').forEach(a => a.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setOpen(false); });
+  // When the viewport grows back to the desktop nav, reset to closed so the
+  // icon returns to the hamburger (not a stuck X) and body scroll is unlocked.
+  const mobileMq = window.matchMedia('(max-width: 900px)');
+  const syncToBreakpoint = () => { if (!mobileMq.matches) setOpen(false); };
+  mobileMq.addEventListener('change', syncToBreakpoint);
+  window.addEventListener('resize', syncToBreakpoint, { passive: true });
+}
+
 /* ===== INIT ===== */
 function init() {
   document.documentElement.dataset.theme = TWEAK_DEFAULTS.theme;
@@ -212,6 +233,7 @@ function init() {
   initPlayers();
   initReveals();
   updateParallax();
+  initNavToggle();
 }
 
 // Script is at end of <body> so DOM is ready; DOMContentLoaded may have already fired
