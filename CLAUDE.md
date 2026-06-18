@@ -196,17 +196,35 @@ Per-page blob values (from Figma, scaled to 1440px):
 - Production: `blur(75px)`, `r=150px`, `968×416px`, `top:50%; left:106px; transform:translateY(-50%)`
 
 **Hero layout — all pages except home:**
-- `min-height: 100vh`
+- `min-height: 88vh` (reduced from `100vh` so the next section peeks ~108px above the fold on a 900px-tall viewport — a deliberate scroll cue; see **Scroll cue** below)
 - `align-items: flex-start`
 - `overflow: hidden`
 - Hero content: `max-width: 780px; margin: 0 auto; padding: 220px 64px 80px`
 - Title pinned at `220px` from top (matches home's `padding-top: 220px`); body flows down from there
-- The `min-height: 100vh` guarantees content sections never creep up regardless of how much hero body text there is
+- Heroes use `min-height` (not fixed `height`), so a hero still grows past 88vh when its content is taller — content is never clipped
 
 **Hero layout — home:**
-- `min-height: 100vh`
+- `min-height: 88vh`
 - `align-items: flex-start`
 - Hero content: `max-width: 1160px; padding-top: 220px; padding-bottom: 80px`
+- Note: home's hero content (title + intro + 148px hero player) is ~903px tall, so on a standard ≤900px-tall viewport the hero is **content-bound** and stays full-height — the peek only appears on taller viewports. The scroll-cue indicator (below) is home's primary "more below" signal.
+
+**Scroll cue (false-bottom fix)**
+
+Full-height heroes risk a "false bottom" — the first screen reads as the whole page. Two mechanisms counter this on all four V2 pages:
+
+1. **Peek** — heroes are `min-height: 88vh` (not `100vh`) so the top of the next section crests the fold. On work/laura/production this reveals the first item's red eyebrow or the section heading; on home (content-bound) it only shows on tall viewports.
+2. **Scroll indicator** — `.hero-scroll` (defined in `main.css`): a downward chevron (`.hero-scroll-arrow` — a 13px box with `--cream-50` right + bottom borders rotated 45°) that gently bounces down via the `scrollArrow` keyframe (`translateY` + opacity, 2.2s). It is **`position: fixed`** — pinned to the viewport bottom-right (`bottom: 2rem; right: 2.5rem`, `pointer-events: none`) so it always sits just above the bottom of the screen regardless of hero height, not clipped by the hero's `overflow: hidden`. Hidden below 620px (touch users scroll naturally). Markup is a child of the hero element, placed after the content wrapper:
+
+   ```html
+   <div class="hero-scroll" aria-hidden="true">
+     <span class="hero-scroll-arrow"></span>
+   </div>
+   ```
+
+   **Scroll fade** — the cue fades as you scroll away from the top: `updateParallax()` in `main.js` (the rAF-throttled scroll handler, also called once on init) sets `.hero-scroll` opacity to `max(0, 1 - scrollY / (innerHeight * 0.5))` — full at the top, gone by ~half a viewport down, and it returns when scrolling back up. The container's opacity multiplies with the arrow's own keyframe-pulsed opacity.
+
+   ⚠️ Because `.hero-scroll` is `position: fixed`, its containing block is the viewport **only while no ancestor has `transform`/`filter`/`will-change`/`contain`**. `.page-canvas` is currently plain `position: relative; overflow: hidden`, so this holds. If a transform/filter is ever added to `.page-canvas`, the cue would re-anchor to it and `bottom: 2rem` would land at the bottom of the whole page instead of the viewport.
 
 **Blur images per page** (`/assets/`) — exported as JPEGs from Figma "blured bg 2" component:
 - Home: `moss-blur.jpg`

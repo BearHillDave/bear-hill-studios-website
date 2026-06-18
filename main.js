@@ -173,6 +173,9 @@ function updateParallax() {
   document.querySelectorAll('.page-blur').forEach(el => {
     el.style.transform = `translateY(${y * 0.5}px)`;
   });
+  // Fade the scroll cue out as the user moves away from the top of the page
+  const cue = document.querySelector('.hero-scroll');
+  if (cue) cue.style.opacity = Math.max(0, 1 - y / (window.innerHeight * 0.5));
   parallaxTicking = false;
 }
 
@@ -208,6 +211,7 @@ function init() {
 
   initPlayers();
   initReveals();
+  updateParallax();
 }
 
 // Script is at end of <body> so DOM is ready; DOMContentLoaded may have already fired
