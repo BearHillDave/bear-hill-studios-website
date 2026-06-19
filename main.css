@@ -112,6 +112,12 @@ button {
   backdrop-filter: blur(14px);
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
 }
+/* While the mobile overlay is open the nav must NOT keep backdrop-filter: it
+   would become the containing block for the fixed .nav-menu and collapse the
+   full-screen overlay to the nav's height. (The overlay covers the bar anyway.) */
+.nav.menu-open {
+  backdrop-filter: none;
+}
 .logo {
   display: flex;
   align-items: center;
