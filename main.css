@@ -2709,6 +2709,43 @@ h3.subhead {
 .wi-stream-icon:hover { opacity: 1; }
 .wi-stream-icon img { width: 36px; height: 36px; display: block; }
 
+/* ── Narrow / mobile: stack the media row — cover (or video thumbnail) on top,
+   body copy + streaming links below it (Figma "Audiobook with Cover/Mobile"). ── */
+@media (max-width: 620px) {
+  .wi-list,
+  .wi-list--narrow {
+    padding: 0 24px;
+  }
+  .wi-media-row {
+    flex-direction: column;
+    gap: var(--sp-md);
+  }
+  .wi-cover,
+  .wi-video-col {
+    margin-right: 0;
+  }
+  /* Video item keeps thumbnail + watch-link grouped in .wi-video-col (so the
+     column stacks thumbnail → watch-link), with the body copy below it. */
+  .wi-video-col {
+    width: 100%;
+    max-width: 274px;
+  }
+  .wi-yt-thumb {
+    width: 100%;
+    max-width: 274px;
+    height: auto;
+    aspect-ratio: 274 / 191;
+  }
+  .wi-copy-col {
+    height: auto;
+    width: 100%;
+    padding-right: 0;
+    gap: var(--sp-md);
+  }
+  .wi-copy-col .wi-body { flex: none; }
+  .wi-copy-col .wi-streaming { margin-top: 0; }
+}
+
 /* ── Large Video work item (Component 4) — full-width stacked with 16:9 embed ── */
 .wi-large-video {
   padding: var(--sp-xl) 0;

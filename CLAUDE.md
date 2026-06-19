@@ -305,6 +305,11 @@ All three component types use the same `.wi` wrapper and share `.wi-eyebrow`, `.
 
 The container is `.wi-list` (max-width **780px**, padding 0 64px) — narrower column, consistent with all pages. `.wi-list--narrow` is also 780px and is used on the laura page sections. Use `<article class="wi">` for each item.
 
+**Mobile (`max-width: 620px`)** — defined in `main.css` right after the streaming-icon rules:
+- `.wi-list` / `.wi-list--narrow` side padding drops 64px → 24px (matches the hero side-padding reduction; hero content rules in each page's inline `<style>` also go to 24px at ≤620px).
+- `.wi-media-row` switches to `flex-direction: column`, so the cover (or video thumbnail) sits **on top** and the copy flows **below** it — the Figma "Audiobook with Cover/Mobile" variant (node `478:6914`). `.wi-copy-col` drops its fixed `height: 173px` to auto + full width with a `--sp-md` gap between body and links; the video thumbnail gets `max-width: 100%` + `aspect-ratio` so it never overflows.
+- **Video items** stack **thumbnail → "Watch on YouTube" link → body copy**. The thumbnail and watch link stay grouped inside `.wi-video-col` (which stacks them), and that column sits above `.wi-copy-col` (body) once `.wi-media-row` is `column` — no `order` needed.
+
 ### Component 1 — Section/Video and Section/Interactive
 
 Video thumbnail (274×191px) and body copy are **side-by-side** in a two-column row. "Watch on YouTube" link sits below the thumbnail inside col1.
