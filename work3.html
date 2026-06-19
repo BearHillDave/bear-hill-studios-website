@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="c">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work — Option 3 — Bear Hill Studios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="main.css">
+  <style>
+    /* =====================================================
+       OPTION 3 — Type-based sections (most editorial)
+       Three separate sub-sections, each with its own ideal
+       layout for that content type.
+         1. Film & Video  — wide 16:9 thumbnail
+         2. Immersive Audiobooks — square cover + player
+         3. Sound Design & Voice — player-forward, no image
+       Section headers become the primary navigators.
+       ===================================================== */
+
+    .exp-badge {
+      position: fixed;
+      top: 5.2rem;
+      right: 1.5rem;
+      z-index: 150;
+      background: var(--c3);
+      color: var(--black);
+      font-family: var(--sans);
+      font-size: 0.58rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.28rem 0.7rem;
+      border-radius: 100px;
+      pointer-events: none;
+    }
+
+    /* Sub-section spacing */
+    .work-section { padding: 5rem 0; }
+    .work-section + .work-section {
+      border-top: 1px solid rgba(237,230,216,0.07);
+    }
+    .work-section-head { margin-bottom: 2.5rem; }
+
+    /* ── SECTION 1: Video rows ── */
+    /* Wide 16:9 thumb left, text right */
+    .proj-list { margin-top: 0; }
+    .proj-item {
+      display: flex;
+      gap: 2.75rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid rgba(237,230,216,0.1);
+      align-items: flex-start;
+    }
+    .proj-item:first-child { border-top: 1px solid rgba(237,230,216,0.1); }
+
+    /* Video: a generous 360×203 (16:9) panel */
+    .media-video {
+      width: 360px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .media-video-thumb {
+      width: 360px;
+      height: 203px;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      background: rgba(237,230,216,0.04);
+      text-decoration: none;
+      display: block;
+    }
+    .media-video-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.2s;
+    }
+    .media-video-thumb:hover img { opacity: 0.82; }
+    .vid-play {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--c2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      transition: transform 0.2s var(--ease);
+    }
+    .media-video-thumb:hover .vid-play { transform: translate(-50%, -50%) scale(1.1); }
+    .vid-yt-link {
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: oklch(52% 0.01 80);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .vid-yt-link:hover { color: var(--c2); }
+
+    /* ── SECTION 2: Audiobook grid ── */
+    /* Two-column card grid; each card has cover art prominent */
+    .book-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 0;
+    }
+    .book-card {
+      background: rgba(237,230,216,0.04);
+      padding: 2.25rem;
+      display: flex;
+      gap: 1.75rem;
+      align-items: flex-start;
+      transition: background 0.2s;
+    }
+    .book-card:hover { background: rgba(237,230,216,0.08); }
+    .book-cover {
+      width: 120px;
+      height: 120px;
+      border-radius: 3px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .book-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .book-meta { flex: 1; min-width: 0; }
+    .book-player-row { margin-top: 1.25rem; }
+
+    /* In-progress card variant */
+    .book-card--dim { opacity: 0.5; }
+
+    /* ── SECTION 3: Audio-only rows ── */
+    /* Player-md as left accent, text dominant */
+    .audio-list { margin-top: 0; }
+    .audio-item {
+      display: flex;
+      gap: 2rem;
+      padding: 2.25rem 0;
+      border-bottom: 1px solid rgba(237,230,216,0.1);
+      align-items: center;
+    }
+    .audio-item:first-child { border-top: 1px solid rgba(237,230,216,0.1); }
+    .audio-player-col {
+      width: 76px;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .audio-body { flex: 1; min-width: 0; }
+
+    /* Shared text styles */
+    .proj-type {
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--c1);
+      margin-bottom: 0.4rem;
+    }
+    .proj-title-v2 {
+      font-family: var(--serif);
+      font-size: 1.75rem;
+      font-weight: 500;
+      line-height: 1.18;
+      color: var(--cream);
+      margin-bottom: 0.3rem;
+    }
+    .proj-title-sm {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--cream);
+      margin-bottom: 0.2rem;
+    }
+    .proj-credits-line {
+      font-size: 0.75rem;
+      color: oklch(60% 0.01 80);
+      margin-bottom: 0.85rem;
+      line-height: 1.6;
+    }
+    .proj-desc-v2 {
+      font-size: 0.9rem;
+      color: oklch(72% 0.01 80);
+      line-height: 1.72;
+      max-width: 580px;
+      margin-bottom: 1.1rem;
+    }
+    .proj-body { flex: 1; min-width: 0; }
+
+    /* Purchase / streaming icon row */
+    .brand-links {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-top: 0.25rem;
+    }
+    .brand-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+      color: oklch(52% 0.01 80);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    .brand-link:hover { color: var(--cream); }
+  </style>
+</head>
+<body>
+
+<div class="exp-badge">Option 3 · Type Sections</div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="logo">
+    <a href="index.html">
+      <svg class="logo-img logo-img--white" width="82" height="82" viewBox="0 0 126 126" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Bear Hill Studios"><circle cx="63" cy="63" r="63" fill="white"></circle><path d="M27.4373 39.6515L19.5625 33.8123L20.4381 32.6266C20.828 32.0985 21.1796 31.708 21.4926 31.455C21.8082 31.1987 22.1434 31.0333 22.4983 30.959C22.8624 30.8862 23.2419 30.8961 23.6367 30.9885C24.0375 31.08 24.3926 31.2404 24.702 31.4699C25.2664 31.8884 25.5844 32.459 25.6558 33.1816C26.1081 32.8684 26.6021 32.7232 27.1377 32.7461C27.6725 32.7629 28.1745 32.9453 28.6437 33.2933C29.2591 33.7496 29.6183 34.3534 29.7213 35.1047C29.7894 35.5612 29.7537 35.9908 29.6141 36.3935C29.4486 36.8244 29.167 37.309 28.7695 37.8473L27.4373 39.6515ZM23.8233 35.1289L24.0988 34.7558C24.4259 34.3128 24.568 33.9173 24.5251 33.5692C24.4814 33.2151 24.2691 32.8969 23.8883 32.6145C23.5177 32.3397 23.1592 32.2373 22.8128 32.3074C22.463 32.3749 22.1396 32.6097 21.8428 33.0117L21.5333 33.4308L23.8233 35.1289ZM27.1997 37.6324L27.7431 36.8965C28.1406 36.3581 28.3271 35.8847 28.3025 35.4763C28.2709 35.0416 28.08 34.6944 27.7298 34.4347C27.3898 34.1826 27.0098 34.0986 26.5899 34.1827C26.1784 34.2625 25.7362 34.6227 25.2632 35.2632L24.8179 35.8663L27.1997 37.6324Z" fill="black"></path><path d="M59.4192 45.4511C55.4859 37.3892 45.2892 42.2224 46.9211 50.6555C44.0544 55.2774 45.8438 59.2651 43.492 67.3939C40.3005 75.6123 38.3796 79.3059 33.3696 84.265C45.9946 82.4395 51.2059 74.9274 61.5393 74.9274C72.2871 74.9274 74.072 79.9836 91.662 84.265C87.9286 83.2221 83.964 80.4685 81.2864 78.3859C78.7542 76.4165 78.8671 75.0931 79.0571 73.9488C79.2425 71.7583 81.4702 70.5347 86.112 68.3538C90.0591 65.9411 91.7919 64.0678 92.3683 58.0026C92.8184 55.0424 90.8933 53.8609 86.2949 53.1985C81.6965 52.5361 79.9654 51.7404 77.7513 49.3293C74.8977 45.9336 69.5159 45.713 68.0549 45.5553C65.5207 45.3592 64.5112 45.1858 59.4192 45.4511Z" fill="black" stroke="black" stroke-linejoin="round"></path><ellipse cx="71.0922" cy="54.3501" rx="2.04536" ry="2.04536" fill="white"></ellipse></svg>
+    </a>
+  </div>
+  <ul class="nav-links">
+    <li><a class="nav-link" href="index.html">Home</a></li>
+    <li><a class="nav-link active" href="work.html">Work</a></li>
+    <li><a class="nav-link" href="laura.html">Laura</a></li>
+    <li><a class="nav-link" href="about.html">About</a></li>
+    <li><a class="nav-link" href="contact.html">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="contact.html">Get in touch</a>
+</nav>
+
+<!-- PAGE HEAD -->
+<div id="page-head" class="page-head">
+  <div class="page-head-bg" style="background-image:url('assets/stream.jpg')"></div>
+  <div class="page-head-vignette"></div>
+  <div class="page-head-inner wrap">
+    <p class="eyebrow" style="color:oklch(72% 0.010 80)">What we've made</p>
+    <h1>The work.</h1>
+    <p class="sub">Immersive audiobooks, ambient sound design, interactive audio. Everything here is something we're proud of.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 1: FILM & VIDEO
+     ═══════════════════════════════════════════════════ -->
+<section class="sec work-section">
+  <div class="wrap">
+    <div class="work-section-head reveal">
+      <p class="eyebrow">Film &amp; Video</p>
+      <h2 class="heading">Stories worth watching.</h2>
+      <p class="body-text" style="margin-bottom:0">Immersive audio brought to the screen — produced for Audible and YouTube.</p>
+    </div>
+
+    <div class="proj-list">
+      <div class="proj-item reveal d1">
+        <div class="media-video">
+          <a class="media-video-thumb" href="https://www.youtube.com/watch?v=-mW5If3EqFQ" target="_blank" rel="noopener" aria-label="Watch on YouTube">
+            <img src="https://img.youtube.com/vi/-mW5If3EqFQ/maxresdefault.jpg" alt="Millions of Cats and Stars">
+            <span class="vid-play">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><polygon points="5,2 16,9 5,16" fill="white"/></svg>
+            </span>
+          </a>
+          <a class="vid-yt-link" href="https://www.youtube.com/watch?v=-mW5If3EqFQ" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+        </div>
+        <div class="proj-body">
+          <p class="proj-type">Immersive Audiobook · Video</p>
+          <h3 class="proj-title-v2">Millions of Cats and Stars</h3>
+          <p class="proj-credits-line">Author — Wanda Gág &nbsp;·&nbsp; Narrator — Laura Cox &nbsp;·&nbsp; Sound design — Dave Cox</p>
+          <p class="proj-desc-v2">An immersive retelling of Wanda Gág's classic — spatial sound design, original score elements and full narration. Produced for Audible's Originals catalogue. The video brings the world of the book to life in motion.</p>
+          <div class="brand-links">
+            <a href="https://www.youtube.com/watch?v=-mW5If3EqFQ" class="brand-link" title="YouTube" target="_blank"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M21.58 6.19a2.51 2.51 0 00-1.77-1.77C18.25 4 12 4 12 4s-6.25 0-7.81.42A2.51 2.51 0 002.42 6.19C2 7.75 2 12 2 12s0 4.25.42 5.81a2.51 2.51 0 001.77 1.77C5.75 20 12 20 12 20s6.25 0 7.81-.42a2.51 2.51 0 001.77-1.77C22 16.25 22 12 22 12s0-4.25-.42-5.81zM10 15.46V8.54L16 12l-6 3.46z"/></svg></a>
+            <a href="#" class="brand-link" title="Audible"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 2: IMMERSIVE AUDIOBOOKS
+     ═══════════════════════════════════════════════════ -->
+<section class="sec bg-mid work-section">
+  <div class="wrap">
+    <div class="work-section-head reveal">
+      <p class="eyebrow">Immersive Audiobooks</p>
+      <h2 class="heading">Stories with a world inside them.</h2>
+      <p class="body-text" style="margin-bottom:0">Full narration layered with spatial sound design. Not an audiobook with atmosphere — a world you inhabit.</p>
+    </div>
+
+    <div class="book-grid">
+
+      <!-- VR -->
+      <div class="book-card reveal d1">
+        <div class="book-cover">
+          <img src="assets/VR Cover 3000x3000.png" alt="The Velveteen Rabbit">
+        </div>
+        <div class="book-meta">
+          <p class="proj-type">2023</p>
+          <h3 class="proj-title-sm">The Velveteen Rabbit</h3>
+          <p class="proj-credits-line">Margery Williams &nbsp;·&nbsp; Laura Cox narrator</p>
+          <p style="font-size:0.85rem;color:oklch(68% 0.01 80);line-height:1.65;margin-bottom:0.75rem;">A toy rabbit's journey to becoming real — intimate narration and layered environmental audio.</p>
+          <div class="book-player-row">
+            <div class="player-unit">
+              <div class="player player-sm" data-player="w3-vr" data-dur="118" data-color="c3"></div>
+              <div class="player-unit-meta">
+                <span class="player-unit-label">Sample</span>
+                <a class="player-unit-dl" href="#" download><svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg> MP3</a>
+              </div>
+            </div>
+          </div>
+          <div class="brand-links" style="margin-top:0.85rem;">
+            <a href="#" class="brand-link" title="Audible"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg></a>
+            <a href="#" class="brand-link" title="Apple Books"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 14H7v-2h10v2zm0-4H7v-2h10v2zm0-4H7V6h10v2z"/></svg></a>
+            <a href="#" class="brand-link" title="Spotify"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.627.627 0 01-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.627.627 0 01-.277-1.221c3.809-.87 7.076-.496 9.712 1.115.294.18.387.565.207.863zm1.223-2.722a.785.785 0 01-1.077.259c-2.687-1.651-6.785-2.131-9.965-1.166a.785.785 0 01-.455-1.501c3.632-1.102 8.147-.568 11.239 1.331a.786.786 0 01.258 1.077zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.942.942 0 11-.546-1.8c3.532-1.073 9.404-.866 13.115 1.338a.942.942 0 01-.952 1.619z"/></svg></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- TNBC -->
+      <div class="book-card reveal d2">
+        <div class="book-cover">
+          <img src="assets/TTNBC Cover 3000x3000.jpg" alt="'Twas the Night Before Christmas">
+        </div>
+        <div class="book-meta">
+          <p class="proj-type">2023</p>
+          <h3 class="proj-title-sm">'Twas the Night Before Christmas</h3>
+          <p class="proj-credits-line">Clement Clarke Moore &nbsp;·&nbsp; Laura Cox narrator</p>
+          <p style="font-size:0.85rem;color:oklch(68% 0.01 80);line-height:1.65;margin-bottom:0.75rem;">Every creak, sleigh bell and snowstep placed in three-dimensional space.</p>
+          <div class="book-player-row">
+            <div class="player-unit">
+              <div class="player player-sm" data-player="w3-tnbc" data-dur="90" data-color="c3"></div>
+              <div class="player-unit-meta">
+                <span class="player-unit-label">Sample</span>
+                <a class="player-unit-dl" href="#" download><svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg> MP3</a>
+              </div>
+            </div>
+          </div>
+          <div class="brand-links" style="margin-top:0.85rem;">
+            <a href="#" class="brand-link" title="Audible"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg></a>
+            <a href="#" class="brand-link" title="Apple Books"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 14H7v-2h10v2zm0-4H7v-2h10v2zm0-4H7V6h10v2z"/></svg></a>
+            <a href="#" class="brand-link" title="Spotify"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424a.627.627 0 01-.857.207c-2.348-1.435-5.304-1.76-8.785-.964a.627.627 0 01-.277-1.221c3.809-.87 7.076-.496 9.712 1.115.294.18.387.565.207.863zm1.223-2.722a.785.785 0 01-1.077.259c-2.687-1.651-6.785-2.131-9.965-1.166a.785.785 0 01-.455-1.501c3.632-1.102 8.147-.568 11.239 1.331a.786.786 0 01.258 1.077zm.105-2.835C14.692 8.95 9.375 8.775 6.297 9.71a.942.942 0 11-.546-1.8c3.532-1.073 9.404-.866 13.115 1.338a.942.942 0 01-.952 1.619z"/></svg></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- In progress — dimmed -->
+      <div class="book-card book-card--dim reveal d3" style="grid-column:1/-1;flex-direction:row;align-items:center;gap:2rem;">
+        <div style="width:72px;height:72px;border-radius:3px;background:rgba(237,230,216,0.06);flex-shrink:0;display:flex;align-items:center;justify-content:center;">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="rgba(237,230,216,0.2)" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M12 8v8"/></svg>
+        </div>
+        <div>
+          <p class="proj-type" style="color:oklch(50% 0.01 80);">Narration · In progress</p>
+          <h3 class="proj-title-sm" style="color:oklch(55% 0.01 80);">Untitled thriller</h3>
+          <p style="font-size:0.8rem;color:oklch(48% 0.01 80);">Straight narration for ACX. No sample available until published.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     SECTION 3: SOUND DESIGN & VOICE
+     ═══════════════════════════════════════════════════ -->
+<section class="sec work-section">
+  <div class="wrap">
+    <div class="work-section-head reveal">
+      <p class="eyebrow">Sound Design &amp; Voice</p>
+      <h2 class="heading">Audio that goes elsewhere.</h2>
+      <p class="body-text" style="margin-bottom:0">Not everything we make is an audiobook. These pieces show range — listed without overstatement.</p>
+    </div>
+
+    <div class="audio-list">
+
+      <!-- Sleep Soundscape -->
+      <div class="audio-item reveal d1">
+        <div class="audio-player-col">
+          <div class="player player-md" data-player="w3-ss" data-dur="90" data-label="Excerpt" data-color="c1"></div>
+        </div>
+        <div class="audio-body">
+          <p class="proj-type">Ambient · Sound Design · YouTube</p>
+          <h3 class="proj-title-v2">Sleep Soundscape — Forest at Night</h3>
+          <p class="proj-credits-line">Sound design — Dave Cox</p>
+          <p class="proj-desc-v2">An hour-long immersive ambient piece with original sound design and visual accompaniment. Designed as craft — not content. Available on YouTube and as a downloadable WAV.</p>
+          <div class="brand-links">
+            <a href="#" class="brand-link" title="YouTube"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M21.58 6.19a2.51 2.51 0 00-1.77-1.77C18.25 4 12 4 12 4s-6.25 0-7.81.42A2.51 2.51 0 002.42 6.19C2 7.75 2 12 2 12s0 4.25.42 5.81a2.51 2.51 0 001.77 1.77C5.75 20 12 20 12 20s6.25 0 7.81-.42a2.51 2.51 0 001.77-1.77C22 16.25 22 12 22 12s0-4.25-.42-5.81zM10 15.46V8.54L16 12l-6 3.46z"/></svg></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Catmasonic -->
+      <div class="audio-item reveal d2">
+        <div class="audio-player-col">
+          <div class="player player-md" data-player="w3-cat" data-dur="70" data-label="Excerpt" data-color="c2"></div>
+        </div>
+        <div class="audio-body">
+          <p class="proj-type">Voice · Interactive · Wellbeing</p>
+          <h3 class="proj-title-v2">Catmasonic — Important Small Things</h3>
+          <p class="proj-credits-line">Voice — Laura Cox &nbsp;·&nbsp; Production — Bear Hill Studios</p>
+          <p class="proj-desc-v2">Voice production for an interactive wellbeing app. An ongoing relationship with the team behind Melody VR — bringing warmth and presence to guided experiences.</p>
+          <div class="brand-links">
+            <a href="#" class="brand-link" title="App store"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg></a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <div class="wrap-n">
+    <h2 class="cta-title">Want to make something together?</h2>
+    <p class="cta-body">We're open to projects at every point of the spectrum — from full immersive production to narration only.</p>
+    <a href="contact.html" class="btn btn-amber">Get in touch</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <div class="footer-logo">
+      <svg width="36" height="36" viewBox="0 0 126 126" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="63" cy="63" r="63" fill="white"></circle><path d="M59.4192 45.4511C55.4859 37.3892 45.2892 42.2224 46.9211 50.6555C44.0544 55.2774 45.8438 59.2651 43.492 67.3939C40.3005 75.6123 38.3796 79.3059 33.3696 84.265C45.9946 82.4395 51.2059 74.9274 61.5393 74.9274C72.2871 74.9274 74.072 79.9836 91.662 84.265C87.9286 83.2221 83.964 80.4685 81.2864 78.3859C78.7542 76.4165 78.8671 75.0931 79.0571 73.9488C79.2425 71.7583 81.4702 70.5347 86.112 68.3538C90.0591 65.9411 91.7919 64.0678 92.3683 58.0026C92.8184 55.0424 90.8933 53.8609 86.2949 53.1985C81.6965 52.5361 79.9654 51.7404 77.7513 49.3293C74.8977 45.9336 69.5159 45.713 68.0549 45.5553C65.5207 45.3592 64.5112 45.1858 59.4192 45.4511Z" fill="black" stroke="black" stroke-linejoin="round"></path><ellipse cx="71.0922" cy="54.3501" rx="2.04536" ry="2.04536" fill="white"></ellipse></svg>
+      <span class="footer-note">Bear Hill Studios · Bath, UK</span>
+    </div>
+    <p class="footer-note">© 2026 Bear Hill Studios. All rights reserved.</p>
+    <div class="footer-links">
+      <a class="footer-link" href="work.html">Work</a>
+      <a class="footer-link" href="laura.html">Laura</a>
+      <a class="footer-link" href="about.html">About</a>
+      <a class="footer-link" href="contact.html">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

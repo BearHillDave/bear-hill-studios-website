@@ -1,0 +1,1722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bear Hill Studios</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── DESIGN TOKENS ──────────────────────────────────── */
+    :root {
+      --cream:        #f5f0e8;
+      --cream-dark:   #ede6d8;
+      --green:        #1c3429;
+      --green-mid:    #2a4a39;
+      --green-light:  #3d6b52;
+      --gold:         #b8872a;
+      --gold-light:   #d4a84b;
+      --charcoal:     #2c2823;
+      --stone:        #7a7065;
+      --white:        #ffffff;
+
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'Jost', system-ui, sans-serif;
+
+      --radius:       4px;
+      --nav-h:        72px;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ─── RESET & BASE ───────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--charcoal);
+      font-size: 16px;
+      line-height: 1.7;
+      font-weight: 300;
+      /* Subtle grain texture */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+    }
+
+    img { display: block; max-width: 100%; }
+    a   { color: inherit; text-decoration: none; }
+    ul  { list-style: none; }
+
+    /* ─── TYPOGRAPHY ─────────────────────────────────────── */
+    h1, h2, h3, h4 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: 0.01em;
+    }
+    h1 { font-size: clamp(2.4rem, 5vw, 4rem); }
+    h2 { font-size: clamp(1.9rem, 3.5vw, 2.8rem); }
+    h3 { font-size: clamp(1.4rem, 2.5vw, 1.9rem); }
+    h4 { font-size: 1.1rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; font-family: var(--font-body); }
+
+    .eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    p { max-width: 64ch; }
+    p + p { margin-top: 1rem; }
+
+    /* ─── UTILITIES ──────────────────────────────────────── */
+    .container {
+      width: min(1160px, 100% - 3rem);
+      margin-inline: auto;
+    }
+
+    .section { padding: 6rem 0; }
+    .section--lg { padding: 9rem 0; }
+
+    .bg-green   { background: var(--green); color: var(--cream); }
+    .bg-cream-d { background: var(--cream-dark); }
+
+    .text-gold   { color: var(--gold); }
+    .text-stone  { color: var(--stone); }
+    .text-center { text-align: center; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+
+    /* ─── BUTTON ─────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 2rem;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border: 1px solid currentColor;
+      border-radius: var(--radius);
+      cursor: pointer;
+      background: transparent;
+      transition: background 0.25s, color 0.25s;
+    }
+    .btn-primary {
+      background: var(--green);
+      color: var(--cream);
+      border-color: var(--green);
+    }
+    .btn-primary:hover {
+      background: var(--green-mid);
+      border-color: var(--green-mid);
+    }
+    .btn-outline {
+      color: var(--cream);
+      border-color: rgba(245,240,232,0.5);
+    }
+    .btn-outline:hover {
+      background: rgba(245,240,232,0.1);
+    }
+    .btn-gold {
+      background: var(--gold);
+      color: var(--cream);
+      border-color: var(--gold);
+    }
+    .btn-gold:hover {
+      background: var(--gold-light);
+      border-color: var(--gold-light);
+    }
+
+    /* ─── DIVIDER ────────────────────────────────────────── */
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin: 1.5rem 0;
+    }
+    .divider--center { margin-inline: auto; }
+
+    /* ─── NAV ────────────────────────────────────────────── */
+    #site-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      background: var(--green);
+      display: flex;
+      align-items: center;
+      transition: box-shadow 0.3s;
+    }
+    #site-nav.scrolled {
+      box-shadow: 0 2px 24px rgba(0,0,0,0.18);
+    }
+    .nav-inner {
+      width: min(1160px, 100% - 3rem);
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo img {
+      height: 36px;
+      filter: invert(1) brightness(1.8);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+    .nav-links a {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.75);
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--gold);
+      transform: scaleX(0);
+      transition: transform 0.2s var(--ease-out);
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--cream);
+    }
+    .nav-links a:hover::after, .nav-links a.active::after {
+      transform: scaleX(1);
+    }
+    .nav-cta {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--cream);
+      background: var(--gold);
+      padding: 0.55rem 1.4rem;
+      border-radius: var(--radius);
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--gold-light); }
+
+    /* Hamburger */
+    .nav-burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-burger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--cream);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Mobile menu */
+    .nav-mobile {
+      display: none;
+      position: fixed;
+      top: var(--nav-h);
+      left: 0;
+      right: 0;
+      background: var(--green);
+      padding: 2rem;
+      flex-direction: column;
+      gap: 1.5rem;
+      z-index: 99;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .nav-mobile.open { display: flex; }
+    .nav-mobile a {
+      font-size: 1.1rem;
+      font-family: var(--font-display);
+      color: var(--cream);
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    /* ─── PAGE SYSTEM ────────────────────────────────────── */
+    .page { display: none; padding-top: var(--nav-h); }
+    .page.active { display: block; }
+
+    /* ─── HERO ───────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: calc(100svh - var(--nav-h));
+      display: flex;
+      align-items: center;
+      background: var(--green);
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      opacity: 0.2;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--green) 40%, transparent 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+    }
+    .hero-content .eyebrow { color: var(--gold-light); margin-bottom: 1.5rem; }
+    .hero-content h1 { color: var(--cream); font-weight: 300; font-style: italic; margin-bottom: 1.5rem; }
+    .hero-content h1 em { font-style: normal; font-weight: 500; color: var(--gold-light); }
+    .hero-content p { color: rgba(245,240,232,0.8); font-size: 1.05rem; margin-bottom: 2.5rem; max-width: 52ch; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* Scroll indicator */
+    .scroll-cue {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(245,240,232,0.4);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      animation: bob 2s ease-in-out infinite;
+    }
+    .scroll-cue svg { width: 16px; opacity: 0.5; }
+    @keyframes bob {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ─── SERVICES STRIP ─────────────────────────────────── */
+    .services-strip {
+      background: var(--cream-dark);
+      padding: 0;
+      border-bottom: 1px solid rgba(28,52,41,0.12);
+    }
+    .services-strip .container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+    .service-pill {
+      padding: 2rem 1.5rem;
+      border-right: 1px solid rgba(28,52,41,0.12);
+      cursor: pointer;
+      transition: background 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .service-pill:last-child { border-right: none; }
+    .service-pill:hover { background: rgba(28,52,41,0.05); }
+    .service-pill .pill-icon { font-size: 1.4rem; margin-bottom: 0.3rem; }
+    .service-pill .pill-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: var(--green);
+    }
+    .service-pill .pill-sub {
+      font-size: 0.72rem;
+      color: var(--stone);
+      letter-spacing: 0.05em;
+    }
+    .service-pill .pill-arrow {
+      margin-top: 0.8rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+    }
+
+    /* ─── BOOKS SECTION ──────────────────────────────────── */
+    .books-section { background: var(--green); }
+    .books-section .section-intro {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    .books-section .section-intro h2 { color: var(--cream); }
+    .books-section .section-intro p  { color: rgba(245,240,232,0.7); margin-inline: auto; }
+    .books-section .eyebrow { color: var(--gold-light); }
+
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .book-card {
+      cursor: pointer;
+      transition: transform 0.3s var(--ease-out);
+    }
+    .book-card:hover { transform: translateY(-6px); }
+    .book-card-img {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 1;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .book-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s var(--ease-out);
+    }
+    .book-card:hover .book-card-img img { transform: scale(1.04); }
+    .book-card-info { padding: 1.25rem 0.25rem 0; }
+    .book-card-info h3 {
+      font-size: 1.2rem;
+      color: var(--cream);
+      margin-top: 0.3rem;
+    }
+    .book-card-info .eyebrow { color: var(--gold-light); font-size: 0.62rem; }
+    .book-card-info p {
+      color: rgba(245,240,232,0.6);
+      font-size: 0.85rem;
+      margin-top: 0.4rem;
+    }
+
+    /* ─── TEAM / ABOUT ───────────────────────────────────── */
+    .team-section {}
+    .team-card {
+      display: grid;
+      grid-template-columns: 400px 1fr;
+      gap: 5rem;
+      align-items: center;
+      padding: 5rem 0;
+      border-bottom: 1px solid rgba(28,52,41,0.1);
+    }
+    .team-card:last-child { border-bottom: none; }
+    .team-card.reverse { direction: rtl; }
+    .team-card.reverse > * { direction: ltr; }
+    .team-photo {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      box-shadow: 8px 8px 0 var(--cream-dark), 9px 9px 0 rgba(28,52,41,0.15);
+    }
+    .team-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .team-info .eyebrow { margin-bottom: 0.75rem; }
+    .team-info h2 { margin-bottom: 0.5rem; }
+    .team-info .role {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--stone);
+      margin-bottom: 1.5rem;
+    }
+    .team-info p { color: var(--charcoal); opacity: 0.85; }
+    .team-info .btn { margin-top: 2rem; }
+
+    .credentials {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+    }
+    .credential {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+    }
+    .credential::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+      position: relative;
+      top: -2px;
+    }
+
+    /* ─── TESTIMONIAL ────────────────────────────────────── */
+    .testimonial-block {
+      background: var(--green);
+      padding: 3.5rem;
+      border-radius: var(--radius);
+      position: relative;
+    }
+    .testimonial-block::before {
+      content: '\201C';
+      font-family: var(--font-display);
+      font-size: 6rem;
+      line-height: 0.5;
+      color: var(--gold);
+      opacity: 0.4;
+      position: absolute;
+      top: 1.5rem;
+      left: 2rem;
+    }
+    .testimonial-block blockquote {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1rem, 1.5vw, 1.3rem);
+      color: var(--cream);
+      position: relative;
+      z-index: 1;
+      line-height: 1.6;
+    }
+    .testimonial-block cite {
+      display: block;
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      font-style: normal;
+      font-family: var(--font-body);
+      letter-spacing: 0.1em;
+      color: var(--gold-light);
+      text-transform: uppercase;
+    }
+
+    /* ─── PAGE HERO (inner pages) ────────────────────────── */
+    .page-hero {
+      position: relative;
+      background: var(--green);
+      padding: 5rem 0 4rem;
+      overflow: hidden;
+    }
+    .page-hero-bg {
+      position: absolute;
+      inset: 0;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+      opacity: 0.12;
+    }
+    .page-hero-inner { position: relative; z-index: 1; }
+    .page-hero .eyebrow { color: var(--gold-light); margin-bottom: 1rem; }
+    .page-hero h1 {
+      color: var(--cream);
+      font-style: italic;
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+    .page-hero p {
+      color: rgba(245,240,232,0.7);
+      font-size: 1.1rem;
+      max-width: 56ch;
+    }
+
+    /* ─── VOICE ACTING PAGE ──────────────────────────────── */
+    .samples-section { padding: 5rem 0; }
+    .samples-intro { margin-bottom: 3rem; }
+    .samples-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+    .sample-card {
+      background: var(--cream-dark);
+      border: 1px solid rgba(28,52,41,0.1);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .sample-card-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .sample-category {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+    }
+    .sample-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      margin-top: 0.2rem;
+    }
+    .sample-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.25rem;
+    }
+    .tag {
+      font-size: 0.65rem;
+      padding: 0.2rem 0.6rem;
+      background: rgba(28,52,41,0.08);
+      border-radius: 100px;
+      color: var(--stone);
+      letter-spacing: 0.05em;
+    }
+    /* Fake audio player */
+    .audio-player {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+    .play-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--green);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+    .play-btn:hover { background: var(--green-mid); }
+    .play-btn svg { width: 14px; height: 14px; fill: var(--cream); margin-left: 2px; }
+    .waveform {
+      flex: 1;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .waveform-bar {
+      flex: 1;
+      background: rgba(28,52,41,0.15);
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .sample-card:hover .waveform-bar { background: rgba(28,52,41,0.25); }
+    .duration {
+      font-size: 0.7rem;
+      color: var(--stone);
+      flex-shrink: 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ─── VOICE COACHING PAGE ────────────────────────────── */
+    .coaching-split {
+      display: grid;
+      grid-template-columns: 1fr 480px;
+      gap: 5rem;
+      align-items: start;
+    }
+    .coaching-copy p { opacity: 0.85; }
+    .coaching-credentials {
+      background: var(--green);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      color: var(--cream);
+      position: sticky;
+      top: calc(var(--nav-h) + 2rem);
+    }
+    .coaching-credentials h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .coaching-credentials .eyebrow { color: var(--gold-light); margin-bottom: 0.5rem; }
+    .cred-list {
+      margin: 1.5rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .cred-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.9rem;
+      color: rgba(245,240,232,0.8);
+    }
+    .cred-item:last-child { border-bottom: none; }
+    .cred-num {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-style: italic;
+      color: var(--gold);
+      line-height: 1;
+      flex-shrink: 0;
+      width: 2rem;
+    }
+    .what-i-offer {
+      margin: 3rem 0;
+    }
+    .what-i-offer h3 { margin-bottom: 1.5rem; }
+    .offer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+      border: 1px solid rgba(28,52,41,0.1);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .offer-item {
+      padding: 1.5rem;
+      background: var(--cream-dark);
+    }
+    .offer-item h4 { font-size: 0.85rem; margin-bottom: 0.4rem; color: var(--green); }
+    .offer-item p { font-size: 0.85rem; max-width: none; opacity: 0.8; }
+
+    /* ─── SOUND DESIGN PAGE ──────────────────────────────── */
+    .sound-timeline {
+      position: relative;
+      padding-left: 2.5rem;
+    }
+    .sound-timeline::before {
+      content: '';
+      position: absolute;
+      top: 0.5rem;
+      bottom: 0;
+      left: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      padding-bottom: 3rem;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.5rem;
+      top: 0.45rem;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--cream);
+      box-shadow: 0 0 0 1px var(--gold);
+    }
+    .timeline-item h3 { margin-bottom: 0.5rem; font-size: 1.3rem; }
+    .timeline-item p { font-size: 0.9rem; opacity: 0.8; }
+
+    .featured-work {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    .work-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+    }
+    .work-card img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+    .work-card-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1.5rem 1rem 1rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.7));
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ─── CONTACT PAGE ───────────────────────────────────── */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 5rem;
+      align-items: start;
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .form-group label {
+      font-size: 0.68rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--stone);
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      padding: 0.8rem 1rem;
+      background: white;
+      border: 1px solid rgba(28,52,41,0.2);
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--charcoal);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--green-light);
+    }
+    .form-group textarea { min-height: 140px; resize: vertical; }
+
+    .contact-aside h3 { margin-bottom: 0.5rem; font-size: 1.4rem; }
+    .contact-aside .eyebrow { margin-bottom: 0.5rem; }
+    .contact-aside p { font-size: 0.9rem; opacity: 0.8; margin-bottom: 2rem; }
+    .contact-services {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .contact-service {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--cream-dark);
+      border-radius: var(--radius);
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: border-color 0.2s;
+    }
+    .contact-service:hover { border-color: rgba(28,52,41,0.15); }
+    .cs-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+    .cs-text h4 { font-size: 0.8rem; font-family: var(--font-body); text-transform: uppercase; letter-spacing: 0.1em; }
+    .cs-text p { font-size: 0.78rem; max-width: none; opacity: 0.7; }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: var(--charcoal);
+      color: var(--cream);
+      padding: 4rem 0 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-brand img {
+      height: 32px;
+      filter: invert(1) brightness(1.5);
+      margin-bottom: 1rem;
+    }
+    .footer-brand p {
+      font-size: 0.85rem;
+      opacity: 0.5;
+      max-width: 32ch;
+    }
+    .footer-col h4 {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    .footer-col ul {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .footer-col ul li a {
+      font-size: 0.85rem;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+    .footer-col ul li a:hover { opacity: 1; }
+    .footer-bottom {
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      opacity: 0.35;
+    }
+
+    /* ─── ANIMATIONS ─────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out) forwards;
+    }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .nav-links, .nav-cta { display: none; }
+      .nav-burger { display: flex; }
+
+      .grid-2 { grid-template-columns: 1fr; gap: 2rem; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .book-grid { grid-template-columns: repeat(2, 1fr); }
+      .services-strip .container { grid-template-columns: repeat(2, 1fr); }
+      .service-pill:nth-child(2) { border-right: none; }
+      .service-pill:nth-child(3) { border-top: 1px solid rgba(28,52,41,0.12); }
+      .service-pill:nth-child(4) { border-top: 1px solid rgba(28,52,41,0.12); }
+      .team-card { grid-template-columns: 1fr; gap: 2rem; }
+      .team-card.reverse { direction: ltr; }
+      .team-photo { aspect-ratio: 3/2; max-width: 400px; }
+      .coaching-split { grid-template-columns: 1fr; }
+      .coaching-credentials { position: static; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .featured-work { grid-template-columns: 1fr; }
+      .samples-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .book-grid { grid-template-columns: 1fr; }
+      .services-strip .container { grid-template-columns: 1fr; }
+      .service-pill { border-right: none !important; border-top: none !important; }
+      .service-pill + .service-pill { border-top: 1px solid rgba(28,52,41,0.12) !important; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .offer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─────────────────────────────────────────────── -->
+  <nav id="site-nav">
+    <div class="nav-inner">
+      <a class="nav-logo" href="#" onclick="showPage('home')">
+        <img src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/8b0f55a7-4867-447f-a712-dfae8020209a/Bear+Hill+Studios+Black.png?format=400w" alt="Bear Hill Studios" />
+      </a>
+      <div class="nav-links">
+        <a href="#" onclick="showPage('home')" data-page="home">Home</a>
+        <a href="#" onclick="showPage('voice-acting')" data-page="voice-acting">Voice Acting</a>
+        <a href="#" onclick="showPage('voice-coaching')" data-page="voice-coaching">Voice Coaching</a>
+        <a href="#" onclick="showPage('sound-design')" data-page="sound-design">Sound Design</a>
+        <a href="#" onclick="showPage('audiobooks')" data-page="audiobooks">Audiobooks</a>
+      </div>
+      <a class="nav-cta" href="#" onclick="showPage('contact')">Get in Touch</a>
+      <button class="nav-burger" id="burger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="nav-mobile" id="mobile-menu">
+    <a href="#" onclick="showPage('home'); closeMobile()">Home</a>
+    <a href="#" onclick="showPage('voice-acting'); closeMobile()">Voice Acting</a>
+    <a href="#" onclick="showPage('voice-coaching'); closeMobile()">Voice Coaching</a>
+    <a href="#" onclick="showPage('sound-design'); closeMobile()">Sound Design</a>
+    <a href="#" onclick="showPage('audiobooks'); closeMobile()">Audiobooks</a>
+    <a href="#" onclick="showPage('contact'); closeMobile()">Get in Touch</a>
+  </div>
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAGE: HOME                                             -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="page active" id="page-home">
+
+    <!-- Hero -->
+    <section class="hero">
+      <img class="hero-bg" src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/e4362e37-980c-4ed9-856c-7b42c90a08a3/flowers2.jpg" alt="" aria-hidden="true" />
+      <div class="hero-overlay"></div>
+      <div class="container">
+        <div class="hero-content">
+          <p class="eyebrow fade-up">Bath, England · Est. 2024</p>
+          <h1 class="fade-up delay-1">Voices & Sound<br/>that <em>stay with you</em></h1>
+          <p class="fade-up delay-2">Bear Hill Studios creates immersive children's audiobooks, professional voice acting and voice coaching — born from a love of storytelling and the human voice.</p>
+          <div class="hero-actions fade-up delay-3">
+            <a class="btn btn-gold" href="#" onclick="showPage('audiobooks')">Explore Our Audiobooks</a>
+            <a class="btn btn-outline" href="#" onclick="showPage('voice-acting')">Hire a Voice Artist</a>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-cue">
+        <svg viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="14" height="22" rx="7" stroke="currentColor" stroke-width="1.5"/><circle cx="8" cy="7" r="2" fill="currentColor"><animate attributeName="cy" values="7;15;7" dur="2s" repeatCount="indefinite"/></circle></svg>
+        <span>Scroll</span>
+      </div>
+    </section>
+
+    <!-- Services strip -->
+    <div class="services-strip">
+      <div class="container">
+        <div class="service-pill" onclick="showPage('audiobooks')">
+          <div class="pill-icon">📖</div>
+          <div class="pill-title">Audiobooks</div>
+          <div class="pill-sub">Immersive stories for children</div>
+          <div class="pill-arrow">Discover →</div>
+        </div>
+        <div class="service-pill" onclick="showPage('voice-acting')">
+          <div class="pill-icon">🎙</div>
+          <div class="pill-title">Voice Acting</div>
+          <div class="pill-sub">Commercials, narration, characters</div>
+          <div class="pill-arrow">Listen →</div>
+        </div>
+        <div class="service-pill" onclick="showPage('voice-coaching')">
+          <div class="pill-icon">✦</div>
+          <div class="pill-title">Voice Coaching</div>
+          <div class="pill-sub">Technique & vocal health</div>
+          <div class="pill-arrow">Learn more →</div>
+        </div>
+        <div class="service-pill" onclick="showPage('sound-design')">
+          <div class="pill-icon">🎚</div>
+          <div class="pill-title">Sound Design</div>
+          <div class="pill-sub">Games, XR, interactive media</div>
+          <div class="pill-arrow">See work →</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Books -->
+    <section class="section--lg books-section">
+      <div class="container">
+        <div class="section-intro">
+          <p class="eyebrow">Our Productions</p>
+          <h2>Audiobooks to lose yourself in</h2>
+          <div class="divider divider--center"></div>
+          <p>Beautifully produced, richly voiced and lovingly crafted — classic stories brought to life for a new generation.</p>
+        </div>
+        <div class="book-grid">
+          <div class="book-card" onclick="showPage('audiobooks')">
+            <div class="book-card-img">
+              <img src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/2346025d-cc84-4870-bfcd-80ae2a40a2c2/millions-of-cats-square.jpg" alt="Millions of Cats and Stars" loading="lazy" />
+            </div>
+            <div class="book-card-info">
+              <p class="eyebrow">Audiobook</p>
+              <h3>Millions of Cats and Stars</h3>
+              <p>A whimsical journey through a world of countless cats.</p>
+            </div>
+          </div>
+          <div class="book-card" onclick="showPage('audiobooks')">
+            <div class="book-card-img">
+              <img src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/34ccd3df-d963-4943-a656-3b7e4eba077e/VR+Cover+3000x3000.jpg" alt="The Velveteen Rabbit" loading="lazy" />
+            </div>
+            <div class="book-card-info">
+              <p class="eyebrow">Audiobook</p>
+              <h3>The Velveteen Rabbit</h3>
+              <p>The timeless tale of a toy who becomes real through love.</p>
+            </div>
+          </div>
+          <div class="book-card" onclick="showPage('audiobooks')">
+            <div class="book-card-img">
+              <img src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/973a804c-ffd6-4eaf-bf36-ece94522e37d/TTNBC+Cover+3000x3000.png" alt="Twas the Night Before Christmas" loading="lazy" />
+            </div>
+            <div class="book-card-info">
+              <p class="eyebrow">Audiobook</p>
+              <h3>Twas the Night Before Christmas</h3>
+              <p>The beloved festive classic, reimagined for young ears.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team -->
+    <section class="section">
+      <div class="container">
+        <p class="eyebrow text-center">The People Behind the Studio</p>
+        <h2 class="text-center" style="margin-bottom: 0.75rem;">A husband &amp; wife creative team</h2>
+        <div class="divider divider--center"></div>
+
+        <div class="team-card">
+          <div class="team-photo">
+            <img src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/f57ecd68-5c9c-468d-be8d-62fd43444e21/laura-cox-head-shot.jpeg" alt="Laura Cox" loading="lazy" />
+          </div>
+          <div class="team-info">
+            <p class="eyebrow">Voice Artist & Coach</p>
+            <h2>Laura Cox</h2>
+            <p class="role">Warm, natural British voice · Speech & Language Therapist</p>
+            <p>Laura trained at the Bristol Old Vic Theatre School and worked with Nick Park on Chicken Run before building a career in voice acting spanning the London Olympics, BBC wildlife documentaries, and radio. She later retrained as a Speech and Language Therapist, bringing a rare clinical depth to her voice coaching.</p>
+            <a class="btn btn-primary" href="#" onclick="showPage('voice-acting')">Listen to Samples</a>
+          </div>
+        </div>
+
+        <div class="team-card reverse">
+          <div class="team-photo">
+            <img src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/bf300902-541b-4781-b037-5d6e2052da14/dc.jpg" alt="Dave Cox" loading="lazy" />
+          </div>
+          <div class="team-info">
+            <p class="eyebrow">Sound & Interaction Design</p>
+            <h2>Dave Cox</h2>
+            <p class="role">Creative Director · 30 years in digital & interactive</p>
+            <p>Dave co-founded award-winning digital agency Lean Mean Fighting Machine (later acquired by M&C Saatchi) and spent years leading product design in Virtual Reality. His expertise spans audio, animation, UX and interaction — all guided by a conviction that immersion is the most powerful storytelling tool we have.</p>
+            <a class="btn btn-primary" href="#" onclick="showPage('sound-design')">See His Work</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section bg-cream-d">
+      <div class="container">
+        <p class="eyebrow text-center" style="margin-bottom: 3rem;">What clients say</p>
+        <div class="grid-2">
+          <div class="testimonial-block">
+            <blockquote>
+              Having worked with Laura before we knew her voice would elevate the whole app, and it did — it made it so, so much better. Delivered on time and on budget.
+            </blockquote>
+            <cite>Kevin Moss — Important Small Things</cite>
+          </div>
+          <div class="testimonial-block">
+            <blockquote>
+              Laura is caring and skillfully remarkable. She has a unique and undeniable gift of understanding the therapeutic vocal needs of a voice actor.
+            </blockquote>
+            <cite>Russell Eakle — Voice Actor</cite>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="section text-center bg-green">
+      <div class="container">
+        <p class="eyebrow" style="color: var(--gold-light);">Let's work together</p>
+        <h2 style="color: var(--cream); margin-bottom: 1rem; font-style: italic;">Have a project in mind?</h2>
+        <p style="color: rgba(245,240,232,0.7); margin-inline: auto; margin-bottom: 2.5rem;">Whether you need a voice for your film, a coach to develop your technique, or an immersive sound world for your game — we'd love to hear from you.</p>
+        <a class="btn btn-gold" href="#" onclick="showPage('contact')">Start a Conversation</a>
+      </div>
+    </section>
+
+  </div><!-- /page-home -->
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAGE: VOICE ACTING                                     -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-voice-acting">
+
+    <div class="page-hero">
+      <img class="page-hero-bg" src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/a7184580-2590-413e-a28b-b6461f1d1d8e/studio-1.jpg" alt="" aria-hidden="true" />
+      <div class="container page-hero-inner">
+        <p class="eyebrow">Laura Cox</p>
+        <h1>Voice Artist</h1>
+        <p>A warm, natural British female voice for commercials, characters, narration and audiobooks.</p>
+      </div>
+    </div>
+
+    <!-- Samples -->
+    <section class="samples-section">
+      <div class="container">
+        <div class="samples-intro">
+          <p class="eyebrow">Demo Reel</p>
+          <h2>Listen to Laura's voice</h2>
+          <div class="divider"></div>
+          <p>From children's audiobooks to wildlife narration and commercial spots — Laura's voice adapts while remaining unmistakably warm and human.</p>
+        </div>
+        <div class="samples-grid">
+
+          <div class="sample-card">
+            <div class="sample-card-head">
+              <div>
+                <p class="sample-category">Narration</p>
+                <p class="sample-title">Wildlife Documentary</p>
+                <div class="sample-tags">
+                  <span class="tag">Warm</span><span class="tag">Natural</span><span class="tag">Wildlife</span>
+                </div>
+              </div>
+            </div>
+            <div class="audio-player">
+              <button class="play-btn" aria-label="Play sample">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+              <div class="waveform" id="wf1"></div>
+              <span class="duration">0:42</span>
+            </div>
+          </div>
+
+          <div class="sample-card">
+            <div class="sample-card-head">
+              <div>
+                <p class="sample-category">Audiobook</p>
+                <p class="sample-title">Children's Story</p>
+                <div class="sample-tags">
+                  <span class="tag">Fun</span><span class="tag">Characters</span><span class="tag">Accents</span>
+                </div>
+              </div>
+            </div>
+            <div class="audio-player">
+              <button class="play-btn" aria-label="Play sample">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+              <div class="waveform" id="wf2"></div>
+              <span class="duration">1:08</span>
+            </div>
+          </div>
+
+          <div class="sample-card">
+            <div class="sample-card-head">
+              <div>
+                <p class="sample-category">Commercial</p>
+                <p class="sample-title">Consumer Brand</p>
+                <div class="sample-tags">
+                  <span class="tag">Upbeat</span><span class="tag">Relatable</span><span class="tag">Friendly</span>
+                </div>
+              </div>
+            </div>
+            <div class="audio-player">
+              <button class="play-btn" aria-label="Play sample">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+              <div class="waveform" id="wf3"></div>
+              <span class="duration">0:30</span>
+            </div>
+          </div>
+
+          <div class="sample-card">
+            <div class="sample-card-head">
+              <div>
+                <p class="sample-category">Technical</p>
+                <p class="sample-title">Medical Narration</p>
+                <div class="sample-tags">
+                  <span class="tag">Precise</span><span class="tag">Authoritative</span><span class="tag">Clear</span>
+                </div>
+              </div>
+            </div>
+            <div class="audio-player">
+              <button class="play-btn" aria-label="Play sample">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+              <div class="waveform" id="wf4"></div>
+              <span class="duration">0:55</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Studio spec -->
+    <section class="section bg-cream-d">
+      <div class="container">
+        <div class="grid-2">
+          <div>
+            <p class="eyebrow">Studio Setup</p>
+            <h2>Professional home studio</h2>
+            <div class="divider"></div>
+            <p>Laura records from a fully treated home studio equipped with professional microphones and pre-amps, delivering broadcast-quality audio directly to your project.</p>
+            <ul class="credentials" style="margin-top: 1.5rem;">
+              <li class="credential">Professional equipment · broadcast quality</li>
+              <li class="credential">Production and full sound design available</li>
+              <li class="credential">Fast turnaround · remote direction welcome</li>
+              <li class="credential">Based in Bath, UK · GMT timezone</li>
+            </ul>
+            <a class="btn btn-primary" href="#" onclick="showPage('contact')" style="margin-top: 2rem;">Enquire about a project</a>
+          </div>
+          <div>
+            <img src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b42f590344e/519d329e-ee1c-4c0c-aa15-df6471e64f7d/VR-closeup.jpg" alt="Studio" style="border-radius: var(--radius); width: 100%; aspect-ratio: 4/3; object-fit: cover;" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bio -->
+    <section class="section">
+      <div class="container">
+        <div class="grid-2">
+          <div>
+            <p class="eyebrow">About Laura</p>
+            <h2>A voice built on experience</h2>
+            <div class="divider"></div>
+            <p>Laura began her career training at the Bristol Old Vic Theatre School, working with Nick Park and Peter Lord on Chicken Run — voicing additional chicken characters and recording guide tracks for Julia Sawalha and Jane Horrocks.</p>
+            <p>Her subsequent career spanned the original London Olympic cable car announcements, wildlife documentaries for BBC Studios Natural History, BBC Radio 4 plays, and a wide range of radio ads and narration.</p>
+            <p>Today, Laura balances voice acting with a clinical practice as a Speech and Language Therapist specialising in voice therapy — a unique combination that makes her an exceptional coach as well as performer.</p>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div class="testimonial-block">
+              <blockquote>Having worked with Laura before we knew her voice would elevate the whole app, and it did — it made it so, so much better. Delivered on time and on budget.</blockquote>
+              <cite>Kevin Moss — Important Small Things</cite>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+              <img src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/8dda8b05-c13f-4d26-9f23-052ae450a82d/chicken-run.jpg" alt="Chicken Run" style="border-radius: var(--radius); aspect-ratio: 1; object-fit: cover; width: 100%;" />
+              <img src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/c43c94ff-036f-4ad1-8fe5-bbe4ab911e0a/bbc-nhu-wh.png" alt="BBC NHU" style="border-radius: var(--radius); background: var(--green); padding: 1.5rem; aspect-ratio: 1; object-fit: contain; width: 100%;" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page-voice-acting -->
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAGE: VOICE COACHING                                   -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-voice-coaching">
+
+    <div class="page-hero">
+      <img class="page-hero-bg" src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/74de8914-e6b3-4d89-86f0-0f40a2130a95/studio-1.jpg" alt="" aria-hidden="true" />
+      <div class="container page-hero-inner">
+        <p class="eyebrow">Laura Cox</p>
+        <h1>Voice Coaching</h1>
+        <p>Combining professional acting experience with clinical Speech and Language Therapy — a uniquely informed approach to vocal development.</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container">
+        <div class="coaching-split">
+          <div class="coaching-copy">
+            <p class="eyebrow">My Approach</p>
+            <h2>Where performance meets clinical expertise</h2>
+            <div class="divider"></div>
+            <p>I trained as an actor at the Bristol Old Vic Theatre School and spent over ten years working professionally in the industry. Five years ago, I retrained as a Speech and Language Therapist at City, University of London, deepening my understanding of the voice from a clinical and technical perspective.</p>
+            <p>Alongside this, I co-founded Bear Hill Studios with my husband, creating immersive audiobooks for children, and I continue to work professionally as a voice artist from our home studio in Bath.</p>
+            <p>My combined experience as a professional voice user and a Speech and Language Therapist allows me to support performers with both vocal technique and vocal hygiene. I understand the demands placed on the voice in performance and can help you develop sustainable techniques to improve your voice, speech, and confidence.</p>
+
+            <div class="what-i-offer">
+              <h3>What I offer</h3>
+              <div class="offer-grid">
+                <div class="offer-item">
+                  <h4>Vocal Technique</h4>
+                  <p>Breath support, resonance, projection and range — building on solid foundations.</p>
+                </div>
+                <div class="offer-item">
+                  <h4>Vocal Hygiene</h4>
+                  <p>Practical guidance on protecting your voice for sustainable long-term use.</p>
+                </div>
+                <div class="offer-item">
+                  <h4>Speech & Clarity</h4>
+                  <p>Articulation, diction and accent work tailored to your goals.</p>
+                </div>
+                <div class="offer-item">
+                  <h4>Performance Confidence</h4>
+                  <p>Finding and owning your voice for auditions, presentations and broadcasts.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="testimonial-block">
+              <blockquote>Laura is caring and skillfully remarkable! She has a unique and undeniable gift of understanding the therapeutic vocal needs of a voice actor, and she takes the time to both uncover and explain in detail what a voice actor needs to correct speech issues.</blockquote>
+              <cite>Russell Eakle — Voice Actor</cite>
+            </div>
+
+            <a class="btn btn-primary" href="#" onclick="showPage('contact')" style="margin-top: 2.5rem;">Book a Session</a>
+          </div>
+
+          <div class="coaching-credentials">
+            <p class="eyebrow">Qualifications</p>
+            <h3>Laura's credentials</h3>
+            <div class="divider" style="background: rgba(245,240,232,0.2);"></div>
+            <div class="cred-list">
+              <div class="cred-item">
+                <span class="cred-num">01</span>
+                <div>
+                  <strong style="display: block; margin-bottom: 0.2rem; color: var(--cream);">Bristol Old Vic Theatre School</strong>
+                  Professional actor training with one of the UK's most prestigious drama schools.
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-num">02</span>
+                <div>
+                  <strong style="display: block; margin-bottom: 0.2rem; color: var(--cream);">City St George's University of London</strong>
+                  Qualified Speech and Language Therapist.
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-num">03</span>
+                <div>
+                  <strong style="display: block; margin-bottom: 0.2rem; color: var(--cream);">NHS Practice</strong>
+                  Practised in the NHS with specialist interest in brain injury and voice therapy.
+                </div>
+              </div>
+              <div class="cred-item">
+                <span class="cred-num">04</span>
+                <div>
+                  <strong style="display: block; margin-bottom: 0.2rem; color: var(--cream);">10+ Years Professional Voice Work</strong>
+                  BBC, London 2012 Olympics, commercial and documentary credits.
+                </div>
+              </div>
+            </div>
+            <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 1rem;">Sessions available in-person (Bath) or online via Zoom.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page-voice-coaching -->
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAGE: SOUND DESIGN                                     -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-sound-design">
+
+    <div class="page-hero">
+      <img class="page-hero-bg" src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/115c80b1-e872-4c57-b4ae-765cba59102f/lense-toy.jpg" alt="" aria-hidden="true" />
+      <div class="container page-hero-inner">
+        <p class="eyebrow">Dave Cox</p>
+        <h1>Sound & Interaction Design</h1>
+        <p>Nearly 30 years of experience in creative technology, interactive design, and immersive audio — united by a belief that sound and experience are inseparable.</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container">
+        <div class="grid-2">
+          <div>
+            <p class="eyebrow">About Dave</p>
+            <h2>The thinking behind the sound</h2>
+            <div class="divider"></div>
+            <p>Dave co-founded Lean Mean Fighting Machine in 2004 — a digital agency later acquired by M&C Saatchi. Since then he has developed products, produced audio, created brand identities, designed UX, developed XR experiences and worked in illustration and animation.</p>
+            <p style="margin-top: 1rem;">His guiding belief: there is a continuous line between sound, music, interaction and animation. All of it is about judging timing, weight, flow, space, surprise and balance.</p>
+          </div>
+          <div>
+            <img src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/bf300902-541b-4781-b037-5d6e2052da14/dc.jpg" alt="Dave Cox" style="border-radius: var(--radius); width: 100%; aspect-ratio: 4/5; object-fit: cover;" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-cream-d">
+      <div class="container">
+        <p class="eyebrow">Selected Work</p>
+        <h2>A career built on immersion</h2>
+        <div class="divider"></div>
+        <div class="sound-timeline" style="margin-top: 3rem; max-width: 680px;">
+          <div class="timeline-item">
+            <h3>Lean Mean Fighting Machine</h3>
+            <p>Co-founded one of the UK's most creative digital agencies in 2004. Led interactive and brand work for major clients before the agency was acquired by M&C Saatchi.</p>
+          </div>
+          <div class="timeline-item">
+            <h3>Melody VR — Rescape Innovation</h3>
+            <p>Spent several years specialising in Virtual Reality, becoming Product Director and designer for Melody VR — a clinically trialled wellbeing experience developed with Cardiff University that used music in VR to reduce anxiety. Results from the large-scale alpha trial were extremely positive.</p>
+          </div>
+          <div class="timeline-item">
+            <h3>Catmasonic — Important Small Things</h3>
+            <p>Bear Hill Studios produced the voiceover for Catmasonic, made by former Rescape colleagues now at Important Small Things. A perfect example of how audio and interaction expertise combine.</p>
+          </div>
+          <div class="timeline-item">
+            <h3>Bear Hill Studios</h3>
+            <p>Today Dave brings all of his experience to bear on creating immersive audiobooks and sound design for games, XR and digital media — always asking how sound can deepen the experience.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="grid-2">
+          <div>
+            <p class="eyebrow">What Dave Offers</p>
+            <h2>Sound design for digital experiences</h2>
+            <div class="divider"></div>
+            <p>Dave's background in both UX design and audio means he understands exactly what a developer or creative director needs — and how to deliver it. This makes him uniquely effective for interactive, game and XR projects where sound and experience must be designed together.</p>
+            <ul class="credentials" style="margin-top: 1.5rem;">
+              <li class="credential">Sound design for games and interactive media</li>
+              <li class="credential">XR and VR audio design</li>
+              <li class="credential">Music supervision and composition</li>
+              <li class="credential">Full production in partnership with Laura</li>
+            </ul>
+            <a class="btn btn-primary" href="#" onclick="showPage('contact')" style="margin-top: 2rem;">Discuss a project</a>
+          </div>
+          <div class="testimonial-block" style="align-self: center;">
+            <blockquote>
+              I think there is a continuous line between sound, music, interaction and animation. So much is about judging timing, weight, flow, space, surprise and balance.
+            </blockquote>
+            <cite>Dave Cox — Bear Hill Studios</cite>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page-sound-design -->
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAGE: AUDIOBOOKS                                       -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-audiobooks">
+
+    <div class="page-hero">
+      <img class="page-hero-bg" src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/e4362e37-980c-4ed9-856c-7b42c90a08a3/flowers2.jpg" alt="" aria-hidden="true" />
+      <div class="container page-hero-inner">
+        <p class="eyebrow">Our Productions</p>
+        <h1>Audiobooks</h1>
+        <p>Immersive audio productions for children and the young at heart — classic stories brought to life with rich narration and original sound design.</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container">
+
+        <div style="display: flex; flex-direction: column; gap: 5rem;">
+
+          <div class="grid-2">
+            <div>
+              <img src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/2346025d-cc84-4870-bfcd-80ae2a40a2c2/millions-of-cats-square.jpg" alt="Millions of Cats and Stars" style="border-radius: var(--radius); width: 100%; aspect-ratio: 1; object-fit: cover; box-shadow: 12px 12px 0 var(--cream-dark), 13px 13px 0 rgba(28,52,41,0.1);" />
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: center;">
+              <p class="eyebrow">Available Now</p>
+              <h2 style="margin-top: 0.5rem;">Millions of Cats and Stars</h2>
+              <div class="divider"></div>
+              <p>A whimsical, warmly narrated adventure that has delighted generations of young listeners. Produced with full immersive sound design by Bear Hill Studios.</p>
+              <a class="btn btn-primary" href="https://www.bearhillstudios.co.uk/millionsofcatsandstars" target="_blank" style="margin-top: 2rem; align-self: flex-start;">Listen & Buy</a>
+            </div>
+          </div>
+
+          <div class="grid-2" style="direction: rtl;">
+            <div style="direction: ltr;">
+              <img src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/34ccd3df-d963-4943-a656-3b7e4eba077e/VR+Cover+3000x3000.jpg" alt="The Velveteen Rabbit" style="border-radius: var(--radius); width: 100%; aspect-ratio: 1; object-fit: cover; box-shadow: 12px 12px 0 var(--cream-dark), 13px 13px 0 rgba(28,52,41,0.1);" />
+            </div>
+            <div style="direction: ltr; display: flex; flex-direction: column; justify-content: center;">
+              <p class="eyebrow">Available Now</p>
+              <h2 style="margin-top: 0.5rem;">The Velveteen Rabbit</h2>
+              <div class="divider"></div>
+              <p>Margery Williams' timeless story of a toy who becomes real through love — narrated with warmth and care, and richly produced for a new generation of listeners.</p>
+              <a class="btn btn-primary" href="https://www.bearhillstudios.co.uk/thevelveteenrabbit" target="_blank" style="margin-top: 2rem; align-self: flex-start;">Listen & Buy</a>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <div>
+              <img src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/973a804c-ffd6-4eaf-bf36-ece94522e37d/TTNBC+Cover+3000x3000.png" alt="Twas the Night Before Christmas" style="border-radius: var(--radius); width: 100%; aspect-ratio: 1; object-fit: cover; box-shadow: 12px 12px 0 var(--cream-dark), 13px 13px 0 rgba(28,52,41,0.1);" />
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: center;">
+              <p class="eyebrow">Available Now</p>
+              <h2 style="margin-top: 0.5rem;">Twas the Night Before Christmas</h2>
+              <div class="divider"></div>
+              <p>Clement Clarke Moore's beloved festive classic, brought to life with Laura's magical storytelling and immersive production — perfect for Christmas Eve listening.</p>
+              <a class="btn btn-primary" href="https://www.bearhillstudios.co.uk/twasthenightbeforechristmas" target="_blank" style="margin-top: 2rem; align-self: flex-start;">Listen & Buy</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page-audiobooks -->
+
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- PAGE: CONTACT                                          -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <div class="page" id="page-contact">
+
+    <div class="page-hero">
+      <div class="container page-hero-inner">
+        <p class="eyebrow">Bear Hill Studios</p>
+        <h1>Get in touch</h1>
+        <p>Whether it's a voiceover project, a coaching enquiry, or a sound design brief — we'd love to hear from you. We'll usually reply within one working day.</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container">
+        <div class="contact-grid">
+
+          <div>
+            <p class="eyebrow">Send a message</p>
+            <h2 style="margin-bottom: 2rem;">Tell us about your project</h2>
+            <div class="contact-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="name">Your name</label>
+                  <input type="text" id="name" placeholder="Jane Smith" />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email address</label>
+                  <input type="email" id="email" placeholder="jane@company.com" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="service">I'm enquiring about</label>
+                <select id="service">
+                  <option value="">Select a service…</option>
+                  <option>Voice Acting</option>
+                  <option>Voice Coaching</option>
+                  <option>Sound Design</option>
+                  <option>Audiobook Production</option>
+                  <option>Something else</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="message">Tell us more</label>
+                <textarea id="message" placeholder="Describe your project, timeline, and any other relevant details…"></textarea>
+              </div>
+              <div>
+                <button class="btn btn-primary" onclick="handleSubmit(event)">Send Message</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-aside">
+            <p class="eyebrow">Our services</p>
+            <h3>What can we help with?</h3>
+            <p>Click any service below to pre-fill your enquiry.</p>
+            <div class="contact-services">
+              <div class="contact-service" onclick="document.getElementById('service').value='Voice Acting'">
+                <div class="cs-icon">🎙</div>
+                <div class="cs-text">
+                  <h4>Voice Acting</h4>
+                  <p>Commercials, narration, characters & audiobooks</p>
+                </div>
+              </div>
+              <div class="contact-service" onclick="document.getElementById('service').value='Voice Coaching'">
+                <div class="cs-icon">✦</div>
+                <div class="cs-text">
+                  <h4>Voice Coaching</h4>
+                  <p>In-person (Bath) or online via Zoom</p>
+                </div>
+              </div>
+              <div class="contact-service" onclick="document.getElementById('service').value='Sound Design'">
+                <div class="cs-icon">🎚</div>
+                <div class="cs-text">
+                  <h4>Sound Design</h4>
+                  <p>Games, XR, interactive & digital media</p>
+                </div>
+              </div>
+              <div class="contact-service" onclick="document.getElementById('service').value='Audiobook Production'">
+                <div class="cs-icon">📖</div>
+                <div class="cs-text">
+                  <h4>Audiobook Production</h4>
+                  <p>Full production from script to final audio</p>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgba(28,52,41,0.1);">
+              <p style="font-size: 0.82rem; opacity: 0.7;"><strong style="display: block; margin-bottom: 0.3rem; opacity: 1;">Based in Bath, England</strong>Available for remote projects worldwide. Voice coaching sessions in-person or online.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /page-contact -->
+
+
+  <!-- ─── FOOTER ─────────────────────────────────────────── -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="https://images.squarespace-cdn.com/content/v1/692480ecdb3e0b02f590344e/8b0f55a7-4867-447f-a712-dfae8020209a/Bear+Hill+Studios+Black.png?format=400w" alt="Bear Hill Studios" />
+          <p>Voices and sound that stay with you. Based in Bath, England.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#" onclick="showPage('voice-acting')">Voice Acting</a></li>
+            <li><a href="#" onclick="showPage('voice-coaching')">Voice Coaching</a></li>
+            <li><a href="#" onclick="showPage('sound-design')">Sound Design</a></li>
+            <li><a href="#" onclick="showPage('audiobooks')">Audiobooks</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="#" onclick="showPage('contact')">Get in touch</a></li>
+            <li><a href="https://www.bearhillstudios.co.uk" target="_blank">Original site</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Bear Hill Studios Ltd. All rights reserved.</span>
+        <span>Bath, England</span>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ─── SCRIPTS ────────────────────────────────────────── -->
+  <script>
+    /* ── Page routing ── */
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      const target = document.getElementById('page-' + id);
+      if (target) {
+        target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      // Update nav active state
+      document.querySelectorAll('[data-page]').forEach(a => {
+        a.classList.toggle('active', a.dataset.page === id);
+      });
+      return false;
+    }
+
+    /* ── Nav scroll shadow ── */
+    window.addEventListener('scroll', () => {
+      document.getElementById('site-nav').classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    /* ── Mobile menu ── */
+    const burger = document.getElementById('burger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    function closeMobile() {
+      burger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+
+    /* ── Generate waveform bars ── */
+    ['wf1','wf2','wf3','wf4'].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const heights = Array.from({length: 32}, () => Math.random() * 70 + 15);
+      el.innerHTML = heights.map(h =>
+        `<div class="waveform-bar" style="height: ${h}%"></div>`
+      ).join('');
+    });
+
+    /* ── Contact form ── */
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target;
+      btn.textContent = `Sent! We'll be in touch soon.`;
+      btn.disabled = true;
+      btn.style.opacity = '0.6';
+    }
+  </script>
+
+</body>
+</html>

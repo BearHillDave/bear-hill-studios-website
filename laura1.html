@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Work — Bear Hill Studios</title>
+    <title>Laura Cox (1: Portrait Hero) — Bear Hill Studios</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600;1,700&family=Jost:wght@300;400;500&display=swap"
@@ -11,10 +11,10 @@
     />
     <link rel="stylesheet" href="main.css" />
     <style>
-      /* ── Work page V2 — spec locked from Figma 2026-06-05 ── */
+      /* ── Laura page V2 — spec locked from Figma 2026-06-05 ── */
 
       /* ── Page canvas: single stacking context for all layers ──
-       Bottom to top: light-black > photo > vignette > blur > content */
+         Bottom to top: light-black > photo > vignette > blur > content */
       .page-canvas {
         position: relative;
         background: var(--light-black);
@@ -26,10 +26,10 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 100vh; /* matches hero height */
-        background-image: url("assets/forest.jpg");
+        height: 100vh;
+        background-image: url("assets/velvet.jpg");
         background-size: cover;
-        background-position: center 40%;
+        background-position: center 30%;
         pointer-events: none;
       }
       /* Layer 3: vignette — exact Figma Layout/Hero-bg Vignette values */
@@ -47,15 +47,14 @@
         );
         pointer-events: none;
       }
-      /* Layer 4: blurred bg — spans full canvas, sits above vignette.
-       Height 200% gives headroom for parallax translation. */
+      /* Layer 4: blurred bg — parallax target (main.js scrolls at 0.5×) */
       .page-blur {
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         height: 100%;
-        background-image: url("assets/forest-blur.jpg");
+        background-image: url("assets/velvet-blur.jpg");
         background-size: cover;
         background-position: center top;
         opacity: 0.3;
@@ -65,43 +64,42 @@
       }
 
       /* HERO — transparent bg, content only (layer 5) */
-      .work-hero {
+      .laura-hero {
         position: relative;
         z-index: 1;
         overflow: hidden;
-        min-height: 88vh;
+        min-height: 100vh;
         display: flex;
         align-items: flex-start;
       }
-      .work-hero-content {
+      /* Variant 1: 2-column hero content — wider max-width, grid layout */
+      .laura-hero-content {
         position: relative;
         z-index: 2;
-        max-width: 780px;
+        max-width: 1160px;
         width: 100%;
         margin: 0 auto;
-        padding: 220px 64px 80px;
+        padding: 220px 64px 0;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 80px;
+        align-items: end;
       }
-      @media (max-width: 620px) {
-        .work-hero-content {
-          padding-left: 24px;
-          padding-right: 24px;
-        }
-      }
-      .work-hero::before {
-        content: "";
+      .laura-hero::before {
+        content: '';
         position: absolute;
         z-index: -1;
         pointer-events: none;
         background: rgba(0, 0, 0, 0.5);
-        filter: blur(50px);
-        border-radius: 100px;
+        filter: blur(100px);
+        border-radius: 150px;
         width: 968px;
-        height: 320px;
+        height: 416px;
         top: 50%;
         left: 106px;
         transform: translateY(-50%);
       }
-      .work-hero-title {
+      .laura-hero-title {
         font-family: var(--serif);
         font-style: italic;
         font-weight: 700;
@@ -111,7 +109,7 @@
         color: var(--dark-white);
         margin: 0 0 32px;
       }
-      .work-hero-body {
+      .laura-hero-body {
         font-family: var(--serif);
         font-weight: 300;
         font-size: 24px;
@@ -120,17 +118,108 @@
         max-width: 560px;
         margin: 0 0 16px;
       }
-      .work-hero-body:last-child {
+      .laura-hero-body:last-child {
         margin-bottom: 0;
       }
 
-      /* WORK LIST — transparent bg, content only (layer 5) */
+      /* Portrait column */
+      .laura-portrait-wrap {
+        position: relative;
+        align-self: end;
+      }
+      .laura-portrait-wrap img {
+        display: block;
+        width: 340px;
+        height: 480px;
+        object-fit: cover;
+        object-position: center 15%;
+        border-radius: 4px;
+      }
+      .laura-portrait-wrap::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 120px;
+        background: linear-gradient(to bottom, transparent, var(--light-black));
+        pointer-events: none;
+      }
+
+      /* SECTIONS — no background colour; blur layer shows through */
+      .laura-section {
+        position: relative;
+        z-index: 1;
+        padding: 80px 0;
+      }
+
+      /* Quote */
+      .laura-quote {
+        font-family: var(--serif);
+        font-style: italic;
+        font-weight: 300;
+        font-size: clamp(1.4rem, 2.5vw, 2rem);
+        line-height: 1.55;
+        color: var(--dark-white);
+        margin: 0 0 24px;
+      }
+      .laura-cite {
+        font-family: var(--sans);
+        font-weight: 300;
+        font-size: 11.1px;
+        color: var(--cream-50);
+        letter-spacing: 0.5px;
+        font-style: normal;
+        display: block;
+      }
+
+      /* Category eyebrow spacing in voice demos flat list */
+      .wi-list .wi-eyebrow + .wi-player-row { margin-top: var(--sp-lg); }
+      .wi-list .wi-eyebrow:not(:first-of-type) { margin-top: var(--sp-xl); }
+
+      /* Long-copy body text (Credits / About Laura) */
+      .laura-long-copy {
+        font-family: var(--serif);
+        font-weight: 300;
+        font-size: 24px;
+        line-height: 40px;
+        color: var(--dark-white);
+        margin: 0 0 var(--sp-xl);
+      }
+      .laura-long-copy:last-child { margin-bottom: 0; }
+
+      /* wi-section spacing */
       .wi-section {
         position: relative;
         z-index: 1;
         padding: 0 0 80px;
       }
-      /* wi-list, wi-*, cta-v2-* all defined in main.css */
+
+      /* Credits badge strip */
+      .laura-badge-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: var(--sp-xl);
+      }
+      .laura-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 7px 16px;
+        border: 1px solid var(--cream-20);
+        border-radius: 2px;
+        font-family: var(--sans);
+        font-size: 10.7px;
+        font-weight: 500;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--cream-50);
+        transition: border-color 0.2s, color 0.2s;
+      }
+      .laura-badge:hover {
+        border-color: var(--cream-50);
+        color: var(--dark-white);
+      }
     </style>
   </head>
   <body style="background: var(--light-black); color: var(--dark-white)">
@@ -224,26 +313,14 @@
           </svg>
         </a>
       </div>
-      <button
-        class="nav-toggle"
-        id="nav-toggle"
-        type="button"
-        aria-label="Open menu"
-        aria-expanded="false"
-        aria-controls="nav-menu"
-      >
-        <span></span><span></span><span></span>
-      </button>
-      <div class="nav-menu" id="nav-menu">
-        <ul class="nav-links">
-          <li><a class="nav-link" href="index.html">Home</a></li>
-          <li><a class="nav-link active" href="work.html">Work</a></li>
-          <li><a class="nav-link" href="laura.html">Laura</a></li>
-          <li><a class="nav-link" href="production.html">Production</a></li>
-          <li><a class="nav-link" href="contact.html">Contact</a></li>
-        </ul>
-        <a class="nav-cta" href="contact.html">Get in touch</a>
-      </div>
+      <ul class="nav-links">
+        <li><a class="nav-link" href="index.html">Home</a></li>
+        <li><a class="nav-link" href="work.html">Work</a></li>
+        <li><a class="nav-link active" href="laura.html">Laura</a></li>
+        <li><a class="nav-link" href="production.html">Production</a></li>
+        <li><a class="nav-link" href="contact.html">Contact</a></li>
+      </ul>
+      <a class="nav-cta" href="contact.html">Get in touch</a>
     </nav>
 
     <!-- PAGE CANVAS: layers bottom→top: light-black > photo > vignette > blur > content -->
@@ -252,258 +329,174 @@
       <div class="page-vignette"></div>
       <div class="page-blur"></div>
 
-      <!-- HERO (content layer) -->
-      <header class="work-hero">
-        <div class="work-hero-content">
-          <h1 class="work-hero-title">Work</h1>
-          <p class="work-hero-body reveal d2">
-            Here's a selection of work. Some pure immersive audio, some video and VFX and radio demos.
-          </p>
-          <p class="work-hero-body reveal d1">
-            We are at heart a creative studio. We immerse ourselves in every
-            production and obsess over the details. We can work end to end or
-            slot into a bigger project.
-          </p>
-        </div>
-        <div class="hero-scroll" aria-hidden="true">
-          <span class="hero-scroll-arrow"></span>
+      <!-- HERO (content layer) — Variant 1: 2-column with portrait -->
+      <header class="laura-hero">
+        <div class="laura-hero-content">
+          <div class="laura-hero-text">
+            <h1 class="laura-hero-title reveal">Laura Cox</h1>
+            <p class="laura-hero-body reveal d1">A warm, natural British voice for audiobooks, narration, characters and commercials.</p>
+            <p class="laura-hero-body reveal d2">Trained at the Bristol Old Vic Theatre School, with credits ranging from Aardman to the BBC.</p>
+            <p class="laura-hero-body reveal d3">Part of Bear Hill Studios — also available as voice talent for independent productions.</p>
+          </div>
+          <div class="laura-portrait-wrap reveal d2">
+            <img src="assets/laura.jpeg" alt="Laura Cox">
+          </div>
         </div>
       </header>
 
-      <!-- WORK ITEMS (content layer) -->
+      <!-- VOICE DEMOS -->
       <section class="wi-section">
-        <div class="wi-list">
-          <!-- ── Section/Video: Millions of Cats...and Stars ── -->
-          <article class="wi">
-            <p class="wi-eyebrow reveal">Video</p>
-            <div class="wi-title-group reveal d1">
-              <h2 class="wi-title">Millions of Cats...and Stars</h2>
-              <p class="wi-subtitle">Wanda Gág</p>
-            </div>
-            <div class="wi-media-row reveal d2">
-              <div class="wi-video-col">
-                <a
-                  class="wi-yt-thumb"
-                  href="https://www.youtube.com/watch?v=-mW5If3EqFQ"
-                  target="_blank"
-                  rel="noopener"
-                >
-                  <img
-                    src="https://img.youtube.com/vi/-mW5If3EqFQ/maxresdefault.jpg"
-                    alt="Millions of Cats and Stars"
-                  />
-                  <span class="wi-yt-play" aria-hidden="true">
-                    <svg width="12" height="12" viewBox="0 0 18 18" fill="none">
-                      <polygon points="5,2 16,9 5,16" fill="white" />
-                    </svg>
-                  </span>
-                </a>
-                <a
-                  class="wi-yt-link"
-                  href="https://www.youtube.com/watch?v=-mW5If3EqFQ"
-                  target="_blank"
-                  rel="noopener"
-                  >Watch on YouTube ↗</a
-                >
-              </div>
-              <div class="wi-copy-col">
-                <p class="wi-body">
-                  An immersive retelling of Wanda Gág's classic — spatial sound
-                  design, original score and narration by Laura Cox, produced by
-                  Bear Hill Studios.
-                </p>
-              </div>
-            </div>
-          </article>
+        <div class="wi-list--narrow">
+          <h2 class="section-heading reveal">Voice Demos</h2>
 
-          <!-- ── Section/Interactive: Catmasonic ── -->
-          <article class="wi">
-            <p class="wi-eyebrow reveal">Interactive</p>
-            <div class="wi-title-group reveal d1">
-              <h2 class="wi-title">Catmasonic</h2>
-              <p class="wi-subtitle">Important Small Things</p>
-            </div>
-            <div class="wi-media-row reveal d2">
-              <div class="wi-video-col">
-                <a class="wi-yt-thumb" href="#" target="_blank" rel="noopener">
-                  <img
-                    src="assets/cars.jpg"
-                    alt="Catmasonic — VR wellness app"
-                  />
-                  <span class="wi-yt-play" aria-hidden="true">
-                    <svg width="12" height="12" viewBox="0 0 18 18" fill="none">
-                      <polygon points="5,2 16,9 5,16" fill="white" />
-                    </svg>
-                  </span>
+          <!-- Narration -->
+          <p class="wi-eyebrow reveal">Narration</p>
+          <div class="wi-player-row reveal d1">
+            <div class="wi-player">
+              <div class="player player-wk" data-player="laura-narr1" data-dur="35" data-color="c2"></div>
+              <div class="wi-player-meta">
+                <span class="wi-player-label">Car Boot Kings</span>
+                <p class="wi-player-subtitle">Warm, fun, knowing, quirky, reality, friendly</p>
+                <a class="wi-player-dl" href="#" download>
+                  <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                  MP3
                 </a>
-                <a class="wi-yt-link" href="#" target="_blank" rel="noopener"
-                  >Watch ↗</a
-                >
               </div>
-              <div class="wi-copy-col">
-                <p class="wi-body">
-                  Catmasonic is a VR wellness application that brings the
-                  calming presence of a virtual cat into your Meta Quest
-                  headset, helping you relax, breathe, and find moments of
-                  peace. The soft and calming voice over for the experience was
-                  recorded at Bear Hill Studios with voice over by Laura Cox.
-                </p>
-                <p class="wi-body"></p>
-                  Our decades of work in interaction
-                  mean we understand the importance of producing accurate deliverables 
-                  that form part of a working machine.
-                </p>
+            </div>
           </div>
+          <div class="wi-player-row reveal d2">
+            <div class="wi-player">
+              <div class="player player-wk" data-player="laura-narr2" data-dur="35" data-color="c2"></div>
+              <div class="wi-player-meta">
+                <span class="wi-player-label">The Secret Life of the Rainforest</span>
+                <p class="wi-player-subtitle">Inspiring, warm, wildlife, natural history</p>
+                <a class="wi-player-dl" href="#" download>
+                  <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                  MP3
+                </a>
+              </div>
             </div>
-          </article>
+          </div>
 
-          <!-- ── Section/TVR: The Velveteen Rabbit ── -->
-          <article class="wi">
-            <p class="wi-eyebrow wi-eyebrow--audio reveal">
-              Immersive Audiobook
-            </p>
-            <div class="wi-title-group reveal d1">
-              <h2 class="wi-title">The Velveteen Rabbit</h2>
-              <p class="wi-subtitle">Margery Williams</p>
-            </div>
-            <div class="wi-media-row reveal d2">
-              <div class="wi-cover">
-                <img
-                  src="assets/VR Cover 3000x3000.png"
-                  alt="The Velveteen Rabbit"
-                />
-              </div>
-              <div class="wi-copy-col">
-                <p class="wi-body">
-                  The Velveteen Rabbit by Margery Williams is a classic tale
-                  that follows a toy rabbit's journey to becoming real through a
-                  child's love. Warmly narrated by Laura Cox and beautifully
-                  produced by Bear Hill Studios, this audiobook envelops us in a
-                  world of magic and wonder.
-                </p>
-                <nav class="wi-streaming" aria-label="Listen on">
-                  <a class="wi-stream-icon" href="#" aria-label="Spotify"
-                    ><img
-                      src="assets/icons/Spotify.svg"
-                      alt=""
-                      width="36"
-                      height="36"
-                  /></a>
-                  <a class="wi-stream-icon" href="#" aria-label="Apple Books"
-                    ><img
-                      src="assets/icons/Apple Books.svg"
-                      alt=""
-                      width="36"
-                      height="36"
-                  /></a>
-                  <a class="wi-stream-icon" href="#" aria-label="Audible"
-                    ><img
-                      src="assets/icons/Audible.svg"
-                      alt=""
-                      width="36"
-                      height="36"
-                  /></a>
-                </nav>
+          <!-- Audiobook -->
+          <p class="wi-eyebrow reveal">Audiobook</p>
+          <div class="wi-player-row reveal d1">
+            <div class="wi-player">
+              <div class="player player-wk" data-player="laura-audio1" data-dur="35" data-color="c1"></div>
+              <div class="wi-player-meta">
+                <span class="wi-player-label">Tyrannosaurus Drip</span>
+                <p class="wi-player-subtitle">Fun, children's, characters, cartoon</p>
+                <a class="wi-player-dl" href="#" download>
+                  <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                  MP3
+                </a>
               </div>
             </div>
-            <div class="wi-player-row reveal d3">
-              <div class="wi-player">
-                <div
-                  class="player player-wk"
-                  data-player="work-vr"
-                  data-dur="35"
-                  data-color="c1"
-                ></div>
-                <div class="wi-player-meta">
-                  <span class="wi-player-label">Sample</span>
-                  <a class="wi-player-dl" href="#" download>
-                    <svg
-                      viewBox="0 0 24 24"
-                      width="10"
-                      height="10"
-                      fill="currentColor"
-                    >
-                      <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
-                    </svg>
-                    MP3
-                  </a>
-                </div>
+          </div>
+          <div class="wi-player-row reveal d2">
+            <div class="wi-player">
+              <div class="player player-wk" data-player="laura-audio2" data-dur="35" data-color="c1"></div>
+              <div class="wi-player-meta">
+                <span class="wi-player-label">'Twas the Night Before Christmas</span>
+                <p class="wi-player-subtitle">Magical, children's, classic</p>
+                <a class="wi-player-dl" href="#" download>
+                  <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                  MP3
+                </a>
               </div>
             </div>
-          </article>
+          </div>
+          <div class="wi-player-row reveal d3">
+            <div class="wi-player">
+              <div class="player player-wk" data-player="laura-audio3" data-dur="35" data-color="c1"></div>
+              <div class="wi-player-meta">
+                <span class="wi-player-label">The Velveteen Rabbit</span>
+                <p class="wi-player-subtitle">Magical, children's, classic, characters, accents</p>
+                <a class="wi-player-dl" href="#" download>
+                  <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                  MP3
+                </a>
+              </div>
+            </div>
+          </div>
 
-          <!-- ── Section/TTNBC: 'Twas the Night Before Christmas ── -->
-          <article class="wi">
-            <p class="wi-eyebrow wi-eyebrow--audio reveal">
-              Immersive Audiobook
-            </p>
-            <div class="wi-title-group reveal d1">
-              <h2 class="wi-title">'Twas the Night Before Christmas</h2>
-              <p class="wi-subtitle">Clement C. Moore</p>
-            </div>
-            <div class="wi-media-row reveal d2">
-              <div class="wi-cover">
-                <img
-                  src="assets/TTNBC Cover 3000x3000.jpg"
-                  alt="'Twas the Night Before Christmas"
-                />
-              </div>
-              <div class="wi-copy-col">
-                <p class="wi-body">
-                  A fully immersive reimagining of the classic festive poem —
-                  original soundscape, music and narration by Laura Cox,
-                  produced by Bear Hill Studios.
-                </p>
-                <nav class="wi-streaming" aria-label="Listen on">
-                  <a class="wi-stream-icon" href="#" aria-label="Spotify"
-                    ><img
-                      src="assets/icons/Spotify.svg"
-                      alt=""
-                      width="36"
-                      height="36"
-                  /></a>
-                  <a class="wi-stream-icon" href="#" aria-label="Apple Books"
-                    ><img
-                      src="assets/icons/Apple Books.svg"
-                      alt=""
-                      width="36"
-                      height="36"
-                  /></a>
-                  <a class="wi-stream-icon" href="#" aria-label="Audible"
-                    ><img
-                      src="assets/icons/Audible.svg"
-                      alt=""
-                      width="36"
-                      height="36"
-                  /></a>
-                </nav>
+          <!-- Technical -->
+          <p class="wi-eyebrow reveal">Technical</p>
+          <div class="wi-player-row reveal d1">
+            <div class="wi-player">
+              <div class="player player-wk" data-player="laura-tech1" data-dur="35" data-color="c3"></div>
+              <div class="wi-player-meta">
+                <span class="wi-player-label">Coronary Angioplasty</span>
+                <p class="wi-player-subtitle">Medical, precise, authoritative, clear</p>
+                <a class="wi-player-dl" href="#" download>
+                  <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                  MP3
+                </a>
               </div>
             </div>
-            <div class="wi-player-row reveal d3">
-              <div class="wi-player">
-                <div
-                  class="player player-wk"
-                  data-player="work-ttnbc"
-                  data-dur="38"
-                  data-color="c1"
-                ></div>
-                <div class="wi-player-meta">
-                  <span class="wi-player-label">Sample</span>
-                  <a class="wi-player-dl" href="#" download>
-                    <svg
-                      viewBox="0 0 24 24"
-                      width="10"
-                      height="10"
-                      fill="currentColor"
-                    >
-                      <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
-                    </svg>
-                    MP3
-                  </a>
-                </div>
+          </div>
+
+          <!-- Commercial -->
+          <p class="wi-eyebrow reveal">Commercial</p>
+          <div class="wi-player-row reveal d1">
+            <div class="wi-player">
+              <div class="player player-wk" data-player="laura-comm1" data-dur="35" data-color="c3"></div>
+              <div class="wi-player-meta">
+                <span class="wi-player-label">Money Supermarket</span>
+                <p class="wi-player-subtitle">Fun, upbeat, relatable, friendly</p>
+                <a class="wi-player-dl" href="#" download>
+                  <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                  MP3
+                </a>
               </div>
             </div>
-          </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- QUOTE -->
+      <section class="laura-section">
+        <div class="wi-list--narrow">
+          <blockquote class="laura-quote reveal">
+            "Having worked with Laura before we knew her voice would elevate the whole app, and it did, it made it so, so much better. Delivered on time and on budget.
+            Can't wait to record more."
+          </blockquote>
+          <cite class="laura-cite reveal d1">Kevin Moss — Important Small Things</cite>
+        </div>
+      </section>
+
+      <!-- CREDITS -->
+      <section class="laura-section">
+        <div class="wi-list--narrow">
+          <p class="wi-eyebrow reveal">Credits</p>
+          <p class="laura-long-copy reveal d1">Chicken Run<br>
+            Additional voices · guide tracks for Julia Sawalha &amp; Jane Horrocks<br>
+            Aardman · Nick Park &amp; Peter Lord<br>
+            Film</p>
+          <p class="laura-long-copy reveal d2">Wildlife documentaries<br>
+            Narration<br>
+            BBC Studios Natural History<br>
+            TV · BBC</p>
+          <div class="laura-badge-strip reveal d3">
+            <span class="laura-badge">BBC Natural History</span>
+            <span class="laura-badge">Aardman Animations</span>
+            <span class="laura-badge">Bristol Old Vic</span>
+            <span class="laura-badge">BBC Radio 4</span>
+            <span class="laura-badge">London 2012 Olympics</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT LAURA -->
+      <section class="laura-section">
+        <div class="wi-list--narrow">
+          <p class="wi-eyebrow reveal">About Laura</p>
+          <p class="laura-long-copy reveal d1">I began my career as an actor, training at the Bristol Old Vic Theatre School. During my time in Bristol, I worked with Nick Park and Peter Lord on Chicken Run, voicing additional chicken characters and recording guide tracks for Julia Sawalha and Jane Horrocks. It turned out I was quite good at impersonating them!</p>
+          <p class="laura-long-copy reveal d2">My voice work went on to include the original London Olympic cable car announcements, wildlife documentaries for BBC Studios Natural History, BBC Radio 4 plays and a range of radio ads and narration.</p>
+          <p class="laura-long-copy reveal d3">I took a break from acting to have a family and re train as a speech and language therapist and began working with people who had experienced brain injury.</p>
+          <p class="laura-long-copy reveal d4">Today, I balance my time between family life, voice acting, our family production company, and developing voice therapy as my specialist area within speech and language therapy.</p>
+          <p class="laura-long-copy reveal d4">Whether I'm helping someone find their voice or bringing a story to life, this is the work that makes me happy.</p>
+          <p class="laura-long-copy reveal d4">If you'd like to discuss a project, get in touch and we'll take it from there.</p>
         </div>
       </section>
 
@@ -511,11 +504,8 @@
       <section class="cta-v2">
         <div class="wrap-n">
           <h2 class="cta-v2-title reveal">Want to make something together?</h2>
-          <p class="cta-v2-body reveal d1">
-            We're open to projects at any level of involvement, from full
-            immersive production to narration only.
-          </p>
-          <a class="btn-cta reveal d2" href="contact.html">Get in touch</a>
+          <p class="cta-v2-body reveal d1">We're open to projects at any level of involvement, from full immersive production to narration only.</p>
+          <a class="btn-cta reveal d2" href="contact.html">Book Laura</a>
         </div>
       </section>
     </div>
@@ -533,10 +523,8 @@
         <div class="footer-v2-spacer"></div>
         <nav class="footer-v2-nav" aria-label="Footer navigation">
           <a class="footer-v2-link" href="index.html">Home</a>
-          <a class="footer-v2-link footer-v2-link--active" href="work.html"
-            >Work</a
-          >
-          <a class="footer-v2-link" href="laura.html">Laura</a>
+          <a class="footer-v2-link" href="work.html">Work</a>
+          <a class="footer-v2-link footer-v2-link--active" href="laura.html">Laura</a>
           <a class="footer-v2-link" href="production.html">Production</a>
           <a class="footer-v2-link" href="contact.html">Contact</a>
         </nav>
