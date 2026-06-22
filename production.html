@@ -72,19 +72,15 @@
       @media (max-width: 620px) {
         .prod-hero-content { padding-left: 24px; padding-right: 24px; }
       }
-      .prod-hero::before {
+      .prod-hero-content::before {
         content: '';
         position: absolute;
         z-index: -1;
         pointer-events: none;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.9);
         filter: blur(75px);
         border-radius: 150px;
-        width: 968px;
-        height: 416px;
-        top: 50%;
-        left: 106px;
-        transform: translateY(-50%);
+        inset: 150px 0 40px 0;
       }
       .prod-hero-title {
         font-family: var(--serif);

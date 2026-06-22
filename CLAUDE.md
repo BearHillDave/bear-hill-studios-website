@@ -182,31 +182,31 @@ Wrap hero + main content (including CTA) in `.page-canvas`. Footer sits **outsid
 ```
 Stays fully transparent until 57.9% down the frame, then fades to `--light-black` at 98.33%. Do not darken the middle — the photo should show clearly through most of the hero.
 
-**Hero blur blob (content legibility)** — implemented as `::before` pseudo-element on the hero section. Pure CSS, no image. `z-index: -1` within the hero's stacking context (hero has `z-index: 1`) so it renders behind all text content but above the photo layers. Hero sections must have `overflow: hidden` to contain the blurred edges.
+**Hero blur blob (content legibility)** — a `::before` pseudo-element on the hero's **content** element (`.hero-v2-content`, `.work-hero-content`, `.laura-hero-content`, `.prod-hero-content`), **not** the hero itself. Pure CSS, no image. `z-index: -1` within the content's stacking context (content is `position: relative; z-index: 2`) so it sits behind the copy but above the photo layers. The hero keeps `overflow: hidden` to contain the blurred edges.
+
+**Why the content element, not the hero:** the content is `margin: 0 auto` (centred) and wraps the copy, so anchoring the blob to it — and sizing it from the content's padding box via `inset` — keeps the blob tracking the title + text in both **position and height** as they reflow (wide desktop → centred; narrow/tall mobile → follows the copy up to the top). The previous version used fixed `width/height/top/left` on the hero, which drifted off the copy on wide screens and sat too low on mobile.
 
 ```css
-/* Pattern — exact values vary per page */
-.hero-section::before {
+/* On each hero's *-content element (position: relative; has the copy padding) */
+.hero-v2-content::before {
   content: '';
   position: absolute;
   z-index: -1;
   pointer-events: none;
   background: rgba(0, 0, 0, 0.5);
-  filter: blur(50px);          /* Laura uses blur(100px) */
-  border-radius: 100px;        /* Laura uses 150px */
-  width: 936px;
-  height: 320px–416px;
-  top: 50%;                    /* or fixed top value for home */
-  left: 60px–120px;
-  transform: translateY(-50%); /* omit if using fixed top */
+  filter: blur(50px);     /* per page below */
+  border-radius: 120px;   /* per page below */
+  inset: 150px 0 40px 0;  /* top/right/bottom/left, relative to content padding box */
 }
 ```
 
-Per-page blob values (from Figma, scaled to 1440px):
-- Home: `blur(50px)`, `r=100px`, `936×416px`, `top: 180px; left: 100px`
-- Work: `blur(50px)`, `r=100px`, `968×320px`, `top:50%; left:106px; transform:translateY(-50%)`
-- Laura: `blur(100px)`, `r=150px`, `968×416px`, `top:50%; left:106px; transform:translateY(-50%)`
-- Production: `blur(75px)`, `r=150px`, `968×416px`, `top:50%; left:106px; transform:translateY(-50%)`
+`inset` is relative to the content's padding box: **top `150px`** (content `padding-top` is `220px`, so ~70px above the title), **bottom `40px`** (content `padding-bottom` is `80px`, so ~40px below the last copy element), **sides `0`** (full content-column width). Top/bottom padding don't change across breakpoints, so the same `inset` works on desktop and mobile and the blob's height grows with the copy.
+
+Per-page blur / radius (sizing is the shared `inset` above):
+- Home: `blur(50px)`, `r=120px`
+- Work: `blur(50px)`, `r=120px`
+- Laura: `blur(100px)`, `r=150px`
+- Production: `blur(75px)`, `r=150px`
 
 **Hero layout — all pages except home:**
 - `min-height: 88vh` (reduced from `100vh` so the next section peeks ~108px above the fold on a 900px-tall viewport — a deliberate scroll cue; see **Scroll cue** below)

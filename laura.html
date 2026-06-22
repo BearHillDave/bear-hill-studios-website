@@ -83,19 +83,15 @@
       @media (max-width: 620px) {
         .laura-hero-content { padding-left: 24px; padding-right: 24px; }
       }
-      .laura-hero::before {
+      .laura-hero-content::before {
         content: '';
         position: absolute;
         z-index: -1;
         pointer-events: none;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.9);
         filter: blur(100px);
         border-radius: 150px;
-        width: 968px;
-        height: 416px;
-        top: 50%;
-        left: 106px;
-        transform: translateY(-50%);
+        inset: 150px 0 40px 0;
       }
       .laura-hero-title {
         font-family: var(--serif);

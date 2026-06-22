@@ -87,19 +87,15 @@
           padding-right: 24px;
         }
       }
-      .work-hero::before {
+      .work-hero-content::before {
         content: "";
         position: absolute;
         z-index: -1;
         pointer-events: none;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.9);
         filter: blur(50px);
-        border-radius: 100px;
-        width: 968px;
-        height: 320px;
-        top: 50%;
-        left: 106px;
-        transform: translateY(-50%);
+        border-radius: 120px;
+        inset: 150px 0 40px 0;
       }
       .work-hero-title {
         font-family: var(--serif);
