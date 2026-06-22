@@ -3,54 +3,54 @@
    ===================================================== */
 :root {
   /* ── Palette (Figma V2) ── */
-  --dark-white:    #f9f4ec;   /* primary text on dark, near-white */
-  --light-black:   #211e1a;   /* warm near-black, base background */
-  --red:           #cf2a0a;   /* primary accent */
-  --cream:         #f6ebda;   /* player labels, secondary warm white */
+  --dark-white: #f9f4ec; /* primary text on dark, near-white */
+  --light-black: #211e1a; /* warm near-black, base background */
+  --red: #cf2a0a; /* primary accent */
+  --cream: #f6ebda; /* player labels, secondary warm white */
 
   /* ── Player accent colours ── */
-  --blue:          #6aaab8;   /* Narration demos */
-  --yellow:        #d49000;   /* Commercial / Technical demos */
+  --blue: #6aaab8; /* Narration demos */
+  --yellow: #d49000; /* Commercial / Technical demos */
 
   /* ── Alpha tints ── */
-  --cream-50:      rgba(246, 235, 218, 0.5);
-  --cream-20:      rgba(246, 235, 218, 0.2);
-  --lb-50:         rgba(33, 30, 26, 0.5);
+  --cream-50: rgba(246, 235, 218, 0.5);
+  --cream-20: rgba(246, 235, 218, 0.2);
+  --lb-50: rgba(33, 30, 26, 0.5);
 
   /* ── Legacy aliases (keep for backward compat during rebuild) ── */
-  --true-black:    #000000;
-  --black:         var(--light-black);
-  --tan:           #e9cc9c;
-  --charcoal:      var(--light-black);
-  --forest:        var(--light-black);
-  --forest-mid:    var(--light-black);
-  --text:          var(--light-black);
-  --muted:         rgba(249, 244, 236, 0.5);
+  --true-black: #000000;
+  --black: var(--light-black);
+  --tan: #e9cc9c;
+  --charcoal: var(--light-black);
+  --forest: var(--light-black);
+  --forest-mid: var(--light-black);
+  --text: var(--light-black);
+  --muted: rgba(249, 244, 236, 0.5);
 
   /* ── Theme tokens — single theme, red accent ── */
-  --c1:   var(--red);
-  --c1t:  var(--cream);
-  --c2:   var(--blue);
-  --c2t:  var(--dark-white);
-  --c3:   var(--yellow);
-  --c3t:  var(--light-black);
+  --c1: var(--red);
+  --c1t: var(--cream);
+  --c2: var(--blue);
+  --c2t: var(--dark-white);
+  --c3: var(--yellow);
+  --c3t: var(--light-black);
 
   /* ── Type ── */
   --serif: "Cormorant Garamond", Georgia, serif;
-  --sans:  "Jost", Helvetica, sans-serif;
+  --sans: "Jost", Helvetica, sans-serif;
 
   /* ── Spacing tokens (Figma) ── */
-  --sp-sm:  8px;
-  --sp-md:  16px;
-  --sp-lg:  24px;
-  --sp-xl:  40px;
+  --sp-sm: 8px;
+  --sp-md: 16px;
+  --sp-lg: 24px;
+  --sp-xl: 40px;
   --sp-2xl: 64px;
 
   /* ── Layout tokens (Figma) ── */
   --text-desc-w: 520px;
 
   /* ── Motion ── */
-  --ease:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
 }
 
@@ -105,7 +105,9 @@ button {
   height: 128px;
   padding: 0 64px;
   color: var(--dark-white);
-  transition: background 0.4s, box-shadow 0.4s;
+  transition:
+    background 0.4s,
+    box-shadow 0.4s;
 }
 .nav.scrolled {
   background: rgba(33, 30, 26, 0.92);
@@ -116,7 +118,7 @@ button {
    text, so links stay legible over a bright hero photo when not scrolled.
    Fades away once the scrolled nav background takes over. */
 .nav::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -199,7 +201,10 @@ button {
   align-items: center;
   cursor: pointer;
   flex-shrink: 0;
-  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  transition:
+    border-color 0.2s,
+    background 0.2s,
+    color 0.2s;
   white-space: nowrap;
 }
 .nav-cta:hover {
@@ -235,7 +240,9 @@ button {
   width: 24px;
   height: 1.5px;
   background: var(--dark-white);
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
 }
 
 @media (max-width: 900px) {
@@ -272,7 +279,9 @@ button {
     transform: translateY(-100%);
     opacity: 0;
     pointer-events: none;
-    transition: transform 0.45s ease, opacity 0.3s ease;
+    transition:
+      transform 0.45s ease,
+      opacity 0.3s ease;
   }
   .nav.menu-open .nav-menu {
     transform: translateY(0);
@@ -312,11 +321,12 @@ button {
    ===================================================== */
 .hero {
   position: relative;
-  min-height: 100vh;
+  z-index: 1;
+  min-height: 88vh;
   display: flex;
-  align-items: flex-end;
-  overflow: hidden;
+  align-items: flex-start;
 }
+
 .hero-bg {
   position: absolute;
   inset: 0;
@@ -2498,11 +2508,7 @@ h3.subhead {
       rgba(0, 0, 0, 0.7) 50%,
       rgba(0, 0, 0, 1) 100%
     ),
-    linear-gradient(
-      to right,
-      oklch(8% 0.025 105 / 0.5) 0%,
-      transparent 50%
-    );
+    linear-gradient(to right, oklch(8% 0.025 105 / 0.5) 0%, transparent 50%);
 }
 .page-head-vignette--wide {
   background:
@@ -2513,11 +2519,7 @@ h3.subhead {
       rgba(0, 0, 0, 0.7) 50%,
       rgba(0, 0, 0, 1) 100%
     ),
-    linear-gradient(
-      to right,
-      oklch(8% 0.025 105 / 0.5) 0%,
-      transparent 63%
-    );
+    linear-gradient(to right, oklch(8% 0.025 105 / 0.5) 0%, transparent 63%);
 }
 
 /* Make the first block after .page-head transparent so the
@@ -2559,7 +2561,7 @@ h3.subhead {
   position: relative;
 }
 .wi + .wi::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 50%;
@@ -2653,40 +2655,53 @@ h3.subhead {
   text-decoration: none;
 }
 .wi-yt-thumb img {
-  width: 100%; height: 100%;
-  object-fit: cover; display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
   transition: opacity 0.25s;
 }
-.wi-yt-thumb:hover img { opacity: 0.8; }
+.wi-yt-thumb:hover img {
+  opacity: 0.8;
+}
 .wi-yt-play {
   position: absolute;
-  top: 50%; left: 50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  width: 36px; height: 36px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: rgba(246,235,218,0.15);
+  background: rgba(246, 235, 218, 0.15);
   backdrop-filter: blur(4px);
-  border: 1px solid rgba(246,235,218,0.3);
-  display: flex; align-items: center; justify-content: center;
-  transition: transform 0.2s var(--ease), background 0.2s;
+  border: 1px solid rgba(246, 235, 218, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.2s var(--ease),
+    background 0.2s;
   pointer-events: none;
 }
 .wi-yt-thumb:hover .wi-yt-play {
   transform: translate(-50%, -50%) scale(1.1);
-  background: rgba(246,235,218,0.25);
+  background: rgba(246, 235, 218, 0.25);
 }
 .wi-yt-link {
   display: inline-block;
   margin-top: 10px;
   font-family: var(--sans);
-  font-size: 10.7px; font-weight: 500;
+  font-size: 10.7px;
+  font-weight: 500;
   letter-spacing: 0.856px;
   text-transform: uppercase;
   color: var(--cream-50);
   text-decoration: none;
   transition: color 0.2s;
 }
-.wi-yt-link:hover { color: var(--dark-white); }
+.wi-yt-link:hover {
+  color: var(--dark-white);
+}
 
 /* Left col: cover image — variant 2 */
 .wi-cover {
@@ -2696,11 +2711,13 @@ h3.subhead {
   overflow: hidden;
   flex-shrink: 0;
   margin-right: var(--sp-lg);
-  box-shadow: 0 4px 4px rgba(0,0,0,0.35);
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.35);
 }
 .wi-cover img {
-  width: 100%; height: 100%;
-  object-fit: cover; display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* Right col: body copy (+ streaming icons for variant 2) — variants 1 and 2 */
@@ -2712,8 +2729,13 @@ h3.subhead {
   flex-direction: column;
   height: 173px;
 }
-.wi-copy-col .wi-body { flex: 1; padding: 0; }
-.wi-copy-col .wi-streaming { margin-top: auto; }
+.wi-copy-col .wi-body {
+  flex: 1;
+  padding: 0;
+}
+.wi-copy-col .wi-streaming {
+  margin-top: auto;
+}
 
 /* Streaming icons — variant 2 */
 .wi-streaming {
@@ -2733,8 +2755,14 @@ h3.subhead {
   transition: opacity 0.2s;
   flex-shrink: 0;
 }
-.wi-stream-icon:hover { opacity: 1; }
-.wi-stream-icon img { width: 36px; height: 36px; display: block; }
+.wi-stream-icon:hover {
+  opacity: 1;
+}
+.wi-stream-icon img {
+  width: 36px;
+  height: 36px;
+  display: block;
+}
 
 /* ── Narrow / mobile: stack the media row — cover (or video thumbnail) on top,
    body copy + streaming links below it (Figma "Audiobook with Cover/Mobile"). ── */
@@ -2769,8 +2797,12 @@ h3.subhead {
     padding-right: 0;
     gap: var(--sp-md);
   }
-  .wi-copy-col .wi-body { flex: none; }
-  .wi-copy-col .wi-streaming { margin-top: 0; }
+  .wi-copy-col .wi-body {
+    flex: none;
+  }
+  .wi-copy-col .wi-streaming {
+    margin-top: 0;
+  }
 }
 
 /* ── Large Video work item (Component 4) — full-width stacked with 16:9 embed ── */
@@ -2784,7 +2816,7 @@ h3.subhead {
 .wi-large-video + .wi-large-video::before,
 .wi-large-video + .wi::before,
 .wi + .wi-large-video::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 50%;
@@ -2827,10 +2859,14 @@ h3.subhead {
   text-decoration-thickness: 1px;
   transition: color 0.2s;
 }
-.wi-yt-watch:hover { color: var(--cream); }
+.wi-yt-watch:hover {
+  color: var(--cream);
+}
 
 /* Player row — variants 2 and 3 */
-.wi-player-row { padding: var(--sp-lg) 0; }
+.wi-player-row {
+  padding: var(--sp-lg) 0;
+}
 .wi-player {
   display: inline-grid;
   grid-template-columns: repeat(2, fit-content(100%));
@@ -2838,8 +2874,11 @@ h3.subhead {
   gap: 8px;
 }
 .wi-player-meta {
-  grid-column: 2; grid-row: 1;
-  display: flex; flex-direction: column; justify-content: center;
+  grid-column: 2;
+  grid-row: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .wi-player-label {
   font-family: var(--sans);
@@ -2862,7 +2901,9 @@ h3.subhead {
   text-decoration: none;
   transition: color 0.2s;
 }
-.wi-player-dl:hover { color: var(--dark-white); }
+.wi-player-dl:hover {
+  color: var(--dark-white);
+}
 
 /* ── CTA band (shared: home, work, laura, production) ── */
 .cta-v2 {
@@ -2911,7 +2952,9 @@ h3.subhead {
   /* reset browser <button> defaults */
   padding: 0;
   appearance: none;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 .btn-cta:hover {
   background: var(--cream);
@@ -2974,7 +3017,7 @@ h3.subhead {
   color: var(--cream);
 }
 .footer-v2-link--active::after {
-  content: '';
+  content: "";
   display: block;
   height: 1.5px;
   width: 100%;

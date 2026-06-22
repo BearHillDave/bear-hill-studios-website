@@ -67,7 +67,7 @@
       .hero-v2 {
         position: relative;
         z-index: 1;
-        overflow: hidden;
+        /* overflow: hidden; */
         min-height: 88vh;
         display: flex;
         align-items: flex-start;
@@ -86,10 +86,13 @@
         gap: 48px;
       }
       @media (max-width: 620px) {
-        .hero-v2-content { padding-left: 24px; padding-right: 24px; }
+        .hero-v2-content {
+          padding-left: 24px;
+          padding-right: 24px;
+        }
       }
       .hero-v2-content::before {
-        content: '';
+        content: "";
         position: absolute;
         z-index: -1;
         pointer-events: none;
@@ -258,18 +261,25 @@
           </svg>
         </a>
       </div>
-      <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+      <button
+        class="nav-toggle"
+        id="nav-toggle"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="nav-menu"
+      >
         <span></span><span></span><span></span>
       </button>
       <div class="nav-menu" id="nav-menu">
-      <ul class="nav-links">
-        <li><a class="nav-link active" href="index.html">Home</a></li>
-        <li><a class="nav-link" href="work.html">Work</a></li>
-        <li><a class="nav-link" href="laura.html">Laura</a></li>
-        <li><a class="nav-link" href="production.html">Production</a></li>
-        <li><a class="nav-link" href="contact.html">Contact</a></li>
-      </ul>
-      <a class="nav-cta" href="contact.html">Get in touch</a>
+        <ul class="nav-links">
+          <li><a class="nav-link active" href="index.html">Home</a></li>
+          <li><a class="nav-link" href="work.html">Work</a></li>
+          <li><a class="nav-link" href="laura.html">Laura</a></li>
+          <li><a class="nav-link" href="production.html">Production</a></li>
+          <li><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+        <a class="nav-cta" href="contact.html">Get in touch</a>
       </div>
     </nav>
 
@@ -280,7 +290,7 @@
       <div class="page-blur"></div>
 
       <!-- ── HERO (content layer) ── -->
-      <section class="hero-v2">
+      <section class="hero">
         <div class="hero-v2-content">
           <div>
             <h1 class="hero-v2-title reveal">Bear Hill Studios</h1>
@@ -319,41 +329,68 @@
 
           <!-- Audiobook: Millions of Cats...and Stars -->
           <article class="wi">
-            <p class="wi-eyebrow wi-eyebrow--audio reveal">Immersive Audiobook</p>
+            <p class="wi-eyebrow wi-eyebrow--audio reveal">
+              Immersive Audiobook
+            </p>
             <div class="wi-title-group reveal d1">
               <h2 class="wi-title">Millions of Cats...and Stars</h2>
               <p class="wi-subtitle">Wanda Gág</p>
             </div>
             <div class="wi-media-row reveal d2">
               <div class="wi-cover">
-                <img src="assets/TTNBC Cover 3000x3000.jpg" alt="Millions of Cats...and Stars" />
+                <img
+                  src="assets/TTNBC Cover 3000x3000.jpg"
+                  alt="Millions of Cats...and Stars"
+                />
               </div>
               <div class="wi-copy-col">
                 <p class="wi-body">
-                  A fully immersive audiobook experience — original score, layered
-                  soundscapes, and narration woven together into a single world you
-                  step inside.
+                  A fully immersive audiobook experience — original score,
+                  layered soundscapes, and narration woven together into a
+                  single world you step inside.
                 </p>
                 <nav class="wi-streaming" aria-label="Listen on">
                   <a class="wi-stream-icon" href="#" aria-label="Spotify"
-                    ><img src="assets/icons/Spotify.svg" alt="" width="36" height="36"
+                    ><img
+                      src="assets/icons/Spotify.svg"
+                      alt=""
+                      width="36"
+                      height="36"
                   /></a>
                   <a class="wi-stream-icon" href="#" aria-label="Apple Books"
-                    ><img src="assets/icons/Apple Books.svg" alt="" width="36" height="36"
+                    ><img
+                      src="assets/icons/Apple Books.svg"
+                      alt=""
+                      width="36"
+                      height="36"
                   /></a>
                   <a class="wi-stream-icon" href="#" aria-label="Audible"
-                    ><img src="assets/icons/Audible.svg" alt="" width="36" height="36"
+                    ><img
+                      src="assets/icons/Audible.svg"
+                      alt=""
+                      width="36"
+                      height="36"
                   /></a>
                 </nav>
               </div>
             </div>
             <div class="wi-player-row reveal d3">
               <div class="wi-player">
-                <div class="player player-wk" data-player="cats-home" data-dur="38" data-color="c1"></div>
+                <div
+                  class="player player-wk"
+                  data-player="cats-home"
+                  data-dur="38"
+                  data-color="c1"
+                ></div>
                 <div class="wi-player-meta">
                   <span class="wi-player-label">Sample</span>
                   <a class="wi-player-dl" href="#" download>
-                    <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor">
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="10"
+                      height="10"
+                      fill="currentColor"
+                    >
                       <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
                     </svg>
                     MP3
@@ -365,43 +402,70 @@
 
           <!-- Audiobook: The Velveteen Rabbit -->
           <article class="wi">
-            <p class="wi-eyebrow wi-eyebrow--audio reveal">Immersive Audiobook</p>
+            <p class="wi-eyebrow wi-eyebrow--audio reveal">
+              Immersive Audiobook
+            </p>
             <div class="wi-title-group reveal d1">
               <h2 class="wi-title">The Velveteen Rabbit</h2>
               <p class="wi-subtitle">Margery Williams</p>
             </div>
             <div class="wi-media-row reveal d2">
               <div class="wi-cover">
-                <img src="assets/VR Cover 3000x3000.png" alt="The Velveteen Rabbit" />
+                <img
+                  src="assets/VR Cover 3000x3000.png"
+                  alt="The Velveteen Rabbit"
+                />
               </div>
               <div class="wi-copy-col">
                 <p class="wi-body">
-                  The Velveteen Rabbit by Margery Williams is a classic tale that
-                  follows a toy rabbit's journey to becoming real through a child's
-                  love. Warmly narrated by Laura Cox and beautifully produced by
-                  Bear Hill Studios, this audiobook envelops us in a world of magic
-                  and wonder.
+                  The Velveteen Rabbit by Margery Williams is a classic tale
+                  that follows a toy rabbit's journey to becoming real through a
+                  child's love. Warmly narrated by Laura Cox and beautifully
+                  produced by Bear Hill Studios, this audiobook envelops us in a
+                  world of magic and wonder.
                 </p>
                 <nav class="wi-streaming" aria-label="Listen on">
                   <a class="wi-stream-icon" href="#" aria-label="Spotify"
-                    ><img src="assets/icons/Spotify.svg" alt="" width="36" height="36"
+                    ><img
+                      src="assets/icons/Spotify.svg"
+                      alt=""
+                      width="36"
+                      height="36"
                   /></a>
                   <a class="wi-stream-icon" href="#" aria-label="Apple Books"
-                    ><img src="assets/icons/Apple Books.svg" alt="" width="36" height="36"
+                    ><img
+                      src="assets/icons/Apple Books.svg"
+                      alt=""
+                      width="36"
+                      height="36"
                   /></a>
                   <a class="wi-stream-icon" href="#" aria-label="Audible"
-                    ><img src="assets/icons/Audible.svg" alt="" width="36" height="36"
+                    ><img
+                      src="assets/icons/Audible.svg"
+                      alt=""
+                      width="36"
+                      height="36"
                   /></a>
                 </nav>
               </div>
             </div>
             <div class="wi-player-row reveal d3">
               <div class="wi-player">
-                <div class="player player-wk" data-player="vr-home" data-dur="35" data-color="c1"></div>
+                <div
+                  class="player player-wk"
+                  data-player="vr-home"
+                  data-dur="35"
+                  data-color="c1"
+                ></div>
                 <div class="wi-player-meta">
                   <span class="wi-player-label">Sample</span>
                   <a class="wi-player-dl" href="#" download>
-                    <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor">
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="10"
+                      height="10"
+                      fill="currentColor"
+                    >
                       <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
                     </svg>
                     MP3

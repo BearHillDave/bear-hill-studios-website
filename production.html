@@ -20,7 +20,9 @@
       }
       .page-photo {
         position: absolute;
-        top: 0; left: 0; right: 0;
+        top: 0;
+        left: 0;
+        right: 0;
         height: 100vh;
         background-image: url("assets/stream.jpg");
         background-size: cover;
@@ -29,19 +31,23 @@
       }
       .page-vignette {
         position: absolute;
-        top: 0; left: 0; right: 0;
+        top: 0;
+        left: 0;
+        right: 0;
         height: 100vh;
         background: linear-gradient(
           to bottom,
-          rgba(0,0,0,0) 0%,
-          rgba(0,0,0,0) 57.9%,
+          rgba(0, 0, 0, 0) 0%,
+          rgba(0, 0, 0, 0) 57.9%,
           var(--light-black) 98.33%
         );
         pointer-events: none;
       }
       .page-blur {
         position: absolute;
-        top: 0; left: 0; right: 0;
+        top: 0;
+        left: 0;
+        right: 0;
         height: 100%;
         background-image: url("assets/stream-blur.jpg");
         background-size: cover;
@@ -56,7 +62,7 @@
       .prod-hero {
         position: relative;
         z-index: 1;
-        overflow: hidden;
+        /* overflow: hidden; */
         min-height: 88vh;
         display: flex;
         align-items: flex-start;
@@ -70,10 +76,13 @@
         padding: 220px 64px 80px;
       }
       @media (max-width: 620px) {
-        .prod-hero-content { padding-left: 24px; padding-right: 24px; }
+        .prod-hero-content {
+          padding-left: 24px;
+          padding-right: 24px;
+        }
       }
       .prod-hero-content::before {
-        content: '';
+        content: "";
         position: absolute;
         z-index: -1;
         pointer-events: none;
@@ -114,7 +123,7 @@
         padding-top: var(--sp-2xl);
       }
       .facility-section::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 50%;
@@ -162,7 +171,6 @@
     </style>
   </head>
   <body style="background: var(--light-black); color: var(--dark-white)">
-
     <!-- NAV -->
     <nav class="nav" id="nav">
       <div class="logo">
@@ -253,18 +261,27 @@
           </svg>
         </a>
       </div>
-      <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+      <button
+        class="nav-toggle"
+        id="nav-toggle"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="nav-menu"
+      >
         <span></span><span></span><span></span>
       </button>
       <div class="nav-menu" id="nav-menu">
-      <ul class="nav-links">
-        <li><a class="nav-link" href="index.html">Home</a></li>
-        <li><a class="nav-link" href="work.html">Work</a></li>
-        <li><a class="nav-link" href="laura.html">Laura</a></li>
-        <li><a class="nav-link active" href="production.html">Production</a></li>
-        <li><a class="nav-link" href="contact.html">Contact</a></li>
-      </ul>
-      <a class="nav-cta" href="contact.html">Get in touch</a>
+        <ul class="nav-links">
+          <li><a class="nav-link" href="index.html">Home</a></li>
+          <li><a class="nav-link" href="work.html">Work</a></li>
+          <li><a class="nav-link" href="laura.html">Laura</a></li>
+          <li>
+            <a class="nav-link active" href="production.html">Production</a>
+          </li>
+          <li><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+        <a class="nav-cta" href="contact.html">Get in touch</a>
       </div>
     </nav>
 
@@ -275,10 +292,15 @@
       <div class="page-blur"></div>
 
       <!-- HERO -->
-      <header class="prod-hero">
+      <header class="hero">
         <div class="prod-hero-content">
           <h1 class="prod-hero-title reveal">Production</h1>
-          <p class="prod-hero-body reveal d1">Production at Bear Hill Studios is the domain of David Cox, husband to Laura. He has worked as a creative, technologist, and interactive designer for nearly 30 years. His main focus now is audio production and interactive design.</p>
+          <p class="prod-hero-body reveal d1">
+            Production at Bear Hill Studios is the domain of David Cox, husband
+            to Laura. He has worked as a creative, technologist, and interactive
+            designer for nearly 30 years. His main focus now is audio production
+            and interactive design.
+          </p>
         </div>
 
         <div class="hero-scroll" aria-hidden="true">
@@ -289,58 +311,139 @@
       <!-- WORK ITEMS -->
       <section class="wi-section">
         <div class="wi-list">
-
           <!-- Large Video: Millions of Cats and Stars -->
           <div class="wi-large-video">
             <p class="wi-eyebrow reveal">Video</p>
             <div class="wi-title-group reveal d1">
               <h2 class="wi-title">Millions of Cats and Stars</h2>
             </div>
-            <p class="wi-body reveal d2">Whilst working on a version of <em>Millions of Cats</em> by <a href="https://en.wikipedia.org/wiki/Wanda_G%C3%A1g" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:3px">Wanda Gág</a> we kept getting reminded of Carl Sagan's many mentions of "millions and billions" of stars in his 1980 <a href="https://en.wikipedia.org/wiki/Cosmos:_A_Personal_Voyage" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-decoration-color:var(--red);text-underline-offset:3px">Cosmos</a> series — we're big fans. So whether or not it makes sense, we decided to make this epic space themed video version and put it out for free.</p>
+            <p class="wi-body reveal d2">
+              Whilst working on a version of <em>Millions of Cats</em> by
+              <a
+                href="https://en.wikipedia.org/wiki/Wanda_G%C3%A1g"
+                target="_blank"
+                rel="noopener"
+                style="
+                  color: inherit;
+                  text-decoration: underline;
+                  text-decoration-color: var(--red);
+                  text-underline-offset: 3px;
+                "
+                >Wanda Gág</a
+              >
+              we kept getting reminded of Carl Sagan's many mentions of
+              "millions and billions" of stars in his 1980
+              <a
+                href="https://en.wikipedia.org/wiki/Cosmos:_A_Personal_Voyage"
+                target="_blank"
+                rel="noopener"
+                style="
+                  color: inherit;
+                  text-decoration: underline;
+                  text-decoration-color: var(--red);
+                  text-underline-offset: 3px;
+                "
+                >Cosmos</a
+              >
+              series — we're big fans. So whether or not it makes sense, we
+              decided to make this epic space themed video version and put it
+              out for free.
+            </p>
             <div class="wi-yt-full reveal d3">
               <iframe
                 src="https://www.youtube.com/embed/-mW5If3EqFQ?rel=0&modestbranding=1"
                 title="Millions of Cats and Stars"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="
+                  accelerometer;
+                  autoplay;
+                  clipboard-write;
+                  encrypted-media;
+                  gyroscope;
+                  picture-in-picture;
+                "
                 allowfullscreen
               ></iframe>
             </div>
-            <a class="wi-yt-watch reveal d4" href="https://www.youtube.com/watch?v=-mW5If3EqFQ" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+            <a
+              class="wi-yt-watch reveal d4"
+              href="https://www.youtube.com/watch?v=-mW5If3EqFQ"
+              target="_blank"
+              rel="noopener"
+              >Watch on YouTube ↗</a
+            >
           </div>
 
           <!-- Audiobook: The Velveteen Rabbit -->
           <article class="wi">
-            <p class="wi-eyebrow wi-eyebrow--audio reveal">Immersive Audiobook</p>
+            <p class="wi-eyebrow wi-eyebrow--audio reveal">
+              Immersive Audiobook
+            </p>
             <div class="wi-title-group reveal d1">
               <h2 class="wi-title">The Velveteen Rabbit</h2>
               <p class="wi-subtitle">Margery Williams</p>
             </div>
             <div class="wi-media-row reveal d2">
               <div class="wi-cover">
-                <img src="assets/VR Cover 3000x3000.png" alt="The Velveteen Rabbit">
+                <img
+                  src="assets/VR Cover 3000x3000.png"
+                  alt="The Velveteen Rabbit"
+                />
               </div>
               <div class="wi-copy-col">
-                <p class="wi-body">The Velveteen Rabbit by Margery Williams is a classic tale that follows a toy rabbit's journey to becoming real through a child's love. Warmly narrated by Laura Cox and beautifully produced by Bear Hill Studios, this audiobook envelops us in a world of magic and wonder.</p>
+                <p class="wi-body">
+                  The Velveteen Rabbit by Margery Williams is a classic tale
+                  that follows a toy rabbit's journey to becoming real through a
+                  child's love. Warmly narrated by Laura Cox and beautifully
+                  produced by Bear Hill Studios, this audiobook envelops us in a
+                  world of magic and wonder.
+                </p>
                 <nav class="wi-streaming" aria-label="Listen on">
                   <a class="wi-stream-icon" href="#" aria-label="Spotify">
-                    <img src="assets/icons/Spotify.svg" alt="" width="36" height="36">
+                    <img
+                      src="assets/icons/Spotify.svg"
+                      alt=""
+                      width="36"
+                      height="36"
+                    />
                   </a>
                   <a class="wi-stream-icon" href="#" aria-label="Apple Books">
-                    <img src="assets/icons/Apple Books.svg" alt="" width="36" height="36">
+                    <img
+                      src="assets/icons/Apple Books.svg"
+                      alt=""
+                      width="36"
+                      height="36"
+                    />
                   </a>
                   <a class="wi-stream-icon" href="#" aria-label="Audible">
-                    <img src="assets/icons/Audible.svg" alt="" width="36" height="36">
+                    <img
+                      src="assets/icons/Audible.svg"
+                      alt=""
+                      width="36"
+                      height="36"
+                    />
                   </a>
                 </nav>
               </div>
             </div>
             <div class="wi-player-row reveal d3">
               <div class="wi-player">
-                <div class="player player-wk" data-player="prod-vr" data-dur="35" data-color="c1"></div>
+                <div
+                  class="player player-wk"
+                  data-player="prod-vr"
+                  data-dur="35"
+                  data-color="c1"
+                ></div>
                 <div class="wi-player-meta">
                   <span class="wi-player-label">Sample</span>
                   <a class="wi-player-dl" href="#" download>
-                    <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="10"
+                      height="10"
+                      fill="currentColor"
+                    >
+                      <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                    </svg>
                     MP3
                   </a>
                 </div>
@@ -354,18 +457,36 @@
             <div class="wi-title-group reveal d1">
               <h2 class="wi-title">Melody</h2>
             </div>
-            <p class="wi-body reveal d2">Melody is a virtual reality wellbeing experience developed with Cardiff University and Universal Music. David was product director and lead interactive designer — responsible for the full UX, spatial audio, and immersive environment — from concept through clinical trial.</p>
+            <p class="wi-body reveal d2">
+              Melody is a virtual reality wellbeing experience developed with
+              Cardiff University and Universal Music. David was product director
+              and lead interactive designer — responsible for the full UX,
+              spatial audio, and immersive environment — from concept through
+              clinical trial.
+            </p>
             <div class="wi-yt-full reveal d3">
               <iframe
                 src="https://www.youtube.com/embed/GCAesHMC92k?rel=0&modestbranding=1"
                 title="Melody VR"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="
+                  accelerometer;
+                  autoplay;
+                  clipboard-write;
+                  encrypted-media;
+                  gyroscope;
+                  picture-in-picture;
+                "
                 allowfullscreen
               ></iframe>
             </div>
-            <a class="wi-yt-watch reveal d4" href="https://www.youtube.com/watch?v=GCAesHMC92k" target="_blank" rel="noopener">Watch on YouTube ↗</a>
+            <a
+              class="wi-yt-watch reveal d4"
+              href="https://www.youtube.com/watch?v=GCAesHMC92k"
+              target="_blank"
+              rel="noopener"
+              >Watch on YouTube ↗</a
+            >
           </div>
-
         </div>
       </section>
 
@@ -373,21 +494,40 @@
       <section class="wi-section facility-section">
         <div class="wi-list">
           <h2 class="section-heading reveal">The Studio</h2>
-          <p class="wi-body facility-intro reveal d1">A simple, reliable setup built for clean, consistent voice recording — from quick voiceover turnarounds to full audiobook productions. We also keep a selection of electric, acoustic, and MIDI instruments on hand for original music and sound design.</p>
+          <p class="wi-body facility-intro reveal d1">
+            A simple, reliable setup built for clean, consistent voice recording
+            — from quick voiceover turnarounds to full audiobook productions. We
+            also keep a selection of electric, acoustic, and MIDI instruments on
+            hand for original music and sound design.
+          </p>
 
           <div class="facility-gallery reveal d2">
             <div class="facility-photo">
-              <img src="assets/sm7b-logic.jpg" alt="Shure SM7B microphone on a boom arm, with Logic Pro and a MacBook Pro in the background">
+              <img
+                src="assets/sm7b-logic.jpg"
+                alt="Shure SM7B microphone on a boom arm, with Logic Pro and a MacBook Pro in the background"
+              />
             </div>
             <div class="facility-photo">
-              <img src="assets/curtain.jpg" alt="Microphone set up in the acoustically treated recording booth">
+              <img
+                src="assets/curtain.jpg"
+                alt="Microphone set up in the acoustically treated recording booth"
+              />
             </div>
             <div class="facility-photo">
-              <img src="assets/nt1.jpg" alt="Røde NT1 microphone with pop filter, studio monitors in the background">
+              <img
+                src="assets/nt1.jpg"
+                alt="Røde NT1 microphone with pop filter, studio monitors in the background"
+              />
             </div>
           </div>
 
-          <p class="facility-list reveal d3">Shure SM7B&nbsp; &middot; &nbsp;Røde NT1&nbsp; &middot; &nbsp;Focusrite Scarlett 2i2&nbsp; &middot; &nbsp;Logic Pro&nbsp; &middot; &nbsp;MacBook Pro&nbsp; &middot; &nbsp;Treated vocal booth&nbsp; &middot; &nbsp;Electric, acoustic &amp; MIDI instruments</p>
+          <p class="facility-list reveal d3">
+            Shure SM7B&nbsp; &middot; &nbsp;Røde NT1&nbsp; &middot;
+            &nbsp;Focusrite Scarlett 2i2&nbsp; &middot; &nbsp;Logic Pro&nbsp;
+            &middot; &nbsp;MacBook Pro&nbsp; &middot; &nbsp;Treated vocal
+            booth&nbsp; &middot; &nbsp;Electric, acoustic &amp; MIDI instruments
+          </p>
         </div>
       </section>
 
@@ -395,7 +535,10 @@
       <section class="cta-v2">
         <div class="wrap-n">
           <h2 class="cta-v2-title reveal">Want to make something together?</h2>
-          <p class="cta-v2-body reveal d1">We're open to projects at any level of involvement, from full immersive production to narration only.</p>
+          <p class="cta-v2-body reveal d1">
+            We're open to projects at any level of involvement, from full
+            immersive production to narration only.
+          </p>
           <a class="btn-cta reveal d2" href="contact.html">Get in Touch</a>
         </div>
       </section>
@@ -416,7 +559,11 @@
           <a class="footer-v2-link" href="index.html">Home</a>
           <a class="footer-v2-link" href="work.html">Work</a>
           <a class="footer-v2-link" href="laura.html">Laura</a>
-          <a class="footer-v2-link footer-v2-link--active" href="production.html">Production</a>
+          <a
+            class="footer-v2-link footer-v2-link--active"
+            href="production.html"
+            >Production</a
+          >
           <a class="footer-v2-link" href="contact.html">Contact</a>
         </nav>
       </div>

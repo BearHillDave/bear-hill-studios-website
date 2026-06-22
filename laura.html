@@ -67,7 +67,7 @@
       .laura-hero {
         position: relative;
         z-index: 1;
-        overflow: hidden;
+        /* overflow: hidden; */
         min-height: 88vh;
         display: flex;
         align-items: flex-start;
@@ -81,10 +81,13 @@
         padding: 220px 64px 80px;
       }
       @media (max-width: 620px) {
-        .laura-hero-content { padding-left: 24px; padding-right: 24px; }
+        .laura-hero-content {
+          padding-left: 24px;
+          padding-right: 24px;
+        }
       }
       .laura-hero-content::before {
-        content: '';
+        content: "";
         position: absolute;
         z-index: -1;
         pointer-events: none;
@@ -164,8 +167,12 @@
       }
 
       /* Category eyebrow spacing in voice demos flat list */
-      .wi-list .wi-eyebrow + .wi-player-row { margin-top: var(--sp-lg); }
-      .wi-list .wi-eyebrow:not(:first-of-type) { margin-top: var(--sp-xl); }
+      .wi-list .wi-eyebrow + .wi-player-row {
+        margin-top: var(--sp-lg);
+      }
+      .wi-list .wi-eyebrow:not(:first-of-type) {
+        margin-top: var(--sp-xl);
+      }
 
       /* Long-copy body text (About Laura) */
       .laura-long-copy {
@@ -176,7 +183,9 @@
         color: var(--dark-white);
         margin: 0 0 var(--sp-xl);
       }
-      .laura-long-copy:last-child { margin-bottom: 0; }
+      .laura-long-copy:last-child {
+        margin-bottom: 0;
+      }
 
       /* wi-section spacing */
       .wi-section {
@@ -196,7 +205,7 @@
         position: relative;
       }
       .credit-card + .credit-card::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 50%;
@@ -375,18 +384,25 @@
           </svg>
         </a>
       </div>
-      <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu">
+      <button
+        class="nav-toggle"
+        id="nav-toggle"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="nav-menu"
+      >
         <span></span><span></span><span></span>
       </button>
       <div class="nav-menu" id="nav-menu">
-      <ul class="nav-links">
-        <li><a class="nav-link" href="index.html">Home</a></li>
-        <li><a class="nav-link" href="work.html">Work</a></li>
-        <li><a class="nav-link active" href="laura.html">Laura</a></li>
-        <li><a class="nav-link" href="production.html">Production</a></li>
-        <li><a class="nav-link" href="contact.html">Contact</a></li>
-      </ul>
-      <a class="nav-cta" href="contact.html">Get in touch</a>
+        <ul class="nav-links">
+          <li><a class="nav-link" href="index.html">Home</a></li>
+          <li><a class="nav-link" href="work.html">Work</a></li>
+          <li><a class="nav-link active" href="laura.html">Laura</a></li>
+          <li><a class="nav-link" href="production.html">Production</a></li>
+          <li><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+        <a class="nav-cta" href="contact.html">Get in touch</a>
       </div>
     </nav>
 
@@ -397,15 +413,24 @@
       <div class="page-blur"></div>
 
       <!-- HERO (content layer) — title overlaps circle portrait at upper-left -->
-      <header class="laura-hero">
+      <header class="hero">
         <div class="laura-circle">
-          <img src="assets/laura-at-mic.jpg" alt="Laura Cox">
+          <img src="assets/laura-at-mic.jpg" alt="Laura Cox" />
         </div>
         <div class="laura-hero-content">
           <h1 class="laura-hero-title reveal">Laura Cox</h1>
-          <p class="laura-hero-body reveal d1">A warm, natural British voice for audiobooks, narration, characters and commercials.</p>
-          <p class="laura-hero-body reveal d2">Trained at the Bristol Old Vic Theatre School, with credits ranging from Aardman to the BBC.</p>
-          <p class="laura-hero-body reveal d3">Part of Bear Hill Studios — also available as voice talent for independent productions.</p>
+          <p class="laura-hero-body reveal d1">
+            A warm, natural British voice for audiobooks, narration, characters
+            and commercials.
+          </p>
+          <p class="laura-hero-body reveal d2">
+            Trained at the Bristol Old Vic Theatre School, with credits ranging
+            from Aardman to the BBC.
+          </p>
+          <p class="laura-hero-body reveal d3">
+            Part of Bear Hill Studios — also available as voice talent for
+            independent productions.
+          </p>
         </div>
 
         <div class="hero-scroll" aria-hidden="true">
@@ -422,12 +447,26 @@
           <p class="wi-eyebrow reveal">Narration</p>
           <div class="wi-player-row reveal d1">
             <div class="wi-player">
-              <div class="player player-wk" data-player="laura-narr1" data-dur="35" data-color="c2"></div>
+              <div
+                class="player player-wk"
+                data-player="laura-narr1"
+                data-dur="35"
+                data-color="c2"
+              ></div>
               <div class="wi-player-meta">
                 <span class="wi-player-label">Car Boot Kings</span>
-                <p class="wi-player-subtitle">Warm, fun, knowing, quirky, reality, friendly</p>
+                <p class="wi-player-subtitle">
+                  Warm, fun, knowing, quirky, reality, friendly
+                </p>
                 <a class="wi-player-dl" href="#" download>
-                  <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="10"
+                    height="10"
+                    fill="currentColor"
+                  >
+                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                  </svg>
                   MP3
                 </a>
               </div>
@@ -435,12 +474,28 @@
           </div>
           <div class="wi-player-row reveal d2">
             <div class="wi-player">
-              <div class="player player-wk" data-player="laura-narr2" data-dur="35" data-color="c2"></div>
+              <div
+                class="player player-wk"
+                data-player="laura-narr2"
+                data-dur="35"
+                data-color="c2"
+              ></div>
               <div class="wi-player-meta">
-                <span class="wi-player-label">The Secret Life of the Rainforest</span>
-                <p class="wi-player-subtitle">Inspiring, warm, wildlife, natural history</p>
+                <span class="wi-player-label"
+                  >The Secret Life of the Rainforest</span
+                >
+                <p class="wi-player-subtitle">
+                  Inspiring, warm, wildlife, natural history
+                </p>
                 <a class="wi-player-dl" href="#" download>
-                  <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="10"
+                    height="10"
+                    fill="currentColor"
+                  >
+                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                  </svg>
                   MP3
                 </a>
               </div>
@@ -451,12 +506,26 @@
           <p class="wi-eyebrow reveal">Audiobook</p>
           <div class="wi-player-row reveal d1">
             <div class="wi-player">
-              <div class="player player-wk" data-player="laura-audio1" data-dur="35" data-color="c1"></div>
+              <div
+                class="player player-wk"
+                data-player="laura-audio1"
+                data-dur="35"
+                data-color="c1"
+              ></div>
               <div class="wi-player-meta">
                 <span class="wi-player-label">Tyrannosaurus Drip</span>
-                <p class="wi-player-subtitle">Fun, children's, characters, cartoon</p>
+                <p class="wi-player-subtitle">
+                  Fun, children's, characters, cartoon
+                </p>
                 <a class="wi-player-dl" href="#" download>
-                  <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="10"
+                    height="10"
+                    fill="currentColor"
+                  >
+                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                  </svg>
                   MP3
                 </a>
               </div>
@@ -464,12 +533,26 @@
           </div>
           <div class="wi-player-row reveal d2">
             <div class="wi-player">
-              <div class="player player-wk" data-player="laura-audio2" data-dur="35" data-color="c1"></div>
+              <div
+                class="player player-wk"
+                data-player="laura-audio2"
+                data-dur="35"
+                data-color="c1"
+              ></div>
               <div class="wi-player-meta">
-                <span class="wi-player-label">'Twas the Night Before Christmas</span>
+                <span class="wi-player-label"
+                  >'Twas the Night Before Christmas</span
+                >
                 <p class="wi-player-subtitle">Magical, children's, classic</p>
                 <a class="wi-player-dl" href="#" download>
-                  <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="10"
+                    height="10"
+                    fill="currentColor"
+                  >
+                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                  </svg>
                   MP3
                 </a>
               </div>
@@ -477,12 +560,26 @@
           </div>
           <div class="wi-player-row reveal d3">
             <div class="wi-player">
-              <div class="player player-wk" data-player="laura-audio3" data-dur="35" data-color="c1"></div>
+              <div
+                class="player player-wk"
+                data-player="laura-audio3"
+                data-dur="35"
+                data-color="c1"
+              ></div>
               <div class="wi-player-meta">
                 <span class="wi-player-label">The Velveteen Rabbit</span>
-                <p class="wi-player-subtitle">Magical, children's, classic, characters, accents</p>
+                <p class="wi-player-subtitle">
+                  Magical, children's, classic, characters, accents
+                </p>
                 <a class="wi-player-dl" href="#" download>
-                  <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="10"
+                    height="10"
+                    fill="currentColor"
+                  >
+                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                  </svg>
                   MP3
                 </a>
               </div>
@@ -493,12 +590,26 @@
           <p class="wi-eyebrow reveal">Technical</p>
           <div class="wi-player-row reveal d1">
             <div class="wi-player">
-              <div class="player player-wk" data-player="laura-tech1" data-dur="35" data-color="c3"></div>
+              <div
+                class="player player-wk"
+                data-player="laura-tech1"
+                data-dur="35"
+                data-color="c3"
+              ></div>
               <div class="wi-player-meta">
                 <span class="wi-player-label">Coronary Angioplasty</span>
-                <p class="wi-player-subtitle">Medical, precise, authoritative, clear</p>
+                <p class="wi-player-subtitle">
+                  Medical, precise, authoritative, clear
+                </p>
                 <a class="wi-player-dl" href="#" download>
-                  <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="10"
+                    height="10"
+                    fill="currentColor"
+                  >
+                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                  </svg>
                   MP3
                 </a>
               </div>
@@ -509,12 +620,26 @@
           <p class="wi-eyebrow reveal">Commercial</p>
           <div class="wi-player-row reveal d1">
             <div class="wi-player">
-              <div class="player player-wk" data-player="laura-comm1" data-dur="35" data-color="c3"></div>
+              <div
+                class="player player-wk"
+                data-player="laura-comm1"
+                data-dur="35"
+                data-color="c3"
+              ></div>
               <div class="wi-player-meta">
                 <span class="wi-player-label">Money Supermarket</span>
-                <p class="wi-player-subtitle">Fun, upbeat, relatable, friendly</p>
+                <p class="wi-player-subtitle">
+                  Fun, upbeat, relatable, friendly
+                </p>
                 <a class="wi-player-dl" href="#" download>
-                  <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+                  <svg
+                    viewBox="0 0 24 24"
+                    width="10"
+                    height="10"
+                    fill="currentColor"
+                  >
+                    <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z" />
+                  </svg>
                   MP3
                 </a>
               </div>
@@ -527,10 +652,13 @@
       <section class="laura-section">
         <div class="wi-list--narrow">
           <blockquote class="laura-quote reveal">
-            "Having worked with Laura before we knew her voice would elevate the whole app, and it did, it made it so, so much better. Delivered on time and on budget.
-            Can't wait to record more."
+            "Having worked with Laura before we knew her voice would elevate the
+            whole app, and it did, it made it so, so much better. Delivered on
+            time and on budget. Can't wait to record more."
           </blockquote>
-          <cite class="laura-cite reveal d1">Kevin Moss — Important Small Things</cite>
+          <cite class="laura-cite reveal d1"
+            >Kevin Moss — Important Small Things</cite
+          >
         </div>
       </section>
 
@@ -541,25 +669,33 @@
 
           <div class="credit-card reveal d1">
             <div class="credit-card-img">
-              <img src="assets/gramerphone.jpg" alt="Chicken Run">
+              <img src="assets/gramerphone.jpg" alt="Chicken Run" />
             </div>
             <div class="credit-card-info">
               <p class="credit-card-meta">Film · Aardman Animations</p>
               <h3 class="credit-card-title">Chicken Run</h3>
               <p class="credit-card-sub">Nick Park &amp; Peter Lord · 2000</p>
-              <p class="credit-card-body">Additional voices and guide tracks for Julia Sawalha &amp; Jane Horrocks.</p>
+              <p class="credit-card-body">
+                Additional voices and guide tracks for Julia Sawalha &amp; Jane
+                Horrocks.
+              </p>
             </div>
           </div>
 
           <div class="credit-card reveal d1">
             <div class="credit-card-img">
-              <img src="assets/forest.jpg" alt="BBC Wildlife Documentaries">
+              <img src="assets/forest.jpg" alt="BBC Wildlife Documentaries" />
             </div>
             <div class="credit-card-info">
               <p class="credit-card-meta">Television · BBC Studios</p>
               <h3 class="credit-card-title">Wildlife Documentaries</h3>
-              <p class="credit-card-sub">BBC Studios Natural History · Series narration</p>
-              <p class="credit-card-body">Narration across multiple natural history documentary series for BBC Studios.</p>
+              <p class="credit-card-sub">
+                BBC Studios Natural History · Series narration
+              </p>
+              <p class="credit-card-body">
+                Narration across multiple natural history documentary series for
+                BBC Studios.
+              </p>
             </div>
           </div>
 
@@ -571,7 +707,9 @@
               <p class="credit-card-meta">Radio · BBC</p>
               <h3 class="credit-card-title">Radio 4 Plays</h3>
               <p class="credit-card-sub">BBC Radio 4 · Drama</p>
-              <p class="credit-card-body">Radio drama performances for BBC Radio 4.</p>
+              <p class="credit-card-body">
+                Radio drama performances for BBC Radio 4.
+              </p>
             </div>
           </div>
 
@@ -582,8 +720,13 @@
             <div class="credit-card-info">
               <p class="credit-card-meta">Live event · Transport for London</p>
               <h3 class="credit-card-title">London Olympic Cable Car</h3>
-              <p class="credit-card-sub">Emirates Air Line · Announcement voice</p>
-              <p class="credit-card-body">Original onboard announcements for the London 2012 Olympic cable car across the Thames.</p>
+              <p class="credit-card-sub">
+                Emirates Air Line · Announcement voice
+              </p>
+              <p class="credit-card-body">
+                Original onboard announcements for the London 2012 Olympic cable
+                car across the Thames.
+              </p>
             </div>
           </div>
         </div>
@@ -593,12 +736,36 @@
       <section class="laura-section">
         <div class="wi-list--narrow">
           <p class="wi-eyebrow reveal">About Laura</p>
-          <p class="laura-long-copy reveal d1">I began my career as an actor, training at the Bristol Old Vic Theatre School. During my time in Bristol, I worked with Nick Park and Peter Lord on Chicken Run, voicing additional chicken characters and recording guide tracks for Julia Sawalha and Jane Horrocks. It turned out I was quite good at impersonating them!</p>
-          <p class="laura-long-copy reveal d2">My voice work went on to include the original London Olympic cable car announcements, wildlife documentaries for BBC Studios Natural History, BBC Radio 4 plays and a range of radio ads and narration.</p>
-          <p class="laura-long-copy reveal d3">I took a break from acting to have a family and re train as a speech and language therapist and began working with people who had experienced brain injury.</p>
-          <p class="laura-long-copy reveal d4">Today, I balance my time between family life, voice acting, our family production company, and developing voice therapy as my specialist area within speech and language therapy.</p>
-          <p class="laura-long-copy reveal d4">Whether I'm helping someone find their voice or bringing a story to life, this is the work that makes me happy.</p>
-          <p class="laura-long-copy reveal d4">If you'd like to discuss a project, get in touch and we'll take it from there.</p>
+          <p class="laura-long-copy reveal d1">
+            I began my career as an actor, training at the Bristol Old Vic
+            Theatre School. During my time in Bristol, I worked with Nick Park
+            and Peter Lord on Chicken Run, voicing additional chicken characters
+            and recording guide tracks for Julia Sawalha and Jane Horrocks. It
+            turned out I was quite good at impersonating them!
+          </p>
+          <p class="laura-long-copy reveal d2">
+            My voice work went on to include the original London Olympic cable
+            car announcements, wildlife documentaries for BBC Studios Natural
+            History, BBC Radio 4 plays and a range of radio ads and narration.
+          </p>
+          <p class="laura-long-copy reveal d3">
+            I took a break from acting to have a family and re train as a speech
+            and language therapist and began working with people who had
+            experienced brain injury.
+          </p>
+          <p class="laura-long-copy reveal d4">
+            Today, I balance my time between family life, voice acting, our
+            family production company, and developing voice therapy as my
+            specialist area within speech and language therapy.
+          </p>
+          <p class="laura-long-copy reveal d4">
+            Whether I'm helping someone find their voice or bringing a story to
+            life, this is the work that makes me happy.
+          </p>
+          <p class="laura-long-copy reveal d4">
+            If you'd like to discuss a project, get in touch and we'll take it
+            from there.
+          </p>
         </div>
       </section>
 
@@ -606,7 +773,10 @@
       <section class="cta-v2">
         <div class="wrap-n">
           <h2 class="cta-v2-title reveal">Want to make something together?</h2>
-          <p class="cta-v2-body reveal d1">We're open to projects at any level of involvement, from full immersive production to narration only.</p>
+          <p class="cta-v2-body reveal d1">
+            We're open to projects at any level of involvement, from full
+            immersive production to narration only.
+          </p>
           <a class="btn-cta reveal d2" href="contact.html">Book Laura</a>
         </div>
       </section>
@@ -626,7 +796,9 @@
         <nav class="footer-v2-nav" aria-label="Footer navigation">
           <a class="footer-v2-link" href="index.html">Home</a>
           <a class="footer-v2-link" href="work.html">Work</a>
-          <a class="footer-v2-link footer-v2-link--active" href="laura.html">Laura</a>
+          <a class="footer-v2-link footer-v2-link--active" href="laura.html"
+            >Laura</a
+          >
           <a class="footer-v2-link" href="production.html">Production</a>
           <a class="footer-v2-link" href="contact.html">Contact</a>
         </nav>
