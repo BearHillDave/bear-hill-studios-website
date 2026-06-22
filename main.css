@@ -112,6 +112,24 @@ button {
   backdrop-filter: blur(14px);
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
 }
+/* Top scrim — gradient from the top of the page fading out just below the nav
+   text, so links stay legible over a bright hero photo when not scrolled.
+   Fades away once the scrolled nav background takes over. */
+.nav::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 160px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), transparent);
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 0.4s;
+}
+.nav.scrolled::before {
+  opacity: 0;
+}
 /* While the mobile overlay is open the nav must NOT keep backdrop-filter: it
    would become the containing block for the fixed .nav-menu and collapse the
    full-screen overlay to the nav's height. (The overlay covers the bar anyway.) */
@@ -224,6 +242,9 @@ button {
   .nav {
     height: 88px;
     padding: 0 24px;
+  }
+  .nav::before {
+    height: 120px;
   }
   .logo {
     position: relative;
