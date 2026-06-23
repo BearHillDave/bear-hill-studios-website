@@ -90,102 +90,38 @@
 
       /* .wi-section defined in main.css */
 
-      /* Credit cards — Figma Section/Article Item (node 462:24244) */
-      .credit-card {
+      /* Editorial inline images — About Laura prose, image floats beside the
+         paragraph that mentions that piece of work. */
+      .laura-editorial {
         display: flex;
         align-items: flex-start;
-        padding: 40px 0;
-        position: relative;
+        gap: var(--sp-xl);
+        margin-bottom: var(--sp-xl);
       }
-      .credit-card + .credit-card {
-        position: relative;
-      }
-      .credit-card + .credit-card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 50%;
-        width: 100vw;
-        height: 1px;
-        background: var(--cream-20);
-        transform: translateX(-50%);
-      }
-      .credit-card-img {
-        width: 274px;
-        height: 166px;
-        border-radius: 4px;
-        overflow: hidden;
-        flex-shrink: 0;
-        margin-right: 24px;
-        background: rgba(246, 235, 218, 0.06);
-      }
-      .credit-card-img img {
-        width: 100%;
-        height: 100%;
+      .laura-editorial-img {
+        width: 220px;
+        aspect-ratio: 4 / 5;
         object-fit: cover;
-        object-position: center;
-        filter: grayscale(30%) brightness(0.75);
-        display: block;
-        transition: filter 0.3s;
+        border-radius: 6px;
+        flex-shrink: 0;
+        filter: grayscale(15%) brightness(0.85);
       }
-      .credit-card:hover .credit-card-img img {
-        filter: grayscale(10%) brightness(0.85);
+      .laura-editorial--right {
+        flex-direction: row-reverse;
       }
-      .credit-card-img--text {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid var(--cream-20);
+      .laura-editorial .laura-long-copy {
+        margin-bottom: 0;
       }
-      .credit-card-img--text span {
-        font-family: var(--serif);
-        font-style: italic;
-        font-weight: 300;
-        font-size: 2rem;
-        color: var(--cream-50);
-        letter-spacing: -0.02em;
-      }
-      .credit-card-info {
-        flex: 1;
-        min-width: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        padding-top: 4px;
-      }
-      .credit-card-meta {
-        font-family: var(--sans);
-        font-size: 10.7px;
-        font-weight: 500;
-        letter-spacing: 0.643px;
-        text-transform: uppercase;
-        color: var(--cream-50);
-        margin: 0;
-      }
-      .credit-card-title {
-        font-family: var(--serif);
-        font-weight: 500;
-        font-size: 30px;
-        font-style: normal;
-        line-height: 1.15;
-        color: var(--dark-white);
-        margin: 0;
-      }
-      .credit-card-sub {
-        font-family: var(--sans);
-        font-weight: 300;
-        font-size: 12.8px;
-        color: var(--cream-50);
-        margin: 0;
-      }
-      .credit-card-body {
-        font-family: var(--sans);
-        font-weight: 300;
-        font-size: 14.5px;
-        line-height: 1.7;
-        color: var(--dark-white);
-        max-width: 520px;
-        margin: 0;
+
+      @media (max-width: 620px) {
+        .laura-editorial,
+        .laura-editorial--right {
+          flex-direction: column;
+        }
+        .laura-editorial-img {
+          width: 100%;
+          aspect-ratio: 16 / 9;
+        }
       }
     </style>
   </head>
@@ -581,92 +517,40 @@
         </div>
       </section>
 
-      <!-- CREDITS -->
-      <section class="laura-section">
-        <div class="wi-list--narrow">
-          <p class="wi-eyebrow reveal">Credits</p>
-
-          <div class="credit-card reveal d1">
-            <div class="credit-card-img">
-              <img src="assets/gramerphone.jpg" alt="Chicken Run" />
-            </div>
-            <div class="credit-card-info">
-              <p class="credit-card-meta">Film · Aardman Animations</p>
-              <h3 class="credit-card-title">Chicken Run</h3>
-              <p class="credit-card-sub">Nick Park &amp; Peter Lord · 2000</p>
-              <p class="credit-card-body">
-                Additional voices and guide tracks for Julia Sawalha &amp; Jane
-                Horrocks.
-              </p>
-            </div>
-          </div>
-
-          <div class="credit-card reveal d1">
-            <div class="credit-card-img">
-              <img src="assets/forest.jpg" alt="BBC Wildlife Documentaries" />
-            </div>
-            <div class="credit-card-info">
-              <p class="credit-card-meta">Television · BBC Studios</p>
-              <h3 class="credit-card-title">Wildlife Documentaries</h3>
-              <p class="credit-card-sub">
-                BBC Studios Natural History · Series narration
-              </p>
-              <p class="credit-card-body">
-                Narration across multiple natural history documentary series for
-                BBC Studios.
-              </p>
-            </div>
-          </div>
-
-          <div class="credit-card reveal d1">
-            <div class="credit-card-img credit-card-img--text">
-              <span>BBC Radio 4</span>
-            </div>
-            <div class="credit-card-info">
-              <p class="credit-card-meta">Radio · BBC</p>
-              <h3 class="credit-card-title">Radio 4 Plays</h3>
-              <p class="credit-card-sub">BBC Radio 4 · Drama</p>
-              <p class="credit-card-body">
-                Radio drama performances for BBC Radio 4.
-              </p>
-            </div>
-          </div>
-
-          <div class="credit-card reveal d1">
-            <div class="credit-card-img credit-card-img--text">
-              <span>2012</span>
-            </div>
-            <div class="credit-card-info">
-              <p class="credit-card-meta">Live event · Transport for London</p>
-              <h3 class="credit-card-title">London Olympic Cable Car</h3>
-              <p class="credit-card-sub">
-                Emirates Air Line · Announcement voice
-              </p>
-              <p class="credit-card-body">
-                Original onboard announcements for the London 2012 Olympic cable
-                car across the Thames.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <!-- ABOUT LAURA -->
       <section class="laura-section">
         <div class="wi-list--narrow">
           <p class="wi-eyebrow reveal">About Laura</p>
-          <p class="laura-long-copy reveal d1">
-            I began my career as an actor, training at the Bristol Old Vic
-            Theatre School. During my time in Bristol, I worked with Nick Park
-            and Peter Lord on Chicken Run, voicing additional chicken characters
-            and recording guide tracks for Julia Sawalha and Jane Horrocks. It
-            turned out I was quite good at impersonating them!
-          </p>
-          <p class="laura-long-copy reveal d2">
-            My voice work went on to include the original London Olympic cable
-            car announcements, wildlife documentaries for BBC Studios Natural
-            History, BBC Radio 4 plays and a range of radio ads and narration.
-          </p>
+
+          <div class="laura-editorial laura-editorial--right reveal d1">
+            <img
+              class="laura-editorial-img"
+              src="assets/gramerphone.jpg"
+              alt="Vintage gramophone"
+            />
+            <p class="laura-long-copy">
+              I began my career as an actor, training at the Bristol Old Vic
+              Theatre School. During my time in Bristol, I worked with Nick
+              Park and Peter Lord on Chicken Run, voicing additional chicken
+              characters and recording guide tracks for Julia Sawalha and Jane
+              Horrocks. It turned out I was quite good at impersonating them!
+            </p>
+          </div>
+
+          <div class="laura-editorial reveal d2">
+            <img
+              class="laura-editorial-img"
+              src="assets/radio.jpg"
+              alt="Vintage radio"
+            />
+            <p class="laura-long-copy">
+              My voice work went on to include the original London Olympic
+              cable car announcements, wildlife documentaries for BBC Studios
+              Natural History, BBC Radio 4 plays and a range of radio ads and
+              narration.
+            </p>
+          </div>
+
           <p class="laura-long-copy reveal d3">
             I took a break from acting to have a family and re train as a speech
             and language therapist and began working with people who had
