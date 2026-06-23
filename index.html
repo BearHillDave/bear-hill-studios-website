@@ -12,121 +12,7 @@
     <link rel="stylesheet" href="main.css" />
     <style>
       /* ── Home V2 — inline until signed off ── */
-
-      /* ── Page canvas: same layer stack as work page ──
-       Bottom to top: light-black > photo > vignette > blur > content */
-      .page-canvas {
-        position: relative;
-        background: var(--light-black);
-        overflow: hidden;
-      }
-      /* Layer 2: hero photo */
-      .page-photo {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 100vh;
-        background-image: url("assets/hero-moss.jpg");
-        background-size: cover;
-        background-position: center 35%;
-        pointer-events: none;
-      }
-      /* Layer 3: vignette — exact Figma Layout/Hero-bg Vignette values */
-      .page-vignette {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 100vh;
-        background: linear-gradient(
-          to bottom,
-          rgba(0, 0, 0, 0) 0%,
-          rgba(0, 0, 0, 0) 57.9%,
-          var(--light-black) 98.33%
-        );
-        pointer-events: none;
-      }
-      /* Layer 4: blurred bg — full canvas height, parallax */
-      .page-blur {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 100%;
-        background-image: url("assets/moss-blur.jpg");
-        background-size: cover;
-        background-position: center top;
-        opacity: 0.3;
-        mix-blend-mode: lighten;
-        pointer-events: none;
-        will-change: transform;
-      }
-
-      /* HERO — transparent, content only (layer 5) */
-      .hero-v2 {
-        position: relative;
-        z-index: 1;
-        /* overflow: hidden; */
-        min-height: 88vh;
-        display: flex;
-        align-items: flex-start;
-      }
-      .hero-v2-content {
-        position: relative;
-        z-index: 2;
-        width: 100%;
-        max-width: 1160px;
-        margin: 0 auto;
-        padding: 0 64px;
-        padding-top: 220px;
-        padding-bottom: 80px;
-        display: flex;
-        flex-direction: column;
-        gap: 48px;
-      }
-      @media (max-width: 620px) {
-        .hero-v2-content {
-          padding-left: 24px;
-          padding-right: 24px;
-        }
-      }
-      .hero-v2-content::before {
-        content: "";
-        position: absolute;
-        z-index: -1;
-        pointer-events: none;
-        background: rgba(0, 0, 0, 0.9);
-        filter: blur(50px);
-        border-radius: 120px;
-        inset: 150px 0 300px 0; /* large bottom inset stops the blob above the audio player (player+gap+padding ≈ 330px) */
-      }
-      .hero-v2-title {
-        font-family: var(--serif);
-        font-style: italic;
-        font-weight: 700;
-        font-size: clamp(4rem, 7.3vw, 8rem);
-        line-height: 1;
-        letter-spacing: -0.02em;
-        color: var(--dark-white);
-        text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-        margin: 0;
-      }
-      .hero-v2-body {
-        font-family: var(--serif);
-        font-weight: 300;
-        font-size: clamp(1.1rem, 1.5vw, 1.5rem);
-        line-height: 40px;
-        color: var(--dark-white);
-        max-width: 660px;
-        margin: 0;
-      }
-      .hero-v2-body + .hero-v2-body {
-        margin-top: 0;
-      }
-      .hero-v2-player {
-        margin-top: 16px;
-      }
+      /* hero, hero-v2-content, hero-v2-title, hero-v2-body, hero-v2-player all defined in main.css */
 
       /* SELECTED WORK — transparent, content only (layer 5) */
       .sel-work {
@@ -284,7 +170,14 @@
     </nav>
 
     <!-- PAGE CANVAS: layers bottom→top: light-black > photo > vignette > blur > content -->
-    <div class="page-canvas">
+    <div
+      class="page-canvas"
+      style="
+        --photo-img: url('assets/hero-moss.jpg');
+        --photo-pos: center 35%;
+        --blur-img: url('assets/moss-blur.jpg');
+      "
+    >
       <div class="page-photo"></div>
       <div class="page-vignette"></div>
       <div class="page-blur"></div>

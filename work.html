@@ -12,121 +12,7 @@
     <link rel="stylesheet" href="main.css" />
     <style>
       /* ── Work page V2 — spec locked from Figma 2026-06-05 ── */
-
-      /* ── Page canvas: single stacking context for all layers ──
-       Bottom to top: light-black > photo > vignette > blur > content */
-      .page-canvas {
-        position: relative;
-        background: var(--light-black);
-        overflow: hidden;
-      }
-      /* Layer 2: hero photo */
-      .page-photo {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 100vh; /* matches hero height */
-        background-image: url("assets/forest.jpg");
-        background-size: cover;
-        background-position: center 40%;
-        pointer-events: none;
-      }
-      /* Layer 3: vignette — exact Figma Layout/Hero-bg Vignette values */
-      .page-vignette {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 100vh;
-        background: linear-gradient(
-          to bottom,
-          rgba(0, 0, 0, 0) 0%,
-          rgba(0, 0, 0, 0) 57.9%,
-          var(--light-black) 98.33%
-        );
-        pointer-events: none;
-      }
-      /* Layer 4: blurred bg — spans full canvas, sits above vignette.
-       Height 200% gives headroom for parallax translation. */
-      .page-blur {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 100%;
-        background-image: url("assets/forest-blur.jpg");
-        background-size: cover;
-        background-position: center top;
-        opacity: 0.3;
-        mix-blend-mode: lighten;
-        pointer-events: none;
-        will-change: transform;
-      }
-
-      /* HERO — transparent bg, content only (layer 5) */
-      .work-hero {
-        position: relative;
-        z-index: 1;
-        /* overflow: hidden; */
-        min-height: 88vh;
-        display: flex;
-        align-items: flex-start;
-      }
-      .work-hero-content {
-        position: relative;
-        z-index: 2;
-        max-width: 780px;
-        width: 100%;
-        margin: 0 auto;
-        padding: 220px 64px 80px;
-      }
-      @media (max-width: 620px) {
-        .work-hero-content {
-          padding-left: 24px;
-          padding-right: 24px;
-        }
-      }
-      .work-hero-content::before {
-        content: "";
-        position: absolute;
-        z-index: -1;
-        pointer-events: none;
-        background: rgba(0, 0, 0, 0.9);
-        filter: blur(50px);
-        border-radius: 120px;
-        inset: 150px 0 40px 0;
-      }
-      .work-hero-title {
-        font-family: var(--serif);
-        font-style: italic;
-        font-weight: 700;
-        font-size: clamp(5rem, 8vw, 8rem);
-        line-height: 1;
-        letter-spacing: -0.02em;
-        color: var(--dark-white);
-        margin: 0 0 32px;
-      }
-      .work-hero-body {
-        font-family: var(--serif);
-        font-weight: 300;
-        font-size: 24px;
-        line-height: 40px;
-        color: var(--dark-white);
-        max-width: 560px;
-        margin: 0 0 16px;
-      }
-      .work-hero-body:last-child {
-        margin-bottom: 0;
-      }
-
-      /* WORK LIST — transparent bg, content only (layer 5) */
-      .wi-section {
-        position: relative;
-        z-index: 1;
-        padding: 0 0 80px;
-      }
-      /* wi-list, wi-*, cta-v2-* all defined in main.css */
+      /* hero, hero-content, hero-title, hero-body, wi-section, wi-*, cta-v2-* all defined in main.css */
     </style>
   </head>
   <body style="background: var(--light-black); color: var(--dark-white)">
@@ -243,19 +129,26 @@
     </nav>
 
     <!-- PAGE CANVAS: layers bottom→top: light-black > photo > vignette > blur > content -->
-    <div class="page-canvas">
+    <div
+      class="page-canvas"
+      style="
+        --photo-img: url('assets/forest.jpg');
+        --photo-pos: center 40%;
+        --blur-img: url('assets/forest-blur.jpg');
+      "
+    >
       <div class="page-photo"></div>
       <div class="page-vignette"></div>
       <div class="page-blur"></div>
 
       <!-- HERO (content layer) -->
       <header class="hero">
-        <div class="work-hero-content">
-          <h1 class="work-hero-title">Work</h1>
-          <p class="work-hero-body reveal d2">
+        <div class="hero-content">
+          <h1 class="hero-title reveal">Work</h1>
+          <p class="hero-body reveal d1">
             Here's a selection of work. Some pure immersive audio, some video and VFX and radio demos.
           </p>
-          <p class="work-hero-body reveal d1">
+          <p class="hero-body reveal d2">
             We are at heart a creative studio. We immerse ourselves in every
             production and obsess over the details. We can work end to end or
             slot into a bigger project.
