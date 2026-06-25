@@ -90,21 +90,12 @@
 
       /* .wi-section defined in main.css */
 
-      /* Editorial inline images — About Laura prose, image floats beside the
-         paragraph that mentions that piece of work. */
+      /* Editorial inline images — About Laura prose */
       .laura-editorial {
         display: flex;
         align-items: flex-start;
         gap: var(--sp-xl);
         margin-bottom: var(--sp-xl);
-      }
-      .laura-editorial-img {
-        width: 220px;
-        aspect-ratio: 4 / 5;
-        object-fit: cover;
-        border-radius: 6px;
-        flex-shrink: 0;
-        filter: grayscale(15%) brightness(0.85);
       }
       .laura-editorial--right {
         flex-direction: row-reverse;
@@ -113,13 +104,48 @@
         margin-bottom: 0;
       }
 
+      /* Photo variant */
+      .laura-editorial-img {
+        width: 220px;
+        aspect-ratio: 4 / 5;
+        object-fit: cover;
+        border-radius: 6px;
+        flex-shrink: 0;
+        filter: grayscale(15%) brightness(0.85);
+      }
+
+      /* Logo stack variant — two brand logos stacked in the image slot */
+      .laura-logo-stack {
+        width: 220px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        gap: var(--sp-md);
+      }
+      .laura-logo-stack img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        border-radius: 6px;
+        display: block;
+      }
+      /* BBC Natural History logo: white-on-black, no treatment needed */
+      .laura-logo--nh {}
+      /* BBC Radio 4 logo: black-on-white — invert so it reads on dark bg */
+      .laura-logo--r4 {
+        filter: invert(1) brightness(0.9);
+      }
+
       @media (max-width: 620px) {
         .laura-editorial,
         .laura-editorial--right {
           flex-direction: column;
         }
-        .laura-editorial-img {
+        .laura-editorial-img,
+        .laura-logo-stack {
           width: 100%;
+        }
+        .laura-editorial-img {
           aspect-ratio: 16 / 9;
         }
       }
@@ -533,8 +559,8 @@
           <div class="laura-editorial laura-editorial--right reveal d1">
             <img
               class="laura-editorial-img"
-              src="assets/gramerphone.jpg"
-              alt="Vintage gramophone"
+              src="assets/chicken-run.jpg"
+              alt="Chicken Run — Aardman Animations"
             />
             <p class="laura-long-copy">
               I began my career as an actor, training at the Bristol Old Vic
@@ -548,18 +574,37 @@
           <div class="laura-editorial reveal d2">
             <img
               class="laura-editorial-img"
-              src="assets/radio.jpg"
-              alt="Vintage radio"
+              src="assets/london-airlinejpg.jpg"
+              alt="London Emirates Air Line cable car"
             />
             <p class="laura-long-copy">
-              My voice work went on to include the original London Olympic
-              cable car announcements, wildlife documentaries for BBC Studios
-              Natural History, BBC Radio 4 plays and a range of radio ads and
-              narration.
+              My voice work went on to include the original announcements for
+              the London Olympic cable car — the Emirates Air Line across the
+              Thames, opened for the 2012 Games.
             </p>
           </div>
 
-          <p class="laura-long-copy reveal d3">
+          <div class="laura-editorial laura-editorial--right reveal d3">
+            <div class="laura-logo-stack">
+              <img
+                class="laura-logo--nh"
+                src="assets/BBC_Natural_History.png"
+                alt="BBC Natural History"
+              />
+              <img
+                class="laura-logo--r4"
+                src="assets/bbc-radio-4-logo.png"
+                alt="BBC Radio 4"
+              />
+            </div>
+            <p class="laura-long-copy">
+              From there, wildlife documentaries for BBC Studios Natural
+              History and drama for BBC Radio 4, alongside a growing range of
+              radio ads and commercial narration.
+            </p>
+          </div>
+
+          <p class="laura-long-copy reveal d4">
             I took a break from acting to have a family and re train as a speech
             and language therapist and began working with people who had
             experienced brain injury.
