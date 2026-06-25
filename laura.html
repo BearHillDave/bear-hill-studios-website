@@ -114,26 +114,24 @@
         filter: grayscale(15%) brightness(0.85);
       }
 
-      /* Logo stack variant — two brand logos stacked in the image slot */
-      .laura-logo-stack {
+      /* Logo variant — white background so logos read naturally */
+      .laura-editorial-logo {
         width: 220px;
+        height: 140px;
         flex-shrink: 0;
-        display: flex;
-        flex-direction: column;
-        gap: var(--sp-md);
-      }
-      .laura-logo-stack img {
-        width: 100%;
-        height: auto;
-        object-fit: contain;
+        background: white;
         border-radius: 6px;
-        display: block;
+        padding: 20px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
       }
-      /* BBC Natural History logo: white-on-black, no treatment needed */
-      .laura-logo--nh {}
-      /* BBC Radio 4 logo: black-on-white — invert so it reads on dark bg */
-      .laura-logo--r4 {
-        filter: invert(1) brightness(0.9);
+      .laura-editorial-logo img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+        display: block;
       }
 
       @media (max-width: 620px) {
@@ -141,12 +139,13 @@
         .laura-editorial--right {
           flex-direction: column;
         }
-        .laura-editorial-img,
-        .laura-logo-stack {
-          width: 100%;
-        }
         .laura-editorial-img {
+          width: 100%;
           aspect-ratio: 16 / 9;
+        }
+        .laura-editorial-logo {
+          width: 100%;
+          padding: 20px;
         }
       }
     </style>
@@ -585,22 +584,29 @@
           </div>
 
           <div class="laura-editorial laura-editorial--right reveal d3">
-            <div class="laura-logo-stack">
+            <div class="laura-editorial-logo">
               <img
-                class="laura-logo--nh"
                 src="assets/BBC_Natural_History.png"
                 alt="BBC Natural History"
               />
+            </div>
+            <p class="laura-long-copy">
+              From there, wildlife documentaries for BBC Studios Natural History
+              — narrating nature films, factual series and digital content for
+              one of the world's most iconic natural history brands.
+            </p>
+          </div>
+
+          <div class="laura-editorial reveal d4">
+            <div class="laura-editorial-logo">
               <img
-                class="laura-logo--r4"
                 src="assets/bbc-radio-4-logo.png"
                 alt="BBC Radio 4"
               />
             </div>
             <p class="laura-long-copy">
-              From there, wildlife documentaries for BBC Studios Natural
-              History and drama for BBC Radio 4, alongside a growing range of
-              radio ads and commercial narration.
+              Alongside that, drama and readings for BBC Radio 4, plus a growing
+              portfolio of radio ads and commercial narration.
             </p>
           </div>
 
