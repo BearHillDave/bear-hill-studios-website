@@ -18,7 +18,7 @@ The preview server is configured in `.claude/launch.json` (name: `website`). Use
 GitHub: `git@github-bearhill:BearHillDave/bear-hill-studios-website.git`  
 SSH alias `github-bearhill` → `~/.ssh/dave_bearhill_github` (BearHillDave account)
 
-## Current branch: `v2-redesign`
+## Current branch: `main`
 
 Full V2 redesign based on Figma file:  
 `https://www.figma.com/design/pEGgx9Yk74dL1SzgxjHF1X/Bear-Hill-Studios-Website-V2`
@@ -34,7 +34,7 @@ Finals section node IDs: Home `289:7860`, Work `352:6823`, Laura `352:7144`, Pro
 | `laura.html` | Laura's profile | ✅ V2 done |
 | `production.html` | Production services | ✅ V2 done |
 | `about.html` | About | 🔲 Stub (under construction) |
-| `contact.html` | Contact | 🔲 Stub (under construction) |
+| `contact.html` | Contact | ✅ V2 done |
 
 Shared: `main.css`, `main.js` — linked from every page.
 
@@ -124,6 +124,28 @@ Loaded from Google Fonts. Request weight range `0,300;0,400;0,500;0,600;1,300;1,
 - Scrolled state: `rgba(33,30,26,0.92)` + `backdrop-filter: blur(14px)`
 - "Get in touch" pill: 40px tall, pill-shaped, border `--cream-50`, hover fills `--dark-white`
 
+**Nav top gradient scrim** — a `::before` pseudo-element on `.nav` that creates a soft dark gradient behind the nav bar over the hero photo, improving legibility on bright/light images (e.g. Laura's velvet photo). Uses `z-index: -1` within the nav's stacking context so it renders over the photo but behind nav links.
+
+```css
+.nav::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 320px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent);
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity 0.4s;
+}
+.nav.scrolled::before { opacity: 0; }
+
+@media (max-width: 900px) {
+  .nav::before { height: 220px; }
+}
+```
+
+The scrim fades out when the nav reaches its scrolled state (`.nav.scrolled`) since the nav background takes over. It is never taller than the nav+header region on screen.
+
 **Mobile (`max-width: 900px`) — hamburger menu.** The desktop nav needs ~836px to fit (logo + 5 tracked links + CTA + padding), so it collapses below 900px.
 - Markup (in every page's `<nav>`): a `.nav-toggle` hamburger button (3 `<span>` bars, `id="nav-toggle"`) plus the links + CTA wrapped in `<div class="nav-menu" id="nav-menu">`.
 - **`.nav-menu` is `display: contents` on desktop** so the `<ul>` and CTA stay direct flex children of `.nav` — the desktop layout is byte-for-byte unchanged. Below 900px it becomes a `position: fixed; inset: 0` full-screen overlay (do **not** give it a `vh`/`dvh` height — `inset: 0` pins it top-and-bottom, which avoids mobile viewport-unit quirks), slid up via `transform: translateY(-100%)` + `opacity: 0` + `pointer-events: none` until open.
@@ -143,6 +165,7 @@ Loaded from Google Fonts. Request weight range `0,300;0,400;0,500;0,600;1,300;1,
 - Left: bear-icon.png (24px) + copyright (Jost Light 11.1px, `--cream-50`)
 - Right: nav links (Jost Medium 12.8px UPPER, track 2.688px, `--cream-50`, hover `--cream`)
 - Active page link has red underline (`--red`, 1.5px, `::after`)
+- **Mobile (`max-width: 620px`):** footer nav links (``.footer-v2-nav``) are hidden (`display: none`) — only the bear icon + copyright remain
 
 ### Page layer stack (hero + content sections)
 
@@ -182,31 +205,36 @@ Wrap hero + main content (including CTA) in `.page-canvas`. Footer sits **outsid
 ```
 Stays fully transparent until 57.9% down the frame, then fades to `--light-black` at 98.33%. Do not darken the middle — the photo should show clearly through most of the hero.
 
-**Hero blur blob (content legibility)** — a `::before` pseudo-element on the hero's **content** element (`.hero-v2-content`, `.work-hero-content`, `.laura-hero-content`, `.prod-hero-content`), **not** the hero itself. Pure CSS, no image. `z-index: -1` within the content's stacking context (content is `position: relative; z-index: 2`) so it sits behind the copy but above the photo layers. The hero keeps `overflow: hidden` to contain the blurred edges.
+**Hero blur blob (content legibility)** — a `::before` pseudo-element on the hero's **content** element, **not** the hero itself. Pure CSS, no image. `z-index: -1` within the content's stacking context (content is `position: relative; z-index: 2`) so it sits behind the copy but above the photo layers. The hero keeps `overflow: hidden` to contain the blurred edges.
 
-**Why the content element, not the hero:** the content is `margin: 0 auto` (centred) and wraps the copy, so anchoring the blob to it — and sizing it from the content's padding box via `inset` — keeps the blob tracking the title + text in both **position and height** as they reflow (wide desktop → centred; narrow/tall mobile → follows the copy up to the top). The previous version used fixed `width/height/top/left` on the hero, which drifted off the copy on wide screens and sat too low on mobile.
+**Shared `.hero-content` class** — `main.css` defines a shared `.hero-content` class used by work, laura, production, and contact pages (home uses its own `.hero-v2-content`). It provides the 780px column, padding, and blob in one place:
 
 ```css
-/* On each hero's *-content element (position: relative; has the copy padding) */
-.hero-v2-content::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  pointer-events: none;
-  background: rgba(0, 0, 0, 0.5);
-  filter: blur(50px);     /* per page below */
-  border-radius: 120px;   /* per page below */
-  inset: 150px 0 40px 0;  /* top/right/bottom/left, relative to content padding box */
+.hero-content {
+  position: relative; z-index: 2;
+  max-width: 780px; width: 100%;
+  margin: 0 auto;
+  padding: 220px 64px 80px;
+}
+.hero-content::before {
+  content: ""; position: absolute; z-index: -1; pointer-events: none;
+  background: rgba(0, 0, 0, 0.9);
+  filter: blur(var(--blob-blur, 50px));
+  border-radius: var(--blob-radius, 120px);
+  inset: 150px 0 40px 0;
+}
+@media (max-width: 620px) {
+  .hero-content { padding-left: 24px; padding-right: 24px; }
 }
 ```
 
-`inset` is relative to the content's padding box: **top `150px`** (content `padding-top` is `220px`, so ~70px above the title), **bottom `40px`** (content `padding-bottom` is `80px`, so ~40px below the last copy element), **sides `0`** (full content-column width). Top/bottom padding don't change across breakpoints, so the same `inset` works on desktop and mobile and the blob's height grows with the copy.
-
-Per-page blur / radius (sizing is the shared `inset` above):
-- Home: `blur(50px)`, `r=120px`
-- Work: `blur(50px)`, `r=120px`
+Per-page blob overrides via `--blob-blur` / `--blob-radius` CSS variables on the hero element (or inline style):
+- Home (`.hero-v2-content`): `background: rgba(0,0,0,0.5)`, `blur(50px)`, `r=120px`
+- Work, Contact: default (`blur(50px)`, `r=120px`, `rgba(0,0,0,0.9)`)
 - Laura: `blur(100px)`, `r=150px`
 - Production: `blur(75px)`, `r=150px`
+
+`inset` is relative to the content's padding box: **top `150px`** (~70px above the title), **bottom `40px`** (~40px below the last copy element), **sides `0`** (full content-column width).
 
 **Hero layout — all pages except home:**
 - `min-height: 88vh` (reduced from `100vh` so the next section peeks ~108px above the fold on a 900px-tall viewport — a deliberate scroll cue; see **Scroll cue** below)
@@ -239,11 +267,17 @@ Full-height heroes risk a "false bottom" — the first screen reads as the whole
 
    ⚠️ Because `.hero-scroll` is `position: fixed`, its containing block is the viewport **only while no ancestor has `transform`/`filter`/`will-change`/`contain`**. `.page-canvas` is currently plain `position: relative; overflow: hidden`, so this holds. If a transform/filter is ever added to `.page-canvas`, the cue would re-anchor to it and `bottom: 2rem` would land at the bottom of the whole page instead of the viewport.
 
+**Page photo/blur CSS variables** — set `--photo-img` and `--blur-img` on the `.page-canvas` element (not on the child divs directly). `main.css` consumes them via `background-image: var(--photo-img)` on `.page-photo` and `.page-blur`:
+
+```html
+<div class="page-canvas" style="--photo-img: url('assets/forest.jpg'); --blur-img: url('assets/forest-blur.jpg')">
+```
+
 **Blur images per page** (`/assets/`) — exported as JPEGs from Figma "blured bg 2" component:
 - Home: `moss-blur.jpg`
 - Work: `forest-blur.jpg`
 - Laura: `velvet-blur.jpg`
-- Available but unassigned: `stream-blur.jpg`
+- Production/Contact: `stream-blur.jpg`
 
 The blur layer uses `mix-blend-mode: lighten; opacity: 0.3` (not a flat opacity). The JPEG has a gradient-to-black baked in on the text side; `mix-blend-mode: lighten` makes the black areas transparent so the full-colour photo shows through on the open side. Using JPEGs avoids needing PNG transparency.
 
@@ -495,9 +529,25 @@ Elements animate in as they enter the viewport using `.reveal` + `.visible` driv
 
 ---
 
-## Audio players (`main.js`)
+## Audio players
 
-Initialised by `initPlayers()` on page load. All pages use circular players.
+**Module architecture** — the player is a separate ES module at `js/audio-player.js`. `main.js` imports it:
+
+```js
+import { initPlayers } from "./js/audio-player.js";
+```
+
+Because of the ES module import, **every page's `<script>` tag must include `type="module"`**:
+
+```html
+<script type="module" src="main.js"></script>
+```
+
+Without `type="module"`, the browser refuses the import and players silently fall back to stub mode (ring animates, no audio loads, no network requests for MP3s).
+
+`initPlayers()` is called on `DOMContentLoaded`. All pages use circular players.
+
+**Audio files** live in `assets/audio/`. Set `data-src` on the player element; omit it for a silent stub (ring still animates).
 
 **Circular sizes:**
 - `.player-lg` — 148px (hero). Renders label inside + time below. `flex-direction: column` on `.player-inner` required.
@@ -518,7 +568,7 @@ Photos used per page:
 |------|---------|
 | `hero-moss.jpg` | Home hero bg (`page-photo`) |
 | `moss-blur.jpg` | Home blur layer (`page-blur`) |
-| `forest.jpg` | Work hero bg (`page-photo`) |
+| `forest.jpg` | Work + Contact hero bg (`page-photo`) |
 | `forest-blur.jpg` | Work blur layer (`page-blur`) |
 | `velvet.jpg` | Laura hero bg (`page-photo`) |
 | `velvet-blur.jpg` | Laura blur layer (`page-blur`) |
@@ -649,11 +699,67 @@ Hero uses `stream.jpg` (photo) + `stream-blur.jpg` (blur layer). Same layer stac
 
 ## Under-construction pages
 
-`about.html` and `contact.html` are minimal stubs. They share the same template:
+`about.html` is a minimal stub:
 - Dark bg (`--light-black`), nav, footer
 - Cormorant italic large title
 - "This page is on its way. Check back soon."
 - "Back to home" `.btn-cta` button
+
+---
+
+## Contact page (`contact.html`)
+
+Full V2. Uses `forest.jpg` / `stream-blur.jpg` for hero (same forest photo as Work page — acceptable, separate pages). Hero uses shared `.hero-content` class.
+
+**Sections in order:**
+1. Hero — "Get in touch" title + Cormorant Light 24px body (2–3 sentences)
+2. Contact form — `.contact-form-section wi-section` → `.wi-list`
+3. CTA — "Want to make something together?" / "Get in Touch" (standard CTA)
+
+**Form structure** (`.contact-form`, `id="contact-form"`, `novalidate`):
+- Row: Name (text) + Email (email) side-by-side in `.cf-row`
+- About (select dropdown) — project type options
+- Message (textarea)
+- Submit button `.btn-cta.cf-submit`
+
+Form fields use **underline style**: `border-bottom` only, no box border. Classes: `.cf-label`, `.cf-input`, `.cf-select`, `.cf-textarea`.
+
+**Success state**: `#cf-success` (hidden by default) — shown when form submits, form hidden. Handled by inline `<script>` at bottom of page.
+
+**Backend**: currently JS-only (shows success state on submit, no data sent). To wire up, add `action="https://formspree.io/f/YOUR_ID"` (or use Netlify Forms) and update the submit handler to do a real POST.
+
+**Direct contact** — `.contact-alt` below the form: label "Or email us directly" + `hello@bearhillstudios.com` mailto link. This email address is a placeholder — confirm real address before launch.
+
+---
+
+## Deployment
+
+**Platform:** Netlify  
+**Live URL:** `https://bearhillstudios.co.uk` (primary) + `https://bear-hill-studios-site.netlify.app` (Netlify subdomain)  
+**GitHub repo:** `BearHillDave/bear-hill-studios-website` (BearHillDave account)  
+**Auto-deploy:** pushes to `main` branch trigger automatic Netlify deploy  
+**Build settings:** no build command, publish directory = `/` (static site, no framework)
+
+To deploy: commit and push to `main`. Netlify picks it up automatically within ~30 seconds.
+
+```bash
+git push github-bearhill main
+```
+
+---
+
+## DNS
+
+**DNS provider:** Netlify DNS (nameservers delegated from Gandi)  
+**Nameservers:** `dns1.p02.nsone.net`, `dns2.p02.nsone.net`, `dns3.p02.nsone.net`, `dns4.p02.nsone.net`
+
+**Email records (Google Workspace)** — all configured in Netlify DNS:
+- **MX records** (5 Google mail servers, priorities 1/5/5/10/10)
+- **SPF** (TXT): `v=spf1 include:_spf.google.com ~all`
+- **DKIM** (TXT on `google._domainkey`): long RSA public key — check Netlify DNS panel for current value
+- **DMARC** (TXT on `_dmarc`): `v=DMARC1; p=none; rua=mailto:...`
+
+⚠️ If nameservers are ever changed again, re-export all DNS records from Netlify first — DKIM key is not stored anywhere else.
 
 ---
 
