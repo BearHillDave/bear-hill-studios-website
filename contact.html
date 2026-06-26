@@ -5,9 +5,217 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact — Bear Hill Studios</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600;1,700&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="main.css">
-  <!-- .uc-* classes defined in main.css -->
+  <style>
+    /* ── Contact page V2 ── */
+
+    /* Hero */
+    .contact-hero {
+      position: relative;
+      z-index: 1;
+      min-height: 88vh;
+      display: flex;
+      align-items: flex-start;
+      overflow: hidden;
+    }
+    .contact-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 220px 64px 80px;
+    }
+    .contact-hero-content::before {
+      content: '';
+      position: absolute;
+      z-index: -1;
+      pointer-events: none;
+      background: rgba(0, 0, 0, 0.5);
+      filter: blur(75px);
+      border-radius: 150px;
+      inset: 150px 0 40px 0;
+    }
+    .contact-hero-title {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 700;
+      font-size: clamp(5rem, 8vw, 8rem);
+      color: var(--dark-white);
+      letter-spacing: -0.02em;
+      line-height: 0.95;
+      margin: 0 0 var(--sp-xl);
+    }
+    .contact-hero-body {
+      font-family: var(--serif);
+      font-weight: 300;
+      font-size: 24px;
+      line-height: 1.6;
+      color: var(--dark-white);
+      max-width: 480px;
+      margin: 0;
+    }
+
+    /* Form section */
+    .contact-form-section {
+      padding: var(--sp-2xl) 0 120px;
+    }
+    /* Form layout */
+    .contact-form {
+      max-width: var(--text-desc-w);
+    }
+    .cf-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-lg);
+    }
+    .cf-field {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: var(--sp-xl);
+    }
+    .cf-label {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 10.7px;
+      letter-spacing: 0.856px;
+      text-transform: uppercase;
+      color: var(--cream-50);
+    }
+
+    /* Inputs — underline style, no box */
+    .cf-input {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--cream-20);
+      border-radius: 0;
+      color: var(--dark-white);
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 14.5px;
+      line-height: 1.75;
+      padding: 8px 0 10px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+      caret-color: var(--red);
+      -webkit-appearance: none;
+    }
+    .cf-input:focus {
+      border-bottom-color: var(--cream-50);
+    }
+    .cf-input::placeholder {
+      color: var(--cream-20);
+    }
+
+    /* Select arrow */
+    .cf-select {
+      appearance: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(246%2C235%2C218%2C0.4)'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 2px center;
+      padding-right: 20px;
+    }
+    .cf-select option {
+      background: #211e1a;
+      color: #f9f4ec;
+    }
+
+    /* Textarea */
+    .cf-textarea {
+      resize: vertical;
+      min-height: 130px;
+      padding: 8px 0;
+    }
+
+    /* Submit */
+    .cf-actions {
+      margin-top: var(--sp-xl);
+    }
+    .cf-submit {
+      width: 220px;
+    }
+
+    /* Success state */
+    .cf-success {
+      max-width: var(--text-desc-w);
+      padding: var(--sp-2xl) 0 var(--sp-xl);
+    }
+    .cf-success-check {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid var(--cream-50);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 0 var(--sp-lg);
+      color: var(--cream-50);
+    }
+    .cf-success-title {
+      font-family: var(--serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      color: var(--dark-white);
+      letter-spacing: -0.02em;
+      margin: 0 0 var(--sp-md);
+    }
+    .cf-success-body {
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 14.5px;
+      color: var(--cream-50);
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    /* Direct contact line, below form */
+    .contact-alt {
+      max-width: var(--text-desc-w);
+      margin-top: var(--sp-2xl);
+      padding-top: var(--sp-lg);
+      border-top: 1px solid var(--cream-20);
+    }
+    .contact-alt-label {
+      font-family: var(--sans);
+      font-weight: 500;
+      font-size: 10.7px;
+      letter-spacing: 0.856px;
+      text-transform: uppercase;
+      color: var(--cream-50);
+      margin: 0 0 8px;
+    }
+    .contact-alt-link {
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 14.5px;
+      color: var(--dark-white);
+      text-decoration: underline;
+      text-decoration-color: var(--red);
+      text-underline-offset: 3px;
+    }
+    .contact-alt-link:hover {
+      text-decoration-color: var(--dark-white);
+    }
+
+    /* Mobile */
+    @media (max-width: 620px) {
+      .contact-hero-content {
+        padding: 160px 24px 64px;
+      }
+      .cf-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .contact-form-section {
+        padding-top: var(--sp-xl);
+        padding-bottom: 80px;
+      }
+    }
+  </style>
 </head>
 <body style="background:var(--light-black);color:var(--dark-white)">
 
@@ -21,23 +229,96 @@
     <span></span><span></span><span></span>
   </button>
   <div class="nav-menu" id="nav-menu">
-  <ul class="nav-links">
-    <li><a class="nav-link" href="index.html">Home</a></li>
-    <li><a class="nav-link" href="work.html">Work</a></li>
-    <li><a class="nav-link" href="laura.html">Laura</a></li>
-    <li><a class="nav-link" href="production.html">Production</a></li>
-    <li><a class="nav-link active" href="contact.html">Contact</a></li>
-  </ul>
-  <a class="nav-cta" href="contact.html" data-active="1">Get in touch</a>
+    <ul class="nav-links">
+      <li><a class="nav-link" href="index.html">Home</a></li>
+      <li><a class="nav-link" href="work.html">Work</a></li>
+      <li><a class="nav-link" href="laura.html">Laura</a></li>
+      <li><a class="nav-link" href="production.html">Production</a></li>
+      <li><a class="nav-link active" href="contact.html">Contact</a></li>
+    </ul>
+    <a class="nav-cta" href="contact.html" data-active="1">Get in touch</a>
   </div>
 </nav>
 
-<main class="uc-wrap">
-  <p class="uc-label">Bear Hill Studios</p>
-  <h1 class="uc-title">Contact</h1>
-  <p class="uc-body">This page is on its way. Check back soon.</p>
-  <a class="btn-cta" href="index.html">Back to home</a>
-</main>
+<div class="page-canvas" style="--photo-img: url('assets/forest.jpg'); --blur-img: url('assets/forest-blur.jpg')">
+  <div class="page-photo"></div>
+  <div class="page-vignette"></div>
+  <div class="page-blur"></div>
+
+  <header class="contact-hero">
+    <div class="contact-hero-content">
+      <h1 class="contact-hero-title reveal">Get in touch</h1>
+      <p class="contact-hero-body reveal d1">Whether it's an audiobook, voice work, music production, or something entirely new — we'd love to hear about it.</p>
+    </div>
+    <div class="hero-scroll" aria-hidden="true">
+      <span class="hero-scroll-arrow"></span>
+    </div>
+  </header>
+
+  <section class="contact-form-section wi-section">
+    <div class="wi-list">
+
+      <h2 class="section-heading reveal">Send a message</h2>
+
+      <!-- Connect to Formspree, Netlify Forms, or your backend via the action attribute -->
+      <form class="contact-form" id="contact-form" novalidate>
+
+        <div class="cf-row">
+          <div class="cf-field">
+            <label class="cf-label" for="cf-name">Name</label>
+            <input class="cf-input" type="text" id="cf-name" name="name"
+              placeholder="Your name" required autocomplete="name">
+          </div>
+          <div class="cf-field">
+            <label class="cf-label" for="cf-email">Email</label>
+            <input class="cf-input" type="email" id="cf-email" name="email"
+              placeholder="your@email.com" required autocomplete="email">
+          </div>
+        </div>
+
+        <div class="cf-field">
+          <label class="cf-label" for="cf-subject">About</label>
+          <select class="cf-input cf-select" id="cf-subject" name="subject">
+            <option value="" disabled selected>Select a topic…</option>
+            <option value="audiobook">Audiobook production</option>
+            <option value="voice">Voice work &amp; narration</option>
+            <option value="music">Music &amp; scoring</option>
+            <option value="other">Something else</option>
+          </select>
+        </div>
+
+        <div class="cf-field">
+          <label class="cf-label" for="cf-message">Message</label>
+          <textarea class="cf-input cf-textarea" id="cf-message" name="message"
+            placeholder="Tell us about your project…" required></textarea>
+        </div>
+
+        <div class="cf-actions">
+          <button class="btn-cta cf-submit" type="submit">Send message</button>
+        </div>
+
+      </form>
+
+      <div class="cf-success" id="cf-success" hidden>
+        <div class="cf-success-check" aria-hidden="true">
+          <svg width="18" height="13" viewBox="0 0 18 13" fill="none" aria-hidden="true">
+            <path d="M1 6.5L6.5 12 17 1" stroke="currentColor" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h2 class="cf-success-title">Message sent</h2>
+        <p class="cf-success-body">Thanks for getting in touch. We'll get back to you shortly.</p>
+      </div>
+
+      <div class="contact-alt reveal">
+        <p class="contact-alt-label">Or email us directly</p>
+        <a class="contact-alt-link" href="mailto:hello@bearhillstudios.com">hello@bearhillstudios.com</a>
+      </div>
+
+    </div>
+  </section>
+
+</div>
 
 <footer class="footer">
   <div class="footer-v2 wrap">
@@ -51,11 +332,24 @@
       <a class="footer-v2-link" href="work.html">Work</a>
       <a class="footer-v2-link" href="laura.html">Laura</a>
       <a class="footer-v2-link" href="production.html">Production</a>
-      <a class="footer-v2-link  footer-v2-link--active" href="contact.html">Contact</a>
+      <a class="footer-v2-link footer-v2-link--active" href="contact.html">Contact</a>
     </nav>
   </div>
 </footer>
 
-<script src="main.js"></script>
+<script type="module" src="main.js"></script>
+<script>
+  const form = document.getElementById('contact-form');
+  const success = document.getElementById('cf-success');
+  if (form && success) {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      form.hidden = true;
+      success.hidden = false;
+      success.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
+</script>
+
 </body>
 </html>
