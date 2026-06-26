@@ -1190,6 +1190,12 @@ button {
   background: var(--red);
 }
 
+@media (max-width: 620px) {
+  .footer-v2-nav {
+    display: none;
+  }
+}
+
 /* ── Section heading — Cormorant italic, shared across pages ── */
 .section-heading {
   font-family: var(--serif);
