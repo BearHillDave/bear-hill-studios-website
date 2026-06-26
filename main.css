@@ -110,7 +110,7 @@ button {
     box-shadow 0.4s;
 }
 .nav.scrolled {
-  background: rgba(33, 30, 26, 0.92);
+  background: rgba(33, 30, 26, 0.72);
   backdrop-filter: blur(14px);
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
 }
@@ -274,7 +274,7 @@ button {
     align-items: center;
     justify-content: center;
     gap: 36px;
-    background: rgba(26, 23, 20, 0.97);
+    background: rgba(26, 23, 20, 0.77);
     backdrop-filter: blur(16px);
     transform: translateY(-100%);
     opacity: 0;
@@ -399,7 +399,7 @@ button {
   position: absolute;
   z-index: -1;
   pointer-events: none;
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.7);
   filter: blur(var(--blob-blur, 50px));
   border-radius: var(--blob-radius, 120px);
   inset: 150px 0 40px 0;
@@ -433,7 +433,7 @@ button {
    inline on .hero-v2-content (defaults match home). */
 .hero-v2-content {
   position: relative;
-  z-index: 2;
+  z-index: -1;
   width: 100%;
   max-width: 1160px;
   margin: 0 auto;
@@ -455,7 +455,7 @@ button {
   position: absolute;
   z-index: -1;
   pointer-events: none;
-  background: rgba(0, 0, 0, var(--blob-alpha, 0.9));
+  background: rgba(0, 0, 0, var(--blob-alpha, 0.7));
   filter: blur(var(--blob-blur, 50px));
   border-radius: var(--blob-radius, 120px);
   inset: 150px 0 300px 0; /* large bottom inset stops the blob above the audio player (player+gap+padding ≈ 330px) */
@@ -513,7 +513,7 @@ button {
   }
   50% {
     transform: translateY(6px) rotate(45deg);
-    opacity: 0.9;
+    opacity: 0.7;
   }
 }
 /* Scroll cue is a desktop affordance; on small screens content flows past
@@ -1117,7 +1117,7 @@ button {
 }
 .uc-body {
   font-family: var(--sans);
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   font-weight: 300;
   color: var(--cream-50);
   max-width: 380px;
