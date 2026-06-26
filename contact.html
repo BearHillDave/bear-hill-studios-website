@@ -19,42 +19,6 @@
       align-items: flex-start;
       overflow: hidden;
     }
-    .contact-hero-content {
-      position: relative;
-      z-index: 2;
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 220px 64px 80px;
-    }
-    .contact-hero-content::before {
-      content: '';
-      position: absolute;
-      z-index: -1;
-      pointer-events: none;
-      background: rgba(0, 0, 0, 0.5);
-      filter: blur(75px);
-      border-radius: 150px;
-      inset: 150px 0 40px 0;
-    }
-    .contact-hero-title {
-      font-family: var(--serif);
-      font-style: italic;
-      font-weight: 700;
-      font-size: clamp(5rem, 8vw, 8rem);
-      color: var(--dark-white);
-      letter-spacing: -0.02em;
-      line-height: 0.95;
-      margin: 0 0 var(--sp-xl);
-    }
-    .contact-hero-body {
-      font-family: var(--serif);
-      font-weight: 300;
-      font-size: 24px;
-      line-height: 1.6;
-      color: var(--dark-white);
-      max-width: 480px;
-      margin: 0;
-    }
 
     /* Form section */
     .contact-form-section {
@@ -203,9 +167,6 @@
 
     /* Mobile */
     @media (max-width: 620px) {
-      .contact-hero-content {
-        padding: 160px 24px 64px;
-      }
       .cf-row {
         grid-template-columns: 1fr;
         gap: 0;
@@ -246,9 +207,9 @@
   <div class="page-blur"></div>
 
   <header class="contact-hero">
-    <div class="contact-hero-content">
-      <h1 class="contact-hero-title reveal">Get in touch</h1>
-      <p class="contact-hero-body reveal d1">Whether it's an audiobook, voice work, music production, or something entirely new — we'd love to hear about it.</p>
+    <div class="hero-content">
+      <h1 class="hero-title reveal">Get in touch</h1>
+      <p class="hero-body reveal d1">Whether it's an audiobook, voice work, music production, or something entirely new — we'd love to hear about it.</p>
     </div>
     <div class="hero-scroll" aria-hidden="true">
       <span class="hero-scroll-arrow"></span>

@@ -123,8 +123,8 @@ button {
   top: 0;
   left: 0;
   right: 0;
-  height: 160px;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), transparent);
+  height: 320px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.85), transparent);
   pointer-events: none;
   z-index: -1;
   transition: opacity 0.4s;
@@ -251,7 +251,7 @@ button {
     padding: 0 24px;
   }
   .nav::before {
-    height: 120px;
+    height: 220px;
   }
   .logo {
     position: relative;
