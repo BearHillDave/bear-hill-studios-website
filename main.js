@@ -111,11 +111,25 @@ function initNavToggle() {
   menu.inert = mobileMq.matches;
 }
 
+/* ===== DOWNLOAD BUTTONS ===== */
+function initDownloads() {
+  document.querySelectorAll(".wi-player-dl").forEach(link => {
+    const src = link.closest(".wi-player")?.querySelector("[data-src]")?.dataset.src;
+    if (src) {
+      link.href = src;
+      link.download = src.split("/").pop();
+    } else {
+      link.hidden = true;
+    }
+  });
+}
+
 /* ===== INIT ===== */
 function init() {
   document.documentElement.dataset.theme = TWEAK_DEFAULTS.theme;
 
   initPlayers();
+  initDownloads();
   initReveals();
   updateParallax();
   initNavToggle();
