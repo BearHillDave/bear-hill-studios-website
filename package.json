@@ -1,0 +1,14 @@
+{
+  "name": "bear-hill-studios-website",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Bear Hill Studios site build — minifies HTML/CSS/JS into dist/ for deploy. Source files are hand-edited directly; there is no dev build step.",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "devDependencies": {
+    "clean-css": "^5.3.3",
+    "html-minifier-terser": "^7.2.0",
+    "terser": "^5.48.0"
+  }
+}

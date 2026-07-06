@@ -1,6 +1,6 @@
 # Bear Hill Studios — Website
 
-Static multi-page site. No framework, no build step.
+Static multi-page site. No framework. Source files (`main.css`, `main.js`, `*.html`) are hand-edited directly — there is no dev build step. A build step exists only to produce a minified `dist/` for deploy (see **Build & deploy** below).
 
 ## Dev server
 
@@ -11,7 +11,15 @@ python3 -m http.server 8081
 
 Browser: `http://localhost:8081`
 
-The preview server is configured in `.claude/launch.json` (name: `website`). Use `preview_start` to start it via Claude.
+The preview server is configured in `.claude/launch.json` (name: `website`). Use `preview_start` to start it via Claude. This serves the source files directly (unminified) — always develop and iterate against this, never against `dist/`.
+
+A second config, `website-dist`, serves the built `dist/` folder on port 8082 for spot-checking the minified output before deploy.
+
+## Build & deploy
+
+`npm run build` (`build.js`) generates `dist/`: minifies `main.css` (clean-css), `main.js` + `js/audio-player.js` (terser), and all `*.html` (html-minifier-terser, including inline `<style>`/`<script>` blocks). `assets/` is copied through unchanged. Output files keep the same relative paths/names as the source, so no `<link>`/`<script>`/`<img>` references need rewriting.
+
+`netlify.toml` sets the build command (`npm run build`) and publish directory (`dist`) so Netlify runs this automatically on every push — no manual step needed. `dist/` and `node_modules/` are gitignored; only the source and build script are committed.
 
 ## Repo
 
@@ -738,7 +746,7 @@ Form fields use **underline style**: `border-bottom` only, no box border. Classe
 **Live URL:** `https://bearhillstudios.co.uk` (primary) + `https://bear-hill-studios-site.netlify.app` (Netlify subdomain)  
 **GitHub repo:** `BearHillDave/bear-hill-studios-website` (BearHillDave account)  
 **Auto-deploy:** pushes to `main` branch trigger automatic Netlify deploy  
-**Build settings:** no build command, publish directory = `/` (static site, no framework)
+**Build settings:** set via `netlify.toml` — build command `npm run build`, publish directory `dist` (see **Build & deploy** above)
 
 To deploy: commit and push to `main`. Netlify picks it up automatically within ~30 seconds.
 

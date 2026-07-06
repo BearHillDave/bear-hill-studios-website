@@ -4,3 +4,5 @@ memory/
 copy-deck.md
 Design/
 wireframes/
+node_modules/
+dist/
