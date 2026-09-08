@@ -344,23 +344,16 @@ button {
   left: 0;
   right: 0;
   height: 100vh;
-  /* background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 0%,  
-    rgba(0, 0, 0, 0) 57.9%,
-    var(--light-black) 98.33%
-  ); */
-
   background:
     radial-gradient(
       126.05% 53.24% at 65.5% 59.66%,
       rgba(33, 30, 26, 0) 0%,
-      var(--Light-Black, rgba(33, 30, 26, 0.42)) 100%
+      rgba(33, 30, 26, 0.42) 100%
     ),
     linear-gradient(
       180deg,
       rgba(0, 0, 0, 0) 57.9%,
-      var(--Light-Black, #211e1a) 98.33%
+      #211e1a 98.33%
     );
 
   pointer-events: none;

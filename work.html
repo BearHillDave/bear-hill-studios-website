@@ -14,6 +14,12 @@
     <style>
       /* ── Work page V2 — spec locked from Figma 2026-06-05 ── */
       /* hero, hero-content, hero-title, hero-body, wi-section, wi-*, cta-v2-* all defined in main.css */
+
+      /* Design experiment: punchier blend for the meadow blur layer (Work only) */
+      .page-blur {
+        opacity: 0.5;
+        mix-blend-mode: hard-light;
+      }
     </style>
   </head>
   <body style="background: var(--light-black); color: var(--dark-white)">
@@ -654,5 +660,6 @@
     </footer>
 
     <script type="module" src="main.js"></script>
+    <script type="module" src="js/dev-panel.js"></script>
   </body>
 </html>
