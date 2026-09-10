@@ -14,6 +14,18 @@
     <style>
       /* ── Contact page V2 ── */
 
+      /* Design experiment: dev-panel values for the forest blur/vignette (Contact only) */
+      .page-blur {
+        opacity: 0.32;
+        mix-blend-mode: overlay;
+      }
+      .page-vignette {
+        opacity: 1;
+        background:
+          radial-gradient(126.05% 53.24% at 65.5% 59.66%, rgba(33, 30, 26, 0) 0%, rgba(33, 30, 26, 0.42) 100%),
+          linear-gradient(180deg, rgba(0, 0, 0, 0) 57.9%, #211e1a 100%);
+      }
+
       /* Hero */
       .contact-hero {
         position: relative;
