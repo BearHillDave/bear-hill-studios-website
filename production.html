@@ -16,6 +16,18 @@
       /* hero, hero-content, hero-title, hero-body, wi-section all defined in main.css.
          Blob blur/radius set inline on .hero-content (--blob-blur/--blob-radius). */
 
+      /* Design experiment: dev-panel values for the stream blur/vignette (Production only) */
+      .page-blur {
+        opacity: 1;
+        mix-blend-mode: lighten;
+      }
+      .page-vignette {
+        opacity: 1;
+        background:
+          radial-gradient(126.05% 53.24% at 65.5% 59.66%, rgba(33, 30, 26, 0) 0%, rgba(33, 30, 26, 0.42) 100%),
+          linear-gradient(180deg, rgba(0, 0, 0, 0) 57.9%, #211e1a 98.33%);
+      }
+
       /* FACILITIES / EQUIPMENT */
       .facility-section {
         padding-top: var(--sp-2xl);
