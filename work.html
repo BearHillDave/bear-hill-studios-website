@@ -15,10 +15,16 @@
       /* ── Work page V2 — spec locked from Figma 2026-06-05 ── */
       /* hero, hero-content, hero-title, hero-body, wi-section, wi-*, cta-v2-* all defined in main.css */
 
-      /* Design experiment: punchier blend for the meadow blur layer (Work only) */
+      /* Design experiment: dev-panel values for the meadow blur/vignette (Work only) */
       .page-blur {
-        opacity: 0.5;
-        mix-blend-mode: hard-light;
+        opacity: 0.44;
+        mix-blend-mode: lighten;
+      }
+      .page-vignette {
+        opacity: 1;
+        background:
+          radial-gradient(126.05% 53.24% at 65.5% 59.66%, rgba(33, 30, 26, 0) 0%, rgba(33, 30, 26, 0.42) 100%),
+          linear-gradient(180deg, rgba(0, 0, 0, 0) 59.9%, #211e1a 100%);
       }
 
       /* Design experiment: the bright meadow photo makes the hero text blob's
