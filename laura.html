@@ -16,6 +16,18 @@
       /* hero, hero-v2-content, hero-v2-title, hero-v2-body, hero-v2-player all defined in main.css. */
       .hero-v2-content { --blob-radius: 100px; }
 
+      /* Design experiment: dev-panel values for the velvet blur/vignette (Laura only) */
+      .page-blur {
+        opacity: 0.55;
+        mix-blend-mode: lighten;
+      }
+      .page-vignette {
+        opacity: 1;
+        background:
+          radial-gradient(126.05% 53.24% at 65.5% 59.66%, rgba(33, 30, 26, 0) 0%, rgba(33, 30, 26, 0.42) 100%),
+          linear-gradient(180deg, rgba(0, 0, 0, 0) 57.9%, #211e1a 98.33%);
+      }
+
       /* Circle portrait — absolute, upper-right, behind title/blob (bleeds off the edge) */
       .laura-circle {
         position: absolute;
