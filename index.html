@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="main.css" />
     <style>
       /* ── Home V2 — inline until signed off ── */
-      /* hero, hero-v2-content, hero-v2-title, hero-v2-body, hero-v2-player all defined in main.css */
+      /* hero, hero-content, hero-title, hero-body, hero-center all defined in main.css */
 
       /* Design experiment: dev-panel values for the moss-blur-light layer (Home only) */
       .page-blur {
@@ -197,33 +197,19 @@
 
       <!-- ── HERO (content layer) ── -->
       <section class="hero">
-        <div class="hero-v2-content">
-          <div>
-            <h1 class="hero-v2-title reveal">Bear Hill Studios</h1>
-          </div>
-          <div class="reveal d1">
-            <p class="hero-v2-body">
-              Laura Cox and Dave Cox run a husband-and-wife creative studio
-              based in Bath. Laura is a voice artist and audiobook narrator.
-              Dave is a audio producer, sound and interaction designer.
-            </p>
-            <p class="hero-v2-body">
-              They work end-to-end on immersive productions, or integrate into
-              projects at any point. Between them they have a huge amount of
-              experience accross many types of performance, creative media and
-              technology.
-            </p>
-          </div>
-          <div class="hero-v2-player reveal d2">
-            <div
-              class="player player-lg player--dark"
-              data-player="hero-sample"
-              data-src="assets/audio/laura-cox-demo-reel.mp3"
-              data-dur="48"
-              data-label="HEAR THE WORK"
-              data-color="c1"
-            ></div>
-          </div>
+        <div class="hero-content">
+          <h1 class="hero-title reveal">Bear Hill Studios</h1>
+          <p class="hero-body reveal d1">
+            Laura Cox and Dave Cox run a husband-and-wife creative studio
+            based in Bath. Laura is a voice artist and audiobook narrator.
+            Dave is a audio producer, sound and interaction designer.
+          </p>
+          <p class="hero-body reveal d2">
+            They work end-to-end on immersive productions, or integrate into
+            projects at any point. Between them they have a huge amount of
+            experience accross many types of performance, creative media and
+            technology.
+          </p>
         </div>
 
         <div class="hero-scroll" aria-hidden="true">
@@ -235,6 +221,42 @@
       <section class="sel-work">
         <div class="wi-list sel-work-inner">
           <h2 class="sel-work-heading reveal">Selected Work</h2>
+
+          <!-- ── Section/Video: Millions of Cats...and Stars ── -->
+          <div class="wi-large-video">
+            <p class="wi-eyebrow reveal">Video</p>
+            <div class="wi-title-group reveal d1">
+              <h2 class="wi-title">Millions of Cats...and Stars</h2>
+              <p class="wi-subtitle">Wanda Gág</p>
+            </div>
+            <p class="wi-body reveal d2">
+              An immersive retelling of Wanda Gág's classic — spatial sound
+              design, original score and narration by Laura Cox, produced by
+              Bear Hill Studios.
+            </p>
+            <div class="wi-yt-full reveal d3">
+              <iframe
+                src="https://www.youtube.com/embed/-mW5If3EqFQ?rel=0&modestbranding=1"
+                title="Millions of Cats...and Stars"
+                allow="
+                  accelerometer;
+                  autoplay;
+                  clipboard-write;
+                  encrypted-media;
+                  gyroscope;
+                  picture-in-picture;
+                "
+                allowfullscreen
+              ></iframe>
+            </div>
+            <a
+              class="wi-yt-watch reveal d4"
+              href="https://www.youtube.com/watch?v=-mW5If3EqFQ"
+              target="_blank"
+              rel="noopener"
+              >Watch on YouTube ↗</a
+            >
+          </div>
 
           <!-- Audiobook: Millions of Cats...and Stars -->
           <article class="wi">
