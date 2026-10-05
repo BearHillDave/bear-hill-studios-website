@@ -18,7 +18,7 @@
 
       /* Design experiment: dev-panel values for the stream blur/vignette (Production only) */
       .page-blur {
-        opacity: 1;
+        opacity: 0.5;
         mix-blend-mode: lighten;
       }
       .page-vignette {
@@ -195,16 +195,11 @@
       </div>
     </nav>
 
-    <!-- PAGE CANVAS: layers bottom→top: light-black > photo > vignette > blur > content -->
+    <!-- PAGE CANVAS: layers bottom→top: light-black > vignette > blur > content -->
     <div
       class="page-canvas"
-      style="
-        --photo-img: url('assets/stream.jpg');
-        --photo-pos: center 40%;
-        --blur-img: url('assets/stream-blur.jpg');
-      "
+      style="--blur-img: url('assets/stream-blur.jpg')"
     >
-      <div class="page-photo"></div>
       <div class="page-vignette"></div>
       <div class="page-blur"></div>
 

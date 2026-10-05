@@ -132,7 +132,7 @@ Loaded from Google Fonts. Request weight range `0,300;0,400;0,500;0,600;1,300;1,
 - Scrolled state: `rgba(33,30,26,0.92)` + `backdrop-filter: blur(14px)`
 - "Get in touch" pill: 40px tall, pill-shaped, border `--cream-50`, hover fills `--dark-white`
 
-**Nav top gradient scrim** — a `::before` pseudo-element on `.nav` that creates a soft dark gradient behind the nav bar over the hero photo, improving legibility on bright/light images (e.g. Laura's velvet photo). Uses `z-index: -1` within the nav's stacking context so it renders over the photo but behind nav links.
+**Nav top gradient scrim** — a `::before` pseudo-element on `.nav` that creates a soft dark gradient behind the nav bar over the hero background, improving legibility over the blurred hero imagery. Uses `z-index: -1` within the nav's stacking context so it renders over the hero background but behind nav links.
 
 ```css
 .nav::before {
@@ -181,9 +181,8 @@ Wrap hero + main content (including CTA) in `.page-canvas`. Footer sits **outsid
 
 ```html
 <div class="page-canvas">            <!-- bg: --light-black, overflow: hidden -->
-  <div class="page-photo"></div>     <!-- hero photo, absolute, hero height only -->
   <div class="page-vignette"></div>  <!-- gradient fade, hero height only -->
-  <div class="page-blur"></div>      <!-- blurred bg, height: 100%, opacity: 0.30, mix-blend-mode: lighten, will-change: transform -->
+  <div class="page-blur"></div>      <!-- blurred bg, height: 100%, opacity: 0.5, mix-blend-mode: lighten, will-change: transform -->
 
   <header class="…-hero">…</header>  <!-- z-index: 1, transparent bg -->
   <section class="…-section">…</section>
@@ -192,9 +191,11 @@ Wrap hero + main content (including CTA) in `.page-canvas`. Footer sits **outsid
 <footer class="footer">…</footer>
 ```
 
+> **Note:** the hero photo layer (`.page-photo`, driven by `--photo-img`/`--photo-pos`) has been removed site-wide — every page now shows only the blurred background over `--light-black`, no sharp hero photo underneath. The old hero photo assets (`hero-moss.jpg`, `hero-meadow.jpg`, `velvet.jpg`, `stream.jpg`, `forest.jpg`) have been deleted from `assets/`.
+
 **Critical rules:**
 - `.page-canvas` must have `overflow: hidden` — prevents blur from extending past the footer
-- `.page-photo` and `.page-vignette` cover only the hero height (`100vh`) not full canvas
+- `.page-vignette` covers only the hero height (`100vh`) not full canvas
 - `.page-blur` covers `height: 100%` of the canvas — **not 200%** (200% changes the cover scale and makes it look wrong)
 - All sections inside canvas have `position: relative; z-index: 1` and **no background colour**
 - The CTA section goes inside the canvas so the blur covers it
@@ -211,38 +212,9 @@ Wrap hero + main content (including CTA) in `.page-canvas`. Footer sits **outsid
   );
 }
 ```
-Stays fully transparent until 57.9% down the frame, then fades to `--light-black` at 98.33%. Do not darken the middle — the photo should show clearly through most of the hero.
+Stays fully transparent until 57.9% down the frame, then fades to `--light-black` at 98.33%.
 
-**Hero blur blob (content legibility)** — a `::before` pseudo-element on the hero's **content** element, **not** the hero itself. Pure CSS, no image. `z-index: -1` within the content's stacking context (content is `position: relative; z-index: 2`) so it sits behind the copy but above the photo layers. The hero keeps `overflow: hidden` to contain the blurred edges.
-
-**Shared `.hero-content` class** — `main.css` defines a shared `.hero-content` class used by work, laura, production, and contact pages (home uses its own `.hero-v2-content`). It provides the 780px column, padding, and blob in one place:
-
-```css
-.hero-content {
-  position: relative; z-index: 2;
-  max-width: 780px; width: 100%;
-  margin: 0 auto;
-  padding: 220px 64px 80px;
-}
-.hero-content::before {
-  content: ""; position: absolute; z-index: -1; pointer-events: none;
-  background: rgba(0, 0, 0, 0.9);
-  filter: blur(var(--blob-blur, 50px));
-  border-radius: var(--blob-radius, 120px);
-  inset: 150px 0 40px 0;
-}
-@media (max-width: 620px) {
-  .hero-content { padding-left: 24px; padding-right: 24px; }
-}
-```
-
-Per-page blob overrides via `--blob-blur` / `--blob-radius` CSS variables on the hero element (or inline style):
-- Home (`.hero-v2-content`): `background: rgba(0,0,0,0.5)`, `blur(50px)`, `r=120px`
-- Work, Contact: default (`blur(50px)`, `r=120px`, `rgba(0,0,0,0.9)`)
-- Laura: `blur(100px)`, `r=150px`
-- Production: `blur(75px)`, `r=150px`
-
-`inset` is relative to the content's padding box: **top `150px`** (~70px above the title), **bottom `40px`** (~40px below the last copy element), **sides `0`** (full content-column width).
+**Hero blur blob (content legibility) — disabled.** `.hero-content::before` and `.hero-v2-content::before` in `main.css` are commented out. These were `::before` pseudo-elements on the hero's **content** element (not the hero itself) adding a soft dark blob behind the title/body for legibility over the hero photo. Now that the hero photo layer has been removed (see **Page layer stack** above), the backdrop is just the blurred image over `--light-black`, so the extra legibility blob is no longer needed. The commented-out rules (and the per-page `--blob-blur`/`--blob-radius` overrides still set inline on each hero element) are left in place in case the blob needs to come back.
 
 **Hero layout — all pages except home:**
 - `min-height: 88vh` (reduced from `100vh` so the next section peeks ~108px above the fold on a 900px-tall viewport — a deliberate scroll cue; see **Scroll cue** below)
@@ -275,10 +247,10 @@ Full-height heroes risk a "false bottom" — the first screen reads as the whole
 
    ⚠️ Because `.hero-scroll` is `position: fixed`, its containing block is the viewport **only while no ancestor has `transform`/`filter`/`will-change`/`contain`**. `.page-canvas` is currently plain `position: relative; overflow: hidden`, so this holds. If a transform/filter is ever added to `.page-canvas`, the cue would re-anchor to it and `bottom: 2rem` would land at the bottom of the whole page instead of the viewport.
 
-**Page photo/blur CSS variables** — set `--photo-img` and `--blur-img` on the `.page-canvas` element (not on the child divs directly). `main.css` consumes them via `background-image: var(--photo-img)` on `.page-photo` and `.page-blur`:
+**Page blur CSS variable** — set `--blur-img` on the `.page-canvas` element (not on the child div directly). `main.css` consumes it via `background-image: var(--blur-img)` on `.page-blur`:
 
 ```html
-<div class="page-canvas" style="--photo-img: url('assets/forest.jpg'); --blur-img: url('assets/forest-blur.jpg')">
+<div class="page-canvas" style="--blur-img: url('assets/forest-blur.jpg')">
 ```
 
 **Blur images per page** (`/assets/`) — exported as JPEGs from Figma "blured bg 2" component:
@@ -287,7 +259,7 @@ Full-height heroes risk a "false bottom" — the first screen reads as the whole
 - Laura: `velvet-blur.jpg`
 - Production/Contact: `stream-blur.jpg`
 
-The blur layer uses `mix-blend-mode: lighten; opacity: 0.3` (not a flat opacity). The JPEG has a gradient-to-black baked in on the text side; `mix-blend-mode: lighten` makes the black areas transparent so the full-colour photo shows through on the open side. Using JPEGs avoids needing PNG transparency.
+The blur layer uses `mix-blend-mode: lighten; opacity: 0.5` (not a flat opacity). The JPEG has a gradient-to-black baked in on the text side; `mix-blend-mode: lighten` makes the black areas transparent against the `--light-black` canvas background. Using JPEGs avoids needing PNG transparency. (Contact uses `mix-blend-mode: overlay` instead — see `cbda3b5`.)
 
 **Parallax** — blur scrolls at 50% of page speed via `main.js`:
 ```javascript
@@ -571,17 +543,14 @@ Only one player plays at a time.
 
 ## Assets
 
-Photos used per page:
+Photos used per page (hero photo layer removed — these are the only background images left, used as `--blur-img` on `.page-blur`):
 | File | Used on |
 |------|---------|
-| `hero-moss.jpg` | Home hero bg (`page-photo`) |
-| `moss-blur.jpg` | Home blur layer (`page-blur`) |
-| `forest.jpg` | Work + Contact hero bg (`page-photo`) |
-| `forest-blur.jpg` | Work blur layer (`page-blur`) |
-| `velvet.jpg` | Laura hero bg (`page-photo`) |
+| `moss-blur-light.jpg` | Home blur layer (`page-blur`) |
+| `meadow-blur.jpg` | Work blur layer (`page-blur`) |
 | `velvet-blur.jpg` | Laura blur layer (`page-blur`) |
-| `stream.jpg` | Production hero bg (`page-photo`) |
 | `stream-blur.jpg` | Production blur layer (`page-blur`) |
+| `forest-blur.jpg` | Contact blur layer (`page-blur`) |
 | `VR Cover 3000x3000.png` | Velveteen Rabbit audiobook cover |
 | `TTNBC Cover 3000x3000.jpg` | 'Twas the Night Before Christmas cover |
 | `assets/laura-at-mic.jpg` | Laura circle portrait — hero, `laura.html` |
@@ -679,7 +648,7 @@ CSS rule that spaces categories: `.wi-list--narrow .wi-eyebrow:not(:first-of-typ
 
 Full V2 — implemented from Figma node `352:7513`.
 
-Hero uses `stream.jpg` (photo) + `stream-blur.jpg` (blur layer). Same layer stack and vignette as other pages.
+Hero uses `stream-blur.jpg` as the blur layer (no hero photo — see **Page layer stack**). Same layer stack and vignette as other pages.
 
 **Sections in order:**
 1. Hero — "Production" title + Cormorant Light 24px/40lh body (4 sentences)
@@ -717,7 +686,7 @@ Hero uses `stream.jpg` (photo) + `stream-blur.jpg` (blur layer). Same layer stac
 
 ## Contact page (`contact.html`)
 
-Full V2. Uses `forest.jpg` / `stream-blur.jpg` for hero (same forest photo as Work page — acceptable, separate pages). Hero uses shared `.hero-content` class.
+Full V2. Hero uses `forest-blur.jpg` as the blur layer (no hero photo — see **Page layer stack**). Hero uses shared `.hero-content` class.
 
 **Sections in order:**
 1. Hero — "Get in touch" title + Cormorant Light 24px body (2–3 sentences)

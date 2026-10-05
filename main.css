@@ -318,26 +318,14 @@ button {
 
 /* =====================================================
    PAGE CANVAS LAYER STACK
-   Shared by every interior page. Set --photo-img / --photo-pos / --blur-img
-   inline on .page-canvas per page — see CLAUDE.md "Page layer stack".
-   Bottom to top: light-black > photo > vignette > blur > content.
+   Shared by every interior page. Set --blur-img inline on .page-canvas per
+   page — see CLAUDE.md "Page layer stack".
+   Bottom to top: light-black > vignette > blur > content.
    ===================================================== */
 .page-canvas {
   position: relative;
   background: var(--light-black);
   overflow: hidden;
-}
-.page-photo {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 100vh;
-  background-image: var(--photo-img);
-  background-size: cover;
-  background-position: var(--photo-pos, center);
-  pointer-events: none;
 }
 .page-vignette {
   position: absolute;
@@ -368,7 +356,7 @@ button {
   background-image: var(--blur-img);
   background-size: cover;
   background-position: center top;
-  opacity: 0.3;
+  opacity: 0.5;
   mix-blend-mode: lighten;
   pointer-events: none;
   will-change: transform;
@@ -401,6 +389,8 @@ button {
     padding-right: 24px;
   }
 }
+/* Blur blob disabled — no longer needed for legibility now that the hero
+   photo layer has been removed.
 .hero-content::before {
   content: "";
   position: absolute;
@@ -411,6 +401,7 @@ button {
   border-radius: var(--blob-radius, 120px);
   inset: 150px 0 40px 0;
 }
+*/
 .hero-title {
   font-family: var(--serif);
   font-style: italic;
@@ -467,6 +458,8 @@ button {
     padding-right: 24px;
   }
 }
+/* Blur blob disabled — no longer needed for legibility now that the hero
+   photo layer has been removed.
 .hero-v2-content::before {
   content: "";
   position: absolute;
@@ -475,8 +468,9 @@ button {
   background: rgba(0, 0, 0, var(--blob-alpha, 0.7));
   filter: blur(var(--blob-blur, 50px));
   border-radius: var(--blob-radius, 120px);
-  inset: 150px 0 300px 0; /* large bottom inset stops the blob above the audio player (player+gap+padding ≈ 330px) */
+  inset: 150px 0 300px 0;
 }
+*/
 .hero-v2-title {
   font-family: var(--serif);
   font-style: italic;

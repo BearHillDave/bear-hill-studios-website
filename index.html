@@ -17,7 +17,7 @@
 
       /* Design experiment: dev-panel values for the moss-blur-light layer (Home only) */
       .page-blur {
-        opacity: 0.35;
+        opacity: 0.5;
         mix-blend-mode: lighten;
       }
       .page-vignette {
@@ -182,16 +182,11 @@
       </div>
     </nav>
 
-    <!-- PAGE CANVAS: layers bottom→top: light-black > photo > vignette > blur > content -->
+    <!-- PAGE CANVAS: layers bottom→top: light-black > vignette > blur > content -->
     <div
       class="page-canvas"
-      style="
-        --photo-img: url(&quot;assets/hero-moss.jpg&quot;);
-        --photo-pos: center 35%;
-        --blur-img: url(&quot;assets/moss-blur-light.jpg&quot;);
-      "
+      style="--blur-img: url(&quot;assets/moss-blur-light.jpg&quot;)"
     >
-      <div class="page-photo"></div>
       <div class="page-vignette"></div>
       <div class="page-blur"></div>
 
