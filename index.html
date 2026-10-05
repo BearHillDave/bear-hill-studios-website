@@ -27,6 +27,38 @@
           linear-gradient(180deg, rgba(0, 0, 0, 0) 78.2%, #211e1a 100%);
       }
 
+      /* Extra breathing room below "Watch on YouTube" before the first
+         hairline divider, so the bear mascot isn't crowded against the link */
+      .home-first-video {
+        padding-bottom: var(--sp-2xl);
+      }
+
+      /* Bear mascot standing on the first work-item hairline divider */
+      .home-bear-stand {
+        position: absolute;
+        bottom: 100%;
+        left: calc(50% - 50vw + 25px);
+        width: 56px;
+        height: auto;
+        pointer-events: none;
+      }
+      .home-bear-stand.reveal.visible {
+        opacity: 0.7;
+      }
+
+      /* Second bear mascot standing on the next hairline divider */
+      .home-bear-stand-2 {
+        position: absolute;
+        bottom: 100%;
+        right: calc(50% - 50vw + 25px);
+        width: 56px;
+        height: auto;
+        pointer-events: none;
+      }
+      .home-bear-stand-2.reveal.visible {
+        opacity: 0.7;
+      }
+
       /* SELECTED WORK — transparent, content only (layer 5) */
       .sel-work {
         position: relative;
@@ -218,7 +250,7 @@
           <h2 class="sel-work-heading reveal">Selected Work</h2>
 
           <!-- ── Section/Video: Millions of Cats...and Stars ── -->
-          <div class="wi-large-video">
+          <div class="wi-large-video home-first-video">
             <p class="wi-eyebrow reveal">Video</p>
             <div class="wi-title-group reveal d1">
               <h2 class="wi-title">Millions of Cats...and Stars</h2>
@@ -257,6 +289,12 @@
 
           <!-- Audiobook: The Velveteen Rabbit -->
           <article class="wi">
+            <img
+              class="home-bear-stand reveal"
+              src="assets/bear-sit.png"
+              alt=""
+              aria-hidden="true"
+            />
             <p class="wi-eyebrow wi-eyebrow--audio reveal">
               Immersive Audiobook
             </p>
@@ -333,6 +371,12 @@
 
           <!-- Audiobook: The Night Before Christmas -->
           <article class="wi">
+            <img
+              class="home-bear-stand-2 reveal"
+              src="assets/bear-stand.png"
+              alt=""
+              aria-hidden="true"
+            />
             <p class="wi-eyebrow wi-eyebrow--audio reveal">
               Immersive Audiobook
             </p>

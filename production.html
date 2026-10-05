@@ -42,6 +42,25 @@
         background: var(--cream-20);
         transform: translateX(-50%);
       }
+
+      /* Bear mascot standing on a hairline divider */
+      .wi-bear {
+        position: absolute;
+        bottom: 100%;
+        width: 56px;
+        height: auto;
+        pointer-events: none;
+      }
+      .wi-bear.reveal.visible {
+        opacity: 0.7;
+      }
+      .wi-bear-left {
+        left: calc(50% - 50vw + 25px);
+      }
+      .wi-bear-right {
+        right: calc(50% - 50vw + 25px);
+      }
+
       .facility-intro {
         margin-bottom: var(--sp-xl);
       }
@@ -257,6 +276,12 @@
 
       <!-- FACILITIES / EQUIPMENT -->
       <section class="wi-section facility-section">
+        <img
+          class="wi-bear wi-bear-left reveal"
+          src="assets/bear-walk.png"
+          alt=""
+          aria-hidden="true"
+        />
         <div class="wi-list">
           <h2 class="section-heading reveal">The Studio</h2>
           <p class="wi-body facility-intro reveal d1">

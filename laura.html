@@ -60,6 +60,36 @@
         padding: 80px 0;
       }
 
+      /* Divider between Voice Demos and the Quote section */
+      .laura-quote-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 100vw;
+        height: 1px;
+        background: var(--cream-20);
+        transform: translateX(-50%);
+      }
+
+      /* Bear mascot standing on a hairline divider */
+      .wi-bear {
+        position: absolute;
+        bottom: 100%;
+        width: 56px;
+        height: auto;
+        pointer-events: none;
+      }
+      .wi-bear.reveal.visible {
+        opacity: 0.7;
+      }
+      .wi-bear-left {
+        left: calc(50% - 50vw + 25px);
+      }
+      .wi-bear-right {
+        right: calc(50% - 50vw + 25px);
+      }
+
       /* Quote */
       .laura-quote {
         font-family: var(--serif);
@@ -544,7 +574,13 @@
       </section>
 
       <!-- QUOTE -->
-      <section class="laura-section">
+      <section class="laura-section laura-quote-section">
+        <img
+          class="wi-bear wi-bear-right reveal"
+          src="assets/bear-sit-side.png"
+          alt=""
+          aria-hidden="true"
+        />
         <div class="wi-list--narrow">
           <blockquote class="laura-quote reveal">
             "Having worked with Laura before we knew her voice would elevate the
