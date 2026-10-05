@@ -84,10 +84,10 @@
         opacity: 0.7;
       }
       .wi-bear-left {
-        left: calc(50% - 50vw + 25px);
+        left: calc(50% - 50vw + var(--bear-inset, 25px));
       }
       .wi-bear-right {
-        right: calc(50% - 50vw + 25px);
+        right: calc(50% - 50vw + var(--bear-inset, 25px));
       }
 
       /* Quote */
@@ -580,6 +580,7 @@
           src="assets/bear-sit-side.png"
           alt=""
           aria-hidden="true"
+          style="--bear-inset: 26px"
         />
         <div class="wi-list--narrow">
           <blockquote class="laura-quote reveal">
@@ -690,6 +691,13 @@
 
     <!-- FOOTER -->
     <footer class="footer">
+      <img
+        class="footer-bear reveal"
+        src="assets/bear-face-away.png"
+        alt=""
+        aria-hidden="true"
+        style="--bear-left: 44%"
+      />
       <div class="footer-v2 wrap">
         <div class="footer-v2-brand">
           <img src="assets/bear-icon.png" alt="Bear Hill Studios" />

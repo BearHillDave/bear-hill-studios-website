@@ -46,10 +46,10 @@
         opacity: 0.7;
       }
       .wi-bear-left {
-        left: calc(50% - 50vw + 25px);
+        left: calc(50% - 50vw + var(--bear-inset, 25px));
       }
       .wi-bear-right {
-        right: calc(50% - 50vw + 25px);
+        right: calc(50% - 50vw + var(--bear-inset, 25px));
       }
     </style>
   </head>
@@ -291,6 +291,7 @@
               src="assets/bear-face-away.png"
               alt=""
               aria-hidden="true"
+              style="--bear-inset: 49px"
             />
             <p class="wi-eyebrow reveal">Video</p>
             <div class="wi-title-group reveal d1">
@@ -335,6 +336,7 @@
               src="assets/bear-sit-side.png"
               alt=""
               aria-hidden="true"
+              style="--bear-inset: 34px"
             />
             <p class="wi-eyebrow reveal">Interactive</p>
             <div class="wi-title-group reveal d1">
@@ -379,6 +381,7 @@
               src="assets/bear-walk.png"
               alt=""
               aria-hidden="true"
+              style="--bear-inset: 44px"
             />
             <p class="wi-eyebrow reveal">Video</p>
             <div class="wi-title-group reveal d1">
@@ -423,6 +426,7 @@
               src="assets/bear-face-away.png"
               alt=""
               aria-hidden="true"
+              style="--bear-inset: 44px"
             />
             <p class="wi-eyebrow reveal">Video</p>
             <div class="wi-title-group reveal d1">
@@ -467,6 +471,7 @@
               src="assets/bear-sit-side.png"
               alt=""
               aria-hidden="true"
+              style="--bear-inset: 47px"
             />
             <p class="wi-eyebrow wi-eyebrow--audio reveal">
               Immersive Audiobook
@@ -564,6 +569,7 @@
               src="assets/bear-walk.png"
               alt=""
               aria-hidden="true"
+              style="--bear-inset: 43px"
             />
             <p class="wi-eyebrow wi-eyebrow--audio reveal">
               Immersive Audiobook
@@ -660,6 +666,7 @@
               src="assets/bear-face-away.png"
               alt=""
               aria-hidden="true"
+              style="--bear-inset: 28px"
             />
             <p class="wi-eyebrow reveal">Video</p>
             <div class="wi-title-group reveal d1">
@@ -710,6 +717,13 @@
 
     <!-- FOOTER -->
     <footer class="footer">
+      <img
+        class="footer-bear reveal"
+        src="assets/bear-walk.png"
+        alt=""
+        aria-hidden="true"
+        style="--bear-left: 62%"
+      />
       <div class="footer-v2 wrap">
         <div class="footer-v2-brand">
           <img src="assets/bear-icon.png" alt="Bear Hill Studios" />
