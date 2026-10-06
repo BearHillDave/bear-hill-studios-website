@@ -18,6 +18,7 @@ const HTML_FILES = [
   "production.html",
   "about.html",
   "contact.html",
+  "friends.html",
 ];
 
 const COPY_ENTRIES = ["assets"];
