@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Production, Bear Hill Studios</title>
+    <title>Friends, Bear Hill Studios</title>
     <link rel="icon" type="image/png" href="assets/bear-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
@@ -12,11 +12,10 @@
     />
     <link rel="stylesheet" href="main.css" />
     <style>
-      /* ── Production page V2 — spec from Figma Pages/Production ── */
-      /* hero, hero-content, hero-title, hero-body, wi-section all defined in main.css.
-         Blob blur/radius set inline on .hero-content (--blob-blur/--blob-radius). */
+      /* ── Friends page V2 — same layer stack/components as the other interior pages ── */
+      /* hero, hero-content, hero-title, hero-body, wi-section all defined in main.css. */
 
-      /* Design experiment: dev-panel values for the stream blur/vignette (Production only) */
+      /* Design experiment: dev-panel values for the tulip blur/vignette (Friends only) */
       .page-blur {
         opacity: 0.5;
         mix-blend-mode: lighten;
@@ -26,21 +25,6 @@
         background:
           radial-gradient(126.05% 53.24% at 65.5% 59.66%, rgba(33, 30, 26, 0) 0%, rgba(33, 30, 26, 0.42) 100%),
           linear-gradient(180deg, rgba(0, 0, 0, 0) 57.9%, #211e1a 98.33%);
-      }
-
-      /* FACILITIES / EQUIPMENT */
-      .facility-section {
-        padding-top: var(--sp-2xl);
-      }
-      .facility-section::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 50%;
-        width: 100vw;
-        height: 1px;
-        background: var(--cream-20);
-        transform: translateX(-50%);
       }
 
       /* Bear mascot standing on a hairline divider */
@@ -59,43 +43,6 @@
       }
       .wi-bear-right {
         right: calc(50% - 50vw + var(--bear-inset, 25px));
-      }
-
-      .facility-intro {
-        margin-bottom: var(--sp-xl);
-      }
-      .facility-gallery {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: var(--sp-md);
-        margin-bottom: var(--sp-lg);
-      }
-      .facility-photo {
-        position: relative;
-        aspect-ratio: 3 / 4;
-        border-radius: 4px;
-        overflow: hidden;
-        background: rgba(246, 235, 218, 0.06);
-      }
-      .facility-photo img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-      }
-      .facility-list {
-        font-family: var(--sans);
-        font-weight: 500;
-        font-size: 10.7px;
-        letter-spacing: 0.856px;
-        text-transform: uppercase;
-        color: var(--cream-50);
-        margin: 0;
-      }
-      @media (max-width: 640px) {
-        .facility-gallery {
-          grid-template-columns: repeat(2, 1fr);
-        }
       }
     </style>
   </head>
@@ -205,10 +152,8 @@
           <li><a class="nav-link" href="index.html">Home</a></li>
           <li><a class="nav-link" href="work.html">Work</a></li>
           <li><a class="nav-link" href="laura.html">Laura</a></li>
-          <li>
-            <a class="nav-link active" href="production.html">Production</a>
-          </li>
-          <li><a class="nav-link" href="friends.html">Friends</a></li>
+          <li><a class="nav-link" href="production.html">Production</a></li>
+          <li><a class="nav-link active" href="friends.html">Friends</a></li>
           <li><a class="nav-link" href="contact.html">Contact</a></li>
         </ul>
         <a class="nav-cta" href="contact.html">Get in touch</a>
@@ -218,23 +163,19 @@
     <!-- PAGE CANVAS: layers bottom→top: light-black > vignette > blur > content -->
     <div
       class="page-canvas"
-      style="--blur-img: url('assets/stream-blur.jpg')"
+      style="--blur-img: url('assets/tulip-blur.jpg')"
     >
       <div class="page-vignette"></div>
       <div class="page-blur"></div>
 
       <!-- HERO -->
       <header class="hero">
-        <div
-          class="hero-content"
-          style="--blob-blur: 75px; --blob-radius: 150px"
-        >
-          <h1 class="hero-title reveal">Production</h1>
+        <div class="hero-content">
+          <h1 class="hero-title reveal">Friends</h1>
           <p class="hero-body reveal d1">
-            Production at Bear Hill Studios is the domain of David Cox, husband
-            to Laura. He has worked as a creative, technologist, and interactive
-            designer for nearly 30 years. His main focus now is audio production
-            and interactive design.
+            At Bear Hill Studios we have a small, growing list of trusted
+            friends that we work alongside, either through Laura's SLT
+            practice or creative projects.
           </p>
         </div>
 
@@ -243,83 +184,39 @@
         </div>
       </header>
 
-      <!-- OTHER WORK LINK -->
+      <!-- NETWORK LIST -->
       <section class="wi-section">
         <div class="wi-list">
-          <div class="wi-large-video">
-            <p class="wi-eyebrow reveal">Portfolio</p>
+          <article class="wi">
             <div class="wi-title-group reveal d1">
-              <h2 class="wi-title">Some of Dave's other work</h2>
+              <h2 class="wi-title">Bristol Voice Care</h2>
+              <p class="wi-subtitle">Jenna Brown, Voice Rehabilitation Specialist</p>
             </div>
-            <a
-              class="wi-yt-full reveal d2"
-              href="https://c0xy.squarespace.com"
-              target="_blank"
-              rel="noopener"
-              style="aspect-ratio: 2278 / 1502; display: block"
-            >
-              <img
-                src="assets/c0xy-squarespace-grab.jpg"
-                alt="David Cox portfolio site, work history grid"
-                style="width: 100%; height: 100%; object-fit: cover; display: block"
-              />
-            </a>
-            <a
-              class="wi-yt-watch reveal d3"
-              href="https://c0xy.squarespace.com"
-              target="_blank"
-              rel="noopener"
-              >Visit c0xy.squarespace.com ↗</a
-            >
-          </div>
-        </div>
-      </section>
-
-      <!-- FACILITIES / EQUIPMENT -->
-      <section class="wi-section facility-section">
-        <img
-          class="wi-bear wi-bear-left reveal"
-          src="assets/bear-sit.png"
-          alt=""
-          aria-hidden="true"
-          style="--bear-inset: 39px"
-        />
-        <div class="wi-list">
-          <h2 class="section-heading reveal">The Studio</h2>
-          <p class="wi-body facility-intro reveal d1">
-            A simple, reliable setup built for clean, consistent voice recording,
-            from quick voiceover turnarounds to full audiobook productions. We
-            also keep a selection of electric, acoustic, and MIDI instruments on
-            hand for original music and sound design.
-          </p>
-
-          <div class="facility-gallery reveal d2">
-            <div class="facility-photo">
-              <img
-                src="assets/sm7b-logic.jpg"
-                alt="Shure SM7B microphone on a boom arm, with Logic Pro and a MacBook Pro in the background"
-              />
+            <div class="wi-media-row reveal d2">
+              <div class="wi-cover" style="box-shadow: none">
+                <img
+                  src="assets/bristol-voice-care-logo.png"
+                  alt="Bristol Voice Care"
+                  style="object-fit: contain"
+                />
+              </div>
+              <div class="wi-copy-col">
+                <p class="wi-body">
+                  "At Bristol Voice Care we understand that your vocal
+                  journey is complex and nuanced. There are many factors
+                  that can influence the way our voices work and that can
+                  be involved in vocal challenges."
+                </p>
+                <a
+                  class="wi-yt-watch"
+                  href="https://www.bristolvoicecare.co.uk/about/"
+                  target="_blank"
+                  rel="noopener"
+                  >Visit bristolvoicecare.co.uk ↗</a
+                >
+              </div>
             </div>
-            <div class="facility-photo">
-              <img
-                src="assets/curtain.jpg"
-                alt="Microphone set up in the acoustically treated recording booth"
-              />
-            </div>
-            <div class="facility-photo">
-              <img
-                src="assets/nt1.jpg"
-                alt="Røde NT1 microphone with pop filter, studio monitors in the background"
-              />
-            </div>
-          </div>
-
-          <p class="facility-list reveal d3">
-            Shure SM7B&nbsp; &middot; &nbsp;Røde NT1&nbsp; &middot;
-            &nbsp;Focusrite Scarlett 2i2&nbsp; &middot; &nbsp;Logic Pro&nbsp;
-            &middot; &nbsp;MacBook Pro&nbsp; &middot; &nbsp;Treated vocal
-            booth&nbsp; &middot; &nbsp;Electric, acoustic &amp; MIDI instruments
-          </p>
+          </article>
         </div>
       </section>
 
@@ -341,10 +238,10 @@
     <footer class="footer">
       <img
         class="footer-bear reveal"
-        src="assets/bear-stand.png"
+        src="assets/bear-face-away.png"
         alt=""
         aria-hidden="true"
-        style="--bear-left: 58%"
+        style="--bear-left: 48%"
       />
       <div class="footer-v2 wrap">
         <div class="footer-v2-brand">
@@ -358,16 +255,15 @@
           <a class="footer-v2-link" href="index.html">Home</a>
           <a class="footer-v2-link" href="work.html">Work</a>
           <a class="footer-v2-link" href="laura.html">Laura</a>
-          <a
-            class="footer-v2-link footer-v2-link--active"
-            href="production.html"
-            >Production</a
+          <a class="footer-v2-link" href="production.html">Production</a>
+          <a class="footer-v2-link footer-v2-link--active" href="friends.html"
+            >Friends</a
           >
-          <a class="footer-v2-link" href="friends.html">Friends</a>
           <a class="footer-v2-link" href="contact.html">Contact</a>
         </nav>
       </div>
     </footer>
 
-    <script type="module" src="main.js"></script>  </body>
+    <script type="module" src="main.js"></script>
+  </body>
 </html>
