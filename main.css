@@ -1144,25 +1144,25 @@ button {
   padding: 0;
   border-top: none;
 }
-/* Bear mascot sitting on top of the footer, off-centre within the content
-   column (contrasts with the other mascots' marginalia placement at the
-   edges, but avoids sitting dead-centre). Per-page horizontal position set
-   via --bear-left on the element. */
+/* Bear mascot sitting on top of the footer, at the edge like the hairline
+   divider mascots (.wi-bear-left/-right). .footer is already full-bleed
+   (no centred max-width wrapper), so the inset applies directly — no
+   viewport-breakout calc needed. Per-instance inset set via --bear-inset. */
 .footer-bear {
   position: absolute;
   bottom: 100%;
-  left: var(--bear-left, 50%);
-  transform: translateX(-50%);
   width: 56px;
   height: auto;
   pointer-events: none;
 }
-.footer-bear.reveal {
-  transform: translateX(-50%) translateY(24px);
-}
 .footer-bear.reveal.visible {
   opacity: 0.7;
-  transform: translateX(-50%);
+}
+.footer-bear-left {
+  left: var(--bear-inset, 25px);
+}
+.footer-bear-right {
+  right: var(--bear-inset, 25px);
 }
 .footer-v2 {
   display: flex;
