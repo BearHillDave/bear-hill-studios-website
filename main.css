@@ -360,6 +360,13 @@ button {
   mix-blend-mode: lighten;
   pointer-events: none;
   will-change: transform;
+  animation: page-blur-fade-in 0.9s ease both;
+}
+
+@keyframes page-blur-fade-in {
+  from {
+    opacity: 0;
+  }
 }
 
 /* =====================================================
@@ -1164,6 +1171,7 @@ button {
 .footer-bear-right {
   right: var(--bear-inset, 25px);
 }
+
 .footer-v2 {
   display: flex;
   align-items: center;
