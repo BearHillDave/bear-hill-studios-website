@@ -1,9 +1,25 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact, Bear Hill Studios</title>
+    <meta name="description" content="Get in touch with Bear Hill Studios about audiobooks, voice work, audio production, or something entirely new." />
+    <link rel="canonical" href="https://bearhillstudios.co.uk/contact.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Bear Hill Studios" />
+    <meta property="og:title" content="Contact, Bear Hill Studios" />
+    <meta property="og:description" content="Get in touch with Bear Hill Studios about audiobooks, voice work, audio production, or something entirely new." />
+    <meta property="og:url" content="https://bearhillstudios.co.uk/contact.html" />
+    <meta property="og:image" content="https://bearhillstudios.co.uk/assets/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Bear Hill Studios: audiobooks, voice and audio production" />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#211e1a" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="manifest" href="site.webmanifest" />
     <link rel="icon" type="image/png" href="assets/bear-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
@@ -80,11 +96,37 @@
         caret-color: var(--red);
         -webkit-appearance: none;
       }
+      /* Focus: brighter, thicker underline (the outline is removed above) */
       .cf-input:focus {
-        border-bottom-color: var(--cream-50);
+        border-bottom-color: var(--dark-white);
+        box-shadow: 0 1px 0 var(--dark-white);
+      }
+      .cf-input:user-invalid {
+        border-bottom-color: var(--red);
       }
       .cf-input::placeholder {
-        color: var(--cream-20);
+        color: var(--cream-50);
+      }
+      .cf-error {
+        margin: var(--sp-md) 0 0;
+        font-family: var(--sans);
+        font-weight: 300;
+        font-size: 14.5px;
+        color: var(--dark-white);
+      }
+      .cf-error::before {
+        content: "";
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        margin-right: 10px;
+        border-radius: 50%;
+        background: var(--red);
+        vertical-align: middle;
+      }
+      .cf-submit[disabled] {
+        opacity: 0.5;
+        cursor: progress;
       }
 
       /* Select arrow */
@@ -329,15 +371,18 @@
         <div class="wi-list">
           <h2 class="section-heading reveal">Send a message</h2>
 
-          <!-- Connect to Formspree, Netlify Forms, or your backend via the action attribute -->
+          <!-- Submissions go to Netlify Forms (Netlify dashboard → Forms) -->
           <form
             class="contact-form"
             id="contact-form"
             name="contact"
-            novalidate
             data-netlify="true"
+            netlify-honeypot="bot-field"
           >
             <input type="hidden" name="form-name" value="contact" />
+            <p hidden>
+              <label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+            </p>
             <div class="cf-row">
               <div class="cf-field">
                 <label class="cf-label" for="cf-name">Name</label>
@@ -392,6 +437,10 @@
                 Send message
               </button>
             </div>
+            <p class="cf-error" id="cf-error" role="alert" hidden>
+              Sorry, that didn't send. Please check your connection and try
+              again.
+            </p>
           </form>
 
           <div class="cf-success" id="cf-success" hidden>
@@ -450,22 +499,34 @@
       </div>
     </footer>
 
-    <script type="module" src="main.js"></script>    <script>
+    <script type="module" src="main.js"></script>
+    <script>
+      // Browser validation runs before this fires (required / type=email),
+      // so an empty or malformed form never gets here.
       const form = document.getElementById("contact-form");
       const success = document.getElementById("cf-success");
-      if (form && success) {
+      const error = document.getElementById("cf-error");
+      if (form && success && error) {
+        const submit = form.querySelector(".cf-submit");
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
+          error.hidden = true;
+          submit.disabled = true;
           try {
-            await fetch("/", {
+            const res = await fetch("/", {
               method: "POST",
               headers: { "Content-Type": "application/x-www-form-urlencoded" },
               body: new URLSearchParams(new FormData(form)).toString(),
             });
-          } catch (_) {}
-          form.hidden = true;
-          success.hidden = false;
-          success.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
+            form.hidden = true;
+            success.hidden = false;
+            success.scrollIntoView({ behavior: "smooth", block: "nearest" });
+          } catch (_) {
+            error.hidden = false;
+          } finally {
+            submit.disabled = false;
+          }
         });
       }
     </script>

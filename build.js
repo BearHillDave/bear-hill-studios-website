@@ -19,9 +19,11 @@ const HTML_FILES = [
   "about.html",
   "contact.html",
   "friends.html",
+  "privacy.html",
+  "404.html",
 ];
 
-const COPY_ENTRIES = ["assets"];
+const COPY_ENTRIES = ["assets", "robots.txt", "sitemap.xml", "site.webmanifest"];
 
 function rmrf(dir) {
   fs.rmSync(dir, { recursive: true, force: true });

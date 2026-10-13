@@ -21,6 +21,20 @@ A second config, `website-dist`, serves the built `dist/` folder on port 8082 fo
 
 `netlify.toml` sets the build command (`npm run build`) and publish directory (`dist`) so Netlify runs this automatically on every push — no manual step needed. `dist/` and `node_modules/` are gitignored; only the source and build script are committed.
 
+## SEO, sharing & site files
+
+Every page `<head>` has: `meta description`, `link rel=canonical` (https://bearhillstudios.co.uk/…), Open Graph + `twitter:card` (image `assets/og-image.jpg`), `theme-color`, `apple-touch-icon`, `manifest`. `<html lang="en-GB">`. Home also has Organization JSON-LD. **Add the same block to any new page.**
+
+Root files copied into `dist/` by `build.js` `COPY_ENTRIES`: `robots.txt`, `sitemap.xml` (update when pages are added), `site.webmanifest`. New HTML pages must also go in `HTML_FILES`.
+
+`netlify.toml` sets security headers, a 1-week cache on `/assets/*`, and 301s the `*.netlify.app` subdomain to the real domain.
+
+**Footer Privacy link + consent-banner link** are injected by `js/analytics.js` (`addFooterLink`), not in page markup.
+
+**Reduced motion / focus:** `main.css` ends with a `prefers-reduced-motion` block (reveals, scroll arrow, blur fade) and a global `:focus-visible` ring; `main.js` skips parallax when reduced motion is on.
+
+**Audit:** `python3 tools/site_audit.py --live https://bearhillstudios.co.uk` (stdlib only), or `/site-audit` / the `site-auditor` agent for the full audit. Reports in `audits/`.
+
 ## Repo
 
 GitHub: `git@github-bearhill:BearHillDave/bear-hill-studios-website.git`  
@@ -41,8 +55,11 @@ Finals section node IDs: Home `289:7860`, Work `352:6823`, Laura `352:7144`, Pro
 | `work.html` | Work / portfolio | ✅ V2 done |
 | `laura.html` | Laura's profile | ✅ V2 done |
 | `production.html` | Production services | ✅ V2 done |
-| `about.html` | About | 🔲 Stub (under construction) |
+| `about.html` | About | 🔲 Stub (under construction), `noindex` |
 | `contact.html` | Contact | ✅ V2 done |
+| `friends.html` | Friends | ✅ |
+| `privacy.html` | Privacy & cookie policy | ✅ Draft — review wording |
+| `404.html` | Not found (Netlify serves it automatically) | ✅ Uses root-absolute `/` paths since it's served at any URL |
 
 Shared: `main.css`, `main.js` — linked from every page.
 
@@ -56,6 +73,7 @@ Shared: `main.css`, `main.js` — linked from every page.
 --dark-white:  #f9f4ec;   /* primary text on dark */
 --light-black: #211e1a;   /* base background, warm near-black */
 --red:         #cf2a0a;   /* primary accent */
+--eyebrow:     #ffd400;   /* .wi-eyebrow label text — trial bright yellow (red is only 3.15:1 contrast). var(--red) to revert */
 --cream:       #f6ebda;   /* player labels, secondary warm white */
 --blue:        #6aaab8;   /* Narration player accent */
 --yellow:      #d49000;   /* Commercial/Technical player accent */
@@ -250,12 +268,12 @@ Full-height heroes risk a "false bottom" — the first screen reads as the whole
 **Page blur CSS variable** — set `--blur-img` on the `.page-canvas` element (not on the child div directly). `main.css` consumes it via `background-image: var(--blur-img)` on `.page-blur`:
 
 ```html
-<div class="page-canvas" style="--blur-img: url('assets/forest-blur.jpg')">
+<div class="page-canvas" style="--blur-img: url('assets/meadow-blur.jpg')">
 ```
 
 **Blur images per page** (`/assets/`) — exported as JPEGs from Figma "blured bg 2" component:
-- Home: `moss-blur.jpg`
-- Work: `forest-blur.jpg`
+- Home: `moss-blur-light.jpg`
+- Work: `meadow-blur.jpg`
 - Laura: `velvet-blur.jpg`
 - Production/Contact: `stream-blur.jpg`
 
@@ -550,7 +568,10 @@ Photos used per page (hero photo layer removed — these are the only background
 | `meadow-blur.jpg` | Work blur layer (`page-blur`) |
 | `velvet-blur.jpg` | Laura blur layer (`page-blur`) |
 | `stream-blur.jpg` | Production blur layer (`page-blur`) |
-| `forest-blur.jpg` | Contact blur layer (`page-blur`) |
+| `sky-blur.jpg` | Contact blur layer (`page-blur`) |
+| `tulip-blur.jpg` | Friends blur layer (`page-blur`) |
+| `og-image.jpg` | 1200×630 social share image (all pages' `og:image`) |
+| `apple-touch-icon.png`, `icon-192.png`, `icon-512.png` | Home-screen / manifest icons |
 | `VR Cover 3000x3000.png` | Velveteen Rabbit audiobook cover |
 | `TTNBC Cover 3000x3000.jpg` | 'Twas the Night Before Christmas cover |
 | `assets/laura-at-mic.jpg` | Laura circle portrait — hero, `laura.html` |
@@ -686,7 +707,7 @@ Hero uses `stream-blur.jpg` as the blur layer (no hero photo — see **Page laye
 
 ## Contact page (`contact.html`)
 
-Full V2. Hero uses `forest-blur.jpg` as the blur layer (no hero photo — see **Page layer stack**). Hero uses shared `.hero-content` class.
+Full V2. Hero uses `sky-blur.jpg` as the blur layer (no hero photo — see **Page layer stack**). Hero uses shared `.hero-content` class.
 
 **Sections in order:**
 1. Hero — "Get in touch" title + Cormorant Light 24px body (2–3 sentences)
@@ -703,9 +724,9 @@ Form fields use **underline style**: `border-bottom` only, no box border. Classe
 
 **Success state**: `#cf-success` (hidden by default) — shown when form submits, form hidden. Handled by inline `<script>` at bottom of page.
 
-**Backend**: currently JS-only (shows success state on submit, no data sent). To wire up, add `action="https://formspree.io/f/YOUR_ID"` (or use Netlify Forms) and update the submit handler to do a real POST.
+**Backend**: Netlify Forms (`data-netlify="true"`, honeypot `bot-field`). Submissions appear in Netlify → Forms. The inline script POSTs via `fetch`, shows `#cf-success` only on a 2xx response, and otherwise shows `#cf-error`. Native validation (`required`, `type=email`) runs first — there's no `novalidate`. Locally the POST returns 501 (python http.server), so the error state is expected in dev.
 
-**Direct contact** — `.contact-alt` below the form: label "Or email us directly" + `hello@bearhillstudios.com` mailto link. This email address is a placeholder — confirm real address before launch.
+
 
 ---
 
@@ -720,7 +741,7 @@ Form fields use **underline style**: `border-bottom` only, no box border. Classe
 To deploy: commit and push to `main`. Netlify picks it up automatically within ~30 seconds.
 
 ```bash
-git push github-bearhill main
+git push origin main
 ```
 
 ---

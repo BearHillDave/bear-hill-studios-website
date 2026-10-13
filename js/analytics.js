@@ -76,7 +76,7 @@ function showBanner() {
   banner.innerHTML = `
     <p class="consent-text">
       We'd like to use Google Analytics cookies to see how people find and use this site.
-      Nothing is set unless you accept.
+      Nothing is set unless you accept. <a href="/privacy.html">Privacy policy</a>
     </p>
     <div class="consent-actions">
       <button type="button" class="consent-btn" data-consent="denied">Decline</button>
@@ -106,7 +106,11 @@ function addFooterLink() {
   btn.className = "footer-v2-cookies";
   btn.textContent = "Cookies";
   btn.addEventListener("click", showBanner);
-  copyright.after(btn);
+  const privacy = document.createElement("a");
+  privacy.className = "footer-v2-cookies";
+  privacy.href = "/privacy.html";
+  privacy.textContent = "Privacy";
+  copyright.after(btn, privacy);
 }
 
 export function initAnalytics() {

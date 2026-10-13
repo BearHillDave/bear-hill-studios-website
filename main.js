@@ -37,11 +37,15 @@ function initReveals() {
 
 /* ===== PARALLAX — blur layer scrolls at 50% of page ===== */
 let parallaxTicking = false;
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 function updateParallax() {
   const y = window.scrollY;
-  document.querySelectorAll(".page-blur").forEach((el) => {
-    el.style.transform = `translateY(${y * 0.5}px)`;
-  });
+  // Parallax off for reduced motion — the blur simply scrolls with the page
+  if (!reducedMotion.matches) {
+    document.querySelectorAll(".page-blur").forEach((el) => {
+      el.style.transform = `translateY(${y * 0.5}px)`;
+    });
+  }
   // Fade the scroll cue out as the user moves away from the top of the page
   const cue = document.querySelector(".hero-scroll");
   if (cue) cue.style.opacity = Math.max(0, 1 - y / (window.innerHeight * 0.5));

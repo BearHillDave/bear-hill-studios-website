@@ -7,6 +7,10 @@
   --light-black: #211e1a; /* warm near-black, base background */
   --red: #cf2a0a; /* primary accent */
   --cream: #f6ebda; /* player labels, secondary warm white */
+  /* Eyebrow label text (VIDEO, NARRATION…). Brand red is only 3.15:1 on
+     --light-black, below the 4.5:1 AA minimum for small text. Trialling a
+     bright yellow (11.6:1). Set back to var(--red) to revert. */
+  --eyebrow: #ffd400;
 
   /* ── Player accent colours ── */
   --blue: #6aaab8; /* Narration demos */
@@ -720,7 +724,7 @@ button {
   font-weight: 500;
   letter-spacing: 1.8px;
   text-transform: uppercase;
-  color: var(--red);
+  color: var(--eyebrow);
   margin: 0;
 }
 /* Audiobook / Audio no Image eyebrow */
@@ -1350,4 +1354,34 @@ button {
   font-size: 11.1px;
   color: var(--cream-50);
   margin: 2px 0 0;
+}
+
+/* ── Reduced motion ──
+   Visitors who ask their OS for less motion get no slide-in reveals,
+   no bouncing scroll arrow and no background fade. Parallax is skipped
+   in main.js (updateParallax). */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .hero-scroll-arrow,
+  .page-blur {
+    animation: none;
+  }
+}
+
+/* ── Keyboard focus ──
+   Visible ring for keyboard users only (mouse clicks don't trigger it). */
+:focus-visible {
+  outline: 2px solid var(--dark-white);
+  outline-offset: 3px;
+}
+
+/* Privacy link inside the consent banner */
+.consent-text a {
+  text-decoration: underline;
+  text-decoration-color: var(--red);
+  text-underline-offset: 3px;
 }
