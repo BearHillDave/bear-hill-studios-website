@@ -87,6 +87,12 @@ async function build() {
     true,
   );
 
+  await minifyJSFile(
+    path.join(ROOT, "js", "analytics.js"),
+    path.join(DIST, "js", "analytics.js"),
+    true,
+  );
+
   for (const file of HTML_FILES) {
     await minifyHTMLFile(path.join(ROOT, file), path.join(DIST, file));
   }

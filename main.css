@@ -1229,7 +1229,97 @@ button {
   background: var(--red);
 }
 
+/* "Cookies" link injected next to the copyright by js/analytics.js */
+.footer-v2-cookies {
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 11.1px;
+  color: var(--cream-50);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: var(--red);
+  text-underline-offset: 3px;
+  transition: color 0.2s;
+}
+.footer-v2-cookies:hover {
+  color: var(--cream);
+}
+
+/* ===== CONSENT BANNER (js/analytics.js) ===== */
+.consent {
+  position: fixed;
+  left: var(--sp-lg);
+  bottom: var(--sp-lg);
+  z-index: 200;
+  max-width: 420px;
+  padding: var(--sp-lg);
+  background: rgba(33, 30, 26, 0.94);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--cream-20);
+  border-radius: 4px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+}
+.consent--visible {
+  opacity: 1;
+  transform: none;
+}
+.consent-text {
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--dark-white);
+  margin: 0 0 var(--sp-md);
+}
+.consent-actions {
+  display: flex;
+  gap: var(--sp-sm);
+  justify-content: flex-end;
+}
+.consent-btn {
+  height: 40px;
+  padding: 0 var(--sp-lg);
+  border-radius: 100px;
+  border: 1px solid var(--cream-50);
+  background: transparent;
+  color: var(--dark-white);
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 10.5px;
+  letter-spacing: 1.46px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    border-color 0.2s;
+}
+.consent-btn:hover,
+.consent-btn--accept {
+  background: var(--dark-white);
+  border-color: var(--dark-white);
+  color: var(--light-black);
+}
+.consent-btn--accept:hover {
+  background: var(--cream);
+  border-color: var(--cream);
+}
+
 @media (max-width: 620px) {
+  .consent {
+    left: var(--sp-md);
+    right: var(--sp-md);
+    bottom: var(--sp-md);
+    max-width: none;
+  }
   .footer-v2-nav {
     display: none;
   }
