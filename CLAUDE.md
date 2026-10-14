@@ -184,27 +184,34 @@ The scrim fades out when the nav reaches its scrolled state (`.nav.scrolled`) si
   - **Close:** focus returns to the `.nav-toggle`; `inert` is cleared from the page and re-applied to the closed menu. `Escape` closes only when open.
   - `inert` degrades gracefully on browsers without support (links simply stay focusable, as before).
 
-### Footer (all pages) — fixed hill overlay
-The footer is a **`position: fixed` overlay pinned to the viewport bottom**, always visible, drawn as a hill-and-bears silhouette instead of a solid block. No nav links, no logo, no bear mascot.
+### Footer (all pages) — hill layer + page-end footer
+Two separate pieces, both just after `.page-canvas` in every page's markup:
 
-- **Background:** `assets/Pages/footer-hill-bears-web.svg`, `right bottom / auto no-repeat` — natural **1750×213** size, deliberately **not scaled** with the viewport. On screens wider than 1750px the hill runs out on the far left.
-- **Height:** `.footer` is `height: 213px` (the SVG height), `z-index: 90` (under the nav 100, mobile menu 101, consent banner 200). It's a flex column with `justify-content: flex-end`, so `.footer-v2` sits on the bottom edge.
-- **Content:** `.footer-v2` runs full-width along the bottom (`max-width: none; margin: 0` overrides `.wrap`), padding `0 var(--sp-md) calc(var(--sp-sm) + env(safe-area-inset-bottom))` — tucked into the corners, on the solid black strip of hill.
-  - **Cookies / Privacy bottom-left, copyright bottom-right.** The links are injected *after* the copyright by `js/analytics.js`, so the swap is visual only: `.footer-v2-copyright { order: 1; margin-left: auto; }`. `.footer-v2-brand` is `flex: 1` so it spans the width.
-  - Copyright: Jost Light 11.1px, `--cream-50`. Cookies / Privacy (`.footer-v2-cookies`): same type, red underline, `padding: 6px 0` for a ~30px tap target.
-  - The page markup is just `<footer class="footer"><div class="footer-v2 wrap"><div class="footer-v2-brand"><span class="footer-v2-copyright">…</span></div></div></footer>`.
-- **Reserving space — `--footer-h`:** `:root { --footer-h: 213px }`, kept in sync with the real footer height by `initFooterOverlay()` in `main.js` (ResizeObserver). `.page-canvas` gets `padding-bottom: var(--footer-h)` (and `body:has(.page-canvas)` zeroes the body's) so the **blurred background carries on behind the hill's transparent sky** and the last section (CTA) scrolls fully clear of the hill. Pages without a `.page-canvas` (404, about, privacy) fall back to `body { padding-bottom: var(--footer-h) }`. Mid-scroll, content passes behind the hill by design.
-- **If the hill height changes:** update `--footer-h`, `.footer { height }` and the SVG together.
+```html
+<div class="footer-hill" aria-hidden="true"></div>
+<footer class="footer"><div class="footer-v2 wrap"><div class="footer-v2-brand">
+  <span class="footer-v2-copyright">© 2026 Bear Hill Studios. All rights reserved.</span>
+</div></div></footer>
+```
+
+1. **`.footer-hill` — the hill / trees / bears art.** `position: fixed` to the viewport bottom, always visible, but painted **behind the content**: `z-index: 0` in the root stacking context puts it above the canvas's blur layer (earlier in DOM order) and below the `z-index: 1` content sections, so text scrolls *in front of* the trees. `pointer-events: none` — it never blocks clicks. On pages without a `.page-canvas` (404, about, privacy) the content is unpositioned, so `body:not(:has(.page-canvas)) .footer-hill` drops it to `z-index: -1`.
+   - Art: `footer-hill-bears-web.svg` pinned `right top` at a fixed size — **1750×213**, deliberately not fluid (on screens wider than 1750px the hill runs out on the far left). **≤620px: 60% scale (1050×128).**
+   - **`--hill-lift`** raises the art so its thinnest solid-black band (27px at x≈1021; ~16px at 60%) is at least `--ground-h` (35px) tall; a `linear-gradient(#000,#000)` second background layer fills the gap underneath. Desktop lift 8px, mobile 19px. If `--ground-h` changes, recompute the lifts.
+2. **`.footer` — copyright + Cookies / Privacy, in normal page flow** (not fixed). It only appears when you scroll to the very bottom, where it lands on the hill's black base. `position: relative; z-index: 2` keeps it above the hill art so it's readable and clickable; `background: transparent`.
+   - `.footer-v2` is full-width (`max-width: none; margin: 0` overrides `.wrap`), `min-height: var(--ground-h)` (35px), `padding: 0 var(--sp-md)`, `align-items: center` — text is vertically centred in the strip. `.footer` adds `env(safe-area-inset-bottom)` padding.
+   - **Cookies / Privacy bottom-left, copyright bottom-right.** The links are injected *after* the copyright by `js/analytics.js`, so the swap is visual only: `.footer-v2-copyright { order: 1; margin-left: auto; }`; `.footer-v2-brand` is `flex: 1`.
+   - Copyright: Jost Light 11.1px, `--cream-50`. Cookies / Privacy (`.footer-v2-cookies`): same type, **underline in the text colour** (`text-decoration-color: currentColor`, so it brightens with the hover colour — an exception to the red-underline rule), `padding: 6px 0` for a ~30px tap target.
+- No bottom space is reserved for the hill: content simply passes in front of it, and the flowing footer provides the page's end. (An earlier version fixed the whole footer and reserved `--footer-h` via `initFooterOverlay()` in `main.js` — both removed.)
 
 **Hill SVG asset:** `assets/Pages/footer-hill-bears-web.svg` (~158KB) is the only file in `assets/Pages/`. It was derived from a Figma export (since deleted; recoverable from git history at `cfc4bfa`) whose trees/bears PNG had a white background hidden in Figma by `mix-blend-mode: multiply` — that blend does nothing when an SVG is a CSS background, so it rendered as a white box. In the web copy: the white was turned into real transparency (alpha = darkness, near-white → fully clear), the image downscaled to 1024px, the tiled `<pattern>` replaced with a single `<image>` (the pattern's sub-pixel offset let the next tile's black bottom edge bleed in as a hairline along the top), and 10px of extra black added at the bottom (203 → 213).
 - For future re-exports, use a genuinely transparent trees PNG and Normal blend mode in Figma so no post-processing is needed. A transparent cutout for that is at `Design/footer-trees-bears-transparent.png` (gitignored).
 
 ### Page layer stack (hero + content sections)
 
-Wrap hero + main content (including CTA) in `.page-canvas`. Footer sits **outside** the canvas (it's a fixed overlay — see **Footer**). Layer order bottom→top:
+Wrap hero + main content (including CTA) in `.page-canvas`. Footer sits **outside** the canvas (see **Footer**). Layer order bottom→top:
 
 ```html
-<div class="page-canvas">            <!-- bg: --light-black, overflow: hidden, padding-bottom: var(--footer-h) -->
+<div class="page-canvas">            <!-- bg: --light-black, overflow: hidden -->
   <div class="page-vignette"></div>  <!-- gradient fade, hero height only -->
   <div class="page-blur"></div>      <!-- blurred bg, height: 100%, opacity: 0.5, mix-blend-mode: lighten, will-change: transform -->
 
@@ -259,7 +266,7 @@ Stays fully transparent until 57.9% down the frame, then fades to `--light-black
 Full-height heroes risk a "false bottom" — the first screen reads as the whole page. Two mechanisms counter this on all four V2 pages:
 
 1. **Peek** — heroes are `min-height: 88vh` (not `100vh`) so the top of the next section crests the fold. On work/laura/production this reveals the first item's red eyebrow or the section heading; on home (content-bound) it only shows on tall viewports.
-2. **Scroll indicator** — `.hero-scroll` (defined in `main.css`): a downward chevron (`.hero-scroll-arrow` — a 13px box with `--cream-50` right + bottom borders rotated 45°) that gently bounces down via the `scrollArrow` keyframe (`translateY` + opacity, 2.2s). It is **`position: fixed`** — pinned to the viewport bottom-right (`bottom: calc(var(--footer-h) + 2rem); right: 2.5rem`, `pointer-events: none`) so it always sits just above the fixed footer regardless of hero height, not clipped by the hero's `overflow: hidden`. Hidden below 620px (touch users scroll naturally). Markup is a child of the hero element, placed after the content wrapper:
+2. **Scroll indicator** — `.hero-scroll` (defined in `main.css`): a downward chevron (`.hero-scroll-arrow` — a 13px box with `--cream-50` right + bottom borders rotated 45°) that gently bounces down via the `scrollArrow` keyframe (`translateY` + opacity, 2.2s). It is **`position: fixed`** — pinned to the viewport bottom-right (`bottom: 2rem; right: 2.5rem`, `pointer-events: none`) so it always sits just above the bottom of the screen regardless of hero height, not clipped by the hero's `overflow: hidden`. Hidden below 620px (touch users scroll naturally). Markup is a child of the hero element, placed after the content wrapper:
 
    ```html
    <div class="hero-scroll" aria-hidden="true">
@@ -326,7 +333,7 @@ This prevents the browser UA `a:link { color: blue }` from bleeding through on a
 ### Underlined links
 All underlines use `--red`:
 - Nav active: `::after` pseudo-element, `background: var(--red)`
-- Footer Cookies / Privacy: `text-decoration-color: var(--red)`
+- Exception — footer Cookies / Privacy: underline in the text colour (`currentColor`), not red
 - Inline text links: `text-decoration-color: var(--red)`
 - "See all work →" and similar section links: `text-decoration: underline; text-decoration-color: var(--red); text-underline-offset: 3px`
 
@@ -584,7 +591,11 @@ Photos used per page (hero photo layer removed — these are the only background
 | `laura.jpeg` | Laura portrait (not currently in use) |
 | `david.jpg` | David portrait (not currently in use) |
 | `bear-icon.png` | Favicon (no longer in the footer) |
-| `Pages/footer-hill-bears-web.svg` | Footer hill + bears background (see **Footer**) |
+| `Pages/footer-hill-bears-web.svg` | Footer hill + bears art (`.footer-hill`, see **Footer**) |
+| `bear-sit.png` | Bear mascot — Home ("Get in touch" CTA button), Production (left divider) |
+| `bear-sit-side.png` | Bear mascot — Work (top divider, ⅔ across, flipped) |
+| `bear-walk.png` | Bear mascot — Laura (on the cable car photo) |
+| `bear-face-away.png` | Bear mascot — Friends ("Get in Touch" CTA button) |
 | `assets/icons/Spotify.svg` | Streaming icon |
 | `assets/icons/Apple Books.svg` | Streaming icon |
 | `assets/icons/Audible.svg` | Streaming icon |

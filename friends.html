@@ -43,19 +43,21 @@
           linear-gradient(180deg, rgba(0, 0, 0, 0) 57.9%, #211e1a 98.33%);
       }
 
-      /* Bear mascot standing on a hairline divider */
-      .wi-bear {
+      /* Bear (seen from behind) perched on top of the CTA "Get in Touch"
+         button, near its right shoulder. The PNG's feet sit on its bottom
+         edge, so bottom: 100% lands them on the button's top border. No
+         .reveal — the button itself already reveals. */
+      .cta-bear-btn {
+        position: relative;
+      }
+      .cta-bear {
         position: absolute;
-        bottom: 100%;
+        bottom: calc(100% - 1px);
+        right: 22px;
         width: 56px;
         height: auto;
-        pointer-events: none;
-      }
-      .wi-bear.reveal.visible {
         opacity: 0.7;
-      }
-      .wi-bear-left {
-        left: calc(50% - 50vw + var(--bear-inset, 25px));
+        pointer-events: none;
       }
     </style>
   </head>
@@ -287,13 +289,20 @@
             We're open to projects at any level of involvement, from full
             immersive production to narration only.
           </p>
-          <a class="btn-cta reveal d2" href="contact.html">Get in Touch</a>
+          <a class="btn-cta cta-bear-btn reveal d2" href="contact.html"
+            >Get in Touch<img
+              class="cta-bear"
+              src="assets/bear-face-away.png"
+              alt=""
+              aria-hidden="true"
+          /></a>
         </div>
       </section>
     </div>
     <!-- /page-canvas -->
 
     <!-- FOOTER -->
+    <div class="footer-hill" aria-hidden="true"></div>
     <footer class="footer">
       <div class="footer-v2 wrap">
         <div class="footer-v2-brand">

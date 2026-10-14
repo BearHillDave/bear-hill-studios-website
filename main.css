@@ -493,7 +493,7 @@ button {
 
 .hero-scroll {
   position: fixed;
-  bottom: calc(var(--footer-h) + 2rem); /* clear the fixed footer overlay */
+  bottom: 2rem;
   right: 2.5rem;
   z-index: 3;
   display: flex;
@@ -1134,53 +1134,70 @@ button {
   margin-bottom: 3rem;
 }
 
-/* Footer V2 — Figma Layout/Footer (3-col, 128px tall)
-   Left: bear icon + copyright  |  spacer  |  nav links
-
-   hill-footer experiment: the footer is a fixed overlay pinned to the
-   viewport bottom, always visible. Its live height is written to
-   --footer-h on <html> by initFooterOverlay() in main.js; body reserves
-   that much bottom padding so the last content can scroll clear of it. */
+/* Footer — two layers (hill-layers experiment)
+   1. .footer-hill — the hill / trees / bears art, fixed to the viewport
+      bottom but painted BEHIND the page content (above the blur, below the
+      z-index:1 sections), so text scrolls in front of the trees. It has
+      pointer-events: none, so it never blocks clicks.
+   2. .footer — the copyright + Cookies/Privacy, in normal page flow at the
+      very end of the page (not fixed). It only comes into view when you
+      scroll to the bottom, where it lands on the hill's solid black base,
+      painted above the hill so it stays readable and clickable. */
 :root {
-  --footer-h: 213px; /* hill SVG height */
+  --ground-h: 35px; /* footer row height — the solid black base strip */
+  /* Hill art size — natural 1750×213, deliberately not fluid. --hill-lift
+     raises the art so its thinnest solid-black band (27px at x≈1021) is at
+     least --ground-h tall, keeping the footer text on black. */
+  --hill-w: 1750px;
+  --hill-h: 213px;
+  --hill-lift: 8px; /* 35 − 27 */
 }
-body {
-  padding-bottom: var(--footer-h);
-}
-/* On pages with a .page-canvas, reserve the space inside the canvas instead,
-   so the blurred background carries on behind the hill's transparent sky
-   rather than stopping short and leaving a flat band. */
-body:has(.page-canvas) {
-  padding-bottom: 0;
-}
-.page-canvas {
-  padding-bottom: var(--footer-h);
-}
-.footer {
+.footer-hill {
   position: fixed;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 90; /* under the nav (100) and its mobile menu (101), consent (200) */
-  /* Hill silhouette instead of a solid block — pinned bottom-right at its
-     natural 1750×213 size (deliberately not scaled with the viewport yet).
-     The footer is the hill's full height; .footer-v2 runs along the
-     bottom edge, on the solid strip of hill. */
-  background: url("assets/Pages/footer-hill-bears-web.svg") right bottom / auto no-repeat;
-  height: 213px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 0;
+  height: calc(var(--hill-h) + var(--hill-lift));
+  /* z-index 0 in the root stacking context: after the canvas's blur layer in
+     DOM order (so above it), below the z-index:1 content sections */
+  z-index: 0;
+  /* The art, raised by --hill-lift, with a solid black band filling the
+     lift gap beneath it (same width as the art) */
+  background:
+    url("assets/Pages/footer-hill-bears-web.svg") right top /
+      var(--hill-w) var(--hill-h) no-repeat,
+    linear-gradient(#000, #000) right bottom / var(--hill-w) var(--hill-lift)
+      no-repeat;
+  pointer-events: none;
+}
+/* Pages without a .page-canvas (404, about, privacy) have unpositioned
+   in-flow content, which a z-index:0 layer would paint over — tuck the art
+   underneath it instead */
+body:not(:has(.page-canvas)) .footer-hill {
+  z-index: -1;
+}
+@media (max-width: 620px) {
+  /* 60% scale on phones — full size took ~a quarter of the screen. Its
+     thinnest black is then 27 × 0.6 ≈ 16px, so lift by 19px (35 − 16). */
+  :root {
+    --hill-w: 1050px;
+    --hill-h: 128px;
+    --hill-lift: 19px;
+  }
+}
+.footer {
+  position: relative;
+  z-index: 2; /* above the hill art (0) and the content sections (1) */
+  background: transparent; /* sits on the hill's own black base */
+  padding: 0 0 env(safe-area-inset-bottom, 0px); /* iOS home indicator */
   border-top: none;
 }
 .footer-v2 {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  /* Tucked into the bottom corners: a small inset keeps the text off
-     the very edge, plus the iOS home-indicator inset where there is one */
-  padding: 0 var(--sp-md) calc(var(--sp-sm) + env(safe-area-inset-bottom, 0px));
+  min-height: var(--ground-h);
+  padding: 0 var(--sp-md);
   max-width: none; /* override .wrap's centred 1200px cap — span the full width */
   margin: 0;
 }
@@ -1253,7 +1270,7 @@ body:has(.page-canvas) {
   padding: 6px 0; /* taller hit area (~24px) now the links sit in the corner */
   cursor: pointer;
   text-decoration: underline;
-  text-decoration-color: var(--red);
+  text-decoration-color: currentColor; /* matches the text (incl. hover), not the usual red */
   text-underline-offset: 3px;
   transition: color 0.2s;
 }

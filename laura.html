@@ -88,20 +88,6 @@
         transform: translateX(-50%);
       }
 
-      /* Bear mascot standing on a hairline divider */
-      .wi-bear {
-        position: absolute;
-        bottom: 100%;
-        width: 56px;
-        height: auto;
-        pointer-events: none;
-      }
-      .wi-bear.reveal.visible {
-        opacity: 0.7;
-      }
-      .wi-bear-left {
-        left: calc(50% - 50vw + var(--bear-inset, 25px));
-      }
 
       /* Quote */
       .laura-quote {
@@ -170,6 +156,27 @@
         filter: grayscale(15%) brightness(0.85);
       }
 
+      /* Walking bear on top of the cable car photo. The wrapper takes the
+         photo's place in the flex row so the bear can be positioned on the
+         photo's top edge (the PNG's feet sit on its bottom edge). No .reveal
+         here — the parent .laura-editorial already reveals. */
+      .laura-bear-wrap {
+        position: relative;
+        flex-shrink: 0;
+      }
+      .laura-bear-wrap .laura-editorial-img {
+        display: block;
+      }
+      .laura-bear {
+        position: absolute;
+        bottom: 100%;
+        right: 24px;
+        width: 56px;
+        height: auto;
+        opacity: 0.7;
+        pointer-events: none;
+      }
+
       /* Logo variant — white background so logos read naturally */
       .laura-editorial-logo {
         width: 220px;
@@ -194,6 +201,9 @@
         .laura-editorial,
         .laura-editorial--right {
           flex-direction: column;
+        }
+        .laura-bear-wrap {
+          width: 100%;
         }
         .laura-editorial-img {
           width: 100%;
@@ -622,11 +632,19 @@
           </div>
 
           <div class="laura-editorial reveal d2">
-            <img
-              class="laura-editorial-img"
-              src="assets/london-airlinejpg.jpg"
-              alt="London Emirates Air Line cable car"
-            />
+            <div class="laura-bear-wrap">
+              <img
+                class="laura-editorial-img"
+                src="assets/london-airlinejpg.jpg"
+                alt="London Emirates Air Line cable car"
+              />
+              <img
+                class="laura-bear"
+                src="assets/bear-walk.png"
+                alt=""
+                aria-hidden="true"
+              />
+            </div>
             <p class="laura-long-copy">
               My voice work went on to include the original announcements for
               the London Olympic cable car; the Emirates Air Line across the
@@ -697,6 +715,7 @@
     <!-- /page-canvas -->
 
     <!-- FOOTER -->
+    <div class="footer-hill" aria-hidden="true"></div>
     <footer class="footer">
       <div class="footer-v2 wrap">
         <div class="footer-v2-brand">
