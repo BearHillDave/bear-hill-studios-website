@@ -26,17 +26,9 @@
   <link rel="stylesheet" href="main.css">
   <style>
     .privacy-wrap {
-      max-width: 680px;
+      max-width: 780px; /* same column as .hero-content on other pages */
       margin: 0 auto;
-      padding: 200px 64px 128px;
-    }
-    .privacy-wrap h1 {
-      font-family: var(--serif);
-      font-style: italic;
-      font-weight: 700;
-      font-size: clamp(3rem, 7vw, 5rem);
-      line-height: 1.05;
-      margin: 0 0 var(--sp-md);
+      padding: 220px 64px 128px;
     }
     .privacy-updated {
       font-family: var(--sans);
@@ -72,7 +64,7 @@
       color: var(--cream);
     }
     @media (max-width: 620px) {
-      .privacy-wrap { padding: 140px 24px 96px; }
+      .privacy-wrap { padding: 220px 24px 96px; }
     }
   </style>
 </head>
@@ -101,7 +93,7 @@
 </nav>
 
 <main class="privacy-wrap">
-  <h1>Privacy</h1>
+  <h1 class="hero-title">Privacy</h1>
   <p class="privacy-updated">Last updated 13 October 2026</p>
 
   <p>This page explains what information this website collects, why, and what you can do about it. We've tried to keep it short and plain.</p>

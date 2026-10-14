@@ -73,7 +73,7 @@ Shared: `main.css`, `main.js` — linked from every page.
 --dark-white:  #f9f4ec;   /* primary text on dark */
 --light-black: #211e1a;   /* base background, warm near-black */
 --red:         #cf2a0a;   /* primary accent */
---eyebrow:     #ffd400;   /* .wi-eyebrow label text — trial bright yellow (red is only 3.15:1 contrast). var(--red) to revert */
+--eyebrow:     var(--yellow); /* .wi-eyebrow label text — palette yellow (red is only 3.15:1 contrast). var(--red) to revert */
 --cream:       #f6ebda;   /* player labels, secondary warm white */
 --blue:        #6aaab8;   /* Narration player accent */
 --yellow:      #d49000;   /* Commercial/Technical player accent */
@@ -118,7 +118,7 @@ Loaded from Google Fonts. Request weight range `0,300;0,400;0,500;0,600;1,300;1,
 | Work eyebrow (video/interactive) | Jost | 12px | 500 | — | 1.8px | UPPER |
 | Work eyebrow (audiobook) | Jost | 10.7px | 300 | — | 0.643px | UPPER |
 | Work subtitle / author | Jost | 12.8px | 300 | — | — | — |
-| Body copy | Jost | 14.5px | 300 | — | — | — |
+| Body copy | Jost | 16px | 300 | — | — | — |
 | Player label / UI label | Jost | 10.7px | 500 | — | 0.856px | UPPER |
 | Footer copyright | Jost | 11.1px | 300 | — | — | — |
 | Footer nav | Jost | 12.8px | 500 | — | 2.688px | UPPER |
@@ -191,7 +191,8 @@ The scrim fades out when the nav reaches its scrolled state (`.nav.scrolled`) si
 - Left: bear-icon.png (24px) + copyright (Jost Light 11.1px, `--cream-50`)
 - Right: nav links (Jost Medium 12.8px UPPER, track 2.688px, `--cream-50`, hover `--cream`)
 - Active page link has red underline (`--red`, 1.5px, `::after`)
-- **Mobile (`max-width: 620px`):** footer nav links (``.footer-v2-nav``) are hidden (`display: none`) — only the bear icon + copyright remain
+- **Mobile (`max-width: 620px`):** footer nav links (``.footer-v2-nav``) are hidden (`display: none`) — only the bear icon + copyright remain; `.footer-v2-brand` wraps so Cookies / Privacy drop under the copyright
+- **≤1000px:** `.footer-v2` wraps onto two lines (brand row, then nav links) with auto height — the single row ran off-screen on tablets
 
 ### Page layer stack (hero + content sections)
 
@@ -365,7 +366,7 @@ Video thumbnail (274×191px) and body copy are **side-by-side** in a two-column 
     </div>
     <!-- col2: flex-1, pr-24px — body copy only -->
     <div class="wi-copy-col">
-      <p class="wi-body">Body copy…</p>             <!-- Jost 300 14.5px -->
+      <p class="wi-body">Body copy…</p>             <!-- Jost 300 16px -->
     </div>
   </div>
 </article>
@@ -388,7 +389,7 @@ Title/subtitle are their **own row** above the media row. Streaming icons sit at
     <div class="wi-cover"><img src="cover.png" alt="…" width="173" height="173"></div>
     <!-- col2: flex-1, pr-24px — body copy top, streaming icons bottom -->
     <div class="wi-copy-col">
-      <p class="wi-body">Body copy…</p>             <!-- Jost 300 14.5px, fills flex space -->
+      <p class="wi-body">Body copy…</p>             <!-- Jost 300 16px, fills flex space -->
       <nav class="wi-streaming" aria-label="Listen on">
         <a class="wi-stream-icon" href="#" aria-label="Spotify">
           <img src="assets/icons/Spotify.svg" alt="" width="36" height="36">
@@ -489,7 +490,7 @@ The base `.wi-body` rule has `padding: 8px 0` for Component 3 (audio no image), 
 Padding would compress the image inside the element's box. Margin creates the gap between the image box and `.wi-copy-col`, keeping image dimensions exact.
 
 **Why `.wi-body` uses `--text-desc-w` (520px) not 100%**  
-Even when the copy column is wide, long lines hurt readability. 520px (~65–70 chars at 14.5px) is the Figma-specified "Text Description width" — apply it on every page using `.wi-body`.
+Even when the copy column is wide, long lines hurt readability. 520px (~60–65 chars at 16px) is the Figma-specified "Text Description width" — apply it on every page using `.wi-body`.
 
 **Dead classes to avoid reintroducing**  
 `.wi-header`, `.wi-cover-info`, `.wi-video-row` were removed in the Figma V2 update. Do not use them. The replacement classes are `.wi-title-group`, `.wi-media-row`, `.wi-video-col`, `.wi-copy-col`.
