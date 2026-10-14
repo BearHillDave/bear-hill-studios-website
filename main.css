@@ -1134,6 +1134,22 @@ button {
   margin-bottom: 3rem;
 }
 
+/* Sky — star field that wheels around an off-screen pole as you scroll
+   (drawn by js/sky.js). Fixed and viewport-sized, z-index 0. On pages with a
+   .page-canvas the <canvas> sits inside it between .page-vignette and
+   .page-blur, so the blur (lighten blend) paints over the stars — faint
+   stars vanish in its glow — and the hill + z-index:1 content sit above.
+   On pages without one (404, about, privacy) it sits just before
+   .footer-hill and drops to z-index -1 (below). */
+.sky-stars {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
 /* Footer — two layers (hill-layers experiment)
    1. .footer-hill — the hill / trees / bears art, fixed to the viewport
       bottom but painted BEHIND the page content (above the blur, below the
@@ -1172,7 +1188,8 @@ button {
 }
 /* Pages without a .page-canvas (404, about, privacy) have unpositioned
    in-flow content, which a z-index:0 layer would paint over — tuck the art
-   underneath it instead */
+   underneath it instead (and the stars, for the same reason) */
+body:not(:has(.page-canvas)) .sky-stars,
 body:not(:has(.page-canvas)) .footer-hill {
   z-index: -1;
 }

@@ -290,7 +290,7 @@ Full-height heroes risk a "false bottom" — the first screen reads as the whole
 - Laura: `velvet-blur.jpg`
 - Production/Contact: `stream-blur.jpg`
 
-The blur layer uses `mix-blend-mode: lighten; opacity: 0.5` (not a flat opacity). The JPEG has a gradient-to-black baked in on the text side; `mix-blend-mode: lighten` makes the black areas transparent against the `--light-black` canvas background. Using JPEGs avoids needing PNG transparency. (Contact uses `mix-blend-mode: overlay` instead — see `cbda3b5`.)
+The blur layer uses `mix-blend-mode: lighten; opacity: 0.5` (not a flat opacity). The JPEG has a gradient-to-black baked in on the text side; `mix-blend-mode: lighten` makes the black areas transparent against the `--light-black` canvas background. Using JPEGs avoids needing PNG transparency. (All pages, Contact included, now use `lighten`.)
 
 **Parallax** — blur scrolls at 50% of page speed via `main.js`:
 ```javascript
@@ -300,6 +300,13 @@ document.querySelectorAll('.page-blur').forEach(el => {
 });
 ```
 Uses `requestAnimationFrame` with a ticking flag for performance. Called inside the existing scroll listener.
+
+### Sky — rotating star field (all pages)
+`js/sky.js` (`initSky()`, imported by `main.js`; also listed in `build.js`) draws stars on a `<canvas class="sky-stars" aria-hidden="true">` that every page includes. As you scroll, the whole field wheels **anticlockwise** around an off-screen celestial pole, like the northern sky around Polaris.
+
+- **How:** one viewport-sized `position: fixed` canvas (DPR-aware, capped at 2×), redrawn on scroll via rAF. Each star is stored once in pole-relative coordinates; a redraw is a single `ctx.rotate()` about the pole — no per-star DOM, no oversized rotating layer. Only the annular sector of sky that can ever pass through the viewport (over the page's full scroll) is seeded. A fixed-seed PRNG (mulberry32) gives the same sky every visit. Reseeds on `resize` and `load`. Reduced motion → no rotation (static stars).
+- **Tunables (top of `js/sky.js`):** `POLE` `{x: 1.1, y: 0.7}` (fractions of the viewport — just off the right edge, below centre), `DEG_PER_SCREEN` `3.5` (rotation per viewport-height scrolled), `DENSITY` `1/5200` stars per px², `SEED`. Brightness: `alpha = 0.08 + mag × 0.82` with `mag = rand³` — most stars very faint, a few bright; size `0.35 + mag × 1.1` px. Colour `--dark-white`.
+- **Layering:** on pages with a `.page-canvas` the `<canvas>` sits **inside it, between `.page-vignette` and `.page-blur`** — it's fixed so it escapes the canvas, and being earlier in DOM order the blur (lighten blend, 0.5 opacity) paints over it, so faint stars vanish in the blur's glow and only bright ones show through. The hill (`.footer-hill`) and `z-index: 1` content sit above. On pages without a canvas (404, about, privacy) it sits just before `.footer-hill` and drops to `z-index: -1` with it (`body:not(:has(.page-canvas))`).
 
 ### Hairline dividers
 

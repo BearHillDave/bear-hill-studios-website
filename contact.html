@@ -352,6 +352,10 @@
       style="--blur-img: url(&quot;assets/sky-blur.jpg&quot;)"
     >
       <div class="page-vignette"></div>
+      <!-- Stars behind the blur: still position: fixed, so they escape
+           .page-canvas; earlier in DOM order than .page-blur, so the blur
+           paints over them -->
+      <canvas class="sky-stars" aria-hidden="true"></canvas>
       <div class="page-blur"></div>
 
       <header class="contact-hero">

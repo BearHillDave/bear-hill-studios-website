@@ -1,5 +1,6 @@
 import {initPlayers} from "./js/audio-player.js";
 import {initAnalytics} from "./js/analytics.js";
+import {initSky} from "./js/sky.js";
 
 /* ===== TWEAK DEFAULTS ===== */
 const TWEAK_DEFAULTS = {theme: "c", navDark: true};
@@ -139,6 +140,7 @@ function init() {
   updateParallax();
   initNavToggle();
   initAnalytics();
+  initSky();
 }
 
 // Script is at end of <body> so DOM is ready; DOMContentLoaded may have already fired

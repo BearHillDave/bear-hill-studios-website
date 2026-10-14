@@ -95,6 +95,12 @@ async function build() {
     true,
   );
 
+  await minifyJSFile(
+    path.join(ROOT, "js", "sky.js"),
+    path.join(DIST, "js", "sky.js"),
+    true,
+  );
+
   for (const file of HTML_FILES) {
     await minifyHTMLFile(path.join(ROOT, file), path.join(DIST, file));
   }
