@@ -286,7 +286,7 @@ Full-height heroes risk a "false bottom" — the first screen reads as the whole
 
 **Blur images per page** (`/assets/`) — exported as JPEGs from Figma "blured bg 2" component:
 - Home: `moss-blur-light.jpg`
-- Work: `meadow-blur.jpg`
+- Work: `yellow-and-black-blur.jpg`
 - Laura: `velvet-blur.jpg`
 - Production/Contact: `stream-blur.jpg`
 
@@ -585,7 +585,9 @@ Photos used per page (hero photo layer removed — these are the only background
 | File | Used on |
 |------|---------|
 | `moss-blur-light.jpg` | Home blur layer (`page-blur`) |
-| `meadow-blur.jpg` | Work blur layer (`page-blur`) |
+| `yellow-and-black-blur.jpg` | Work blur layer (`page-blur`) — 900×2571 progressive JPEG, optimised from a 1750×5000 original |
+| `yellow-leaves-blur.jpg` | Alternative Work blur (tried) — currently unused |
+| `meadow-blur.jpg` | Previous Work blur layer — currently unused |
 | `velvet-blur.jpg` | Laura blur layer (`page-blur`) |
 | `stream-blur.jpg` | Production blur layer (`page-blur`) |
 | `sky-blur.jpg` | Contact blur layer (`page-blur`) |
