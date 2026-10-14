@@ -594,7 +594,7 @@ Photos used per page (hero photo layer removed — these are the only background
 | `apple-touch-icon.png`, `icon-192.png`, `icon-512.png` | Home-screen / manifest icons |
 | `VR Cover 3000x3000.png` | Velveteen Rabbit audiobook cover |
 | `TTNBC Cover 3000x3000.jpg` | 'Twas the Night Before Christmas cover |
-| `assets/laura-at-mic.jpg` | Laura circle portrait — hero, `laura.html` |
+| `assets/laura-at-mic.jpg` | Laura round portrait — hero player row, `laura.html` |
 | `laura.jpeg` | Laura portrait (not currently in use) |
 | `david.jpg` | David portrait (not currently in use) |
 | `bear-icon.png` | Favicon (no longer in the footer) |
@@ -613,32 +613,21 @@ Photos used per page (hero photo layer removed — these are the only background
 
 Full V2 — implemented from Figma node `352:7144`.
 
-**Hero circle portrait** — `assets/laura-at-mic.jpg` cropped to a 340px circle, absolutely positioned within `.laura-hero`. Sits behind the text (z-index: 1 vs text z-index: 2). Coordinates scaled from Figma 1750px canvas to 1440px site width.
+**Hero** — uses the shared 780px `.hero-content` column like the other pages (title + 3 `.hero-body` paragraphs), then a **player row** (`.laura-hero-row`, 64px below the copy): the `player-lg` "Demo reel" player with the round portrait (`.laura-circle`, `assets/laura-at-mic.jpg`, `object-position: center 15%`) to its right.
 
-```css
-.laura-circle {
-  position: absolute;
-  left: 207px;
-  top: 160px;
-  width: 340px; height: 340px;
-  border-radius: 50%; overflow: hidden;
-  z-index: 1; pointer-events: none;
-}
-.laura-circle img {
-  display: block; width: 100%; height: 100%;
-  object-fit: cover; object-position: center 10%;
-}
-```
+- Portrait is **296px** (twice the player's 148px disc), `aspect-ratio: 1`, `max-width: 100%`; the row is `align-items: center`, gap `--sp-xl`. The player is `flex-shrink: 0` so its ring is never squeezed.
+- **≤640px** (where the pair no longer fits side by side) the row becomes a column with the portrait **above** the player (`order: -1`).
+- Replaced the old 600px absolutely-positioned circle that the title/copy overlapped (and which was hidden ≤900px).
 
 ```html
-<header class="laura-hero">
-  <div class="laura-circle">
-    <img src="assets/laura-at-mic.jpg" alt="Laura Cox">
+<div class="hero-content">
+  <h1 class="hero-title reveal">Laura Cox</h1>
+  <div class="reveal d1"><p class="hero-body">…</p> ×3</div>
+  <div class="laura-hero-row reveal d2">
+    <div class="player player-lg player--dark" data-player="laura-demo-reel" …></div>
+    <div class="laura-circle"><img src="assets/laura-at-mic.jpg" alt="Laura Cox"></div>
   </div>
-  <div class="laura-hero-content">  <!-- position: relative; z-index: 2 -->
-    …title, body…
-  </div>
-</header>
+</div>
 ```
 
 **Sections in order:**

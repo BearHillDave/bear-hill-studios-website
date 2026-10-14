@@ -28,9 +28,9 @@
     />
     <link rel="stylesheet" href="main.css" />
     <style>
-      /* ── Laura page V2 — hero updated to Home's large-player layout, Figma node 506:7171 ── */
-      /* hero, hero-v2-content, hero-v2-player, hero-title, hero-body all defined in main.css. */
-      .hero-v2-content { --blob-radius: 100px; }
+      /* ── Laura page V2 — hero uses the shared 780px .hero-content column like
+         the other pages, with the demo-reel player + portrait row below ── */
+      /* hero, hero-content, hero-title, hero-body all defined in main.css. */
 
       /* Design experiment: dev-panel values for the velvet blur/vignette (Laura only) */
       .page-blur {
@@ -44,17 +44,36 @@
           linear-gradient(180deg, rgba(0, 0, 0, 0) 57.9%, #211e1a 98.33%);
       }
 
-      /* Circle portrait — absolute, upper-right, behind title/blob (bleeds off the edge) */
+      /* Circle portrait — sits to the right of the demo-reel player in the
+         hero's player row, so the title and copy run in the same clear
+         column as the other pages. 296px = twice the player's 148px disc.
+         Below 640px (where the pair no longer fits side by side) they stack,
+         portrait first, still up to 296px. */
+      .laura-hero-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: var(--sp-xl);
+        margin-top: var(--sp-2xl); /* 64px above the player, as before */
+      }
+      .laura-hero-row .player {
+        flex-shrink: 0; /* never squeeze the player's ring */
+      }
+      @media (max-width: 640px) {
+        .laura-hero-row {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .laura-circle {
+          order: -1; /* portrait above the player */
+        }
+      }
       .laura-circle {
-        position: absolute;
-        right: 78px;
-        top: 107px;
-        width: 600px;
-        height: 600px;
+        width: 296px;
+        max-width: 100%;
+        aspect-ratio: 1;
         border-radius: 50%;
         overflow: hidden;
-        z-index: 1;
-        pointer-events: none;
       }
       .laura-circle img {
         display: block;
@@ -62,11 +81,6 @@
         height: 100%;
         object-fit: cover;
         object-position: center 15%;
-      }
-      @media (max-width: 900px) {
-        .laura-circle {
-          display: none;
-        }
       }
 
       /* SECTIONS — no background colour; blur layer shows through */
@@ -342,17 +356,10 @@
       <canvas class="sky-stars" aria-hidden="true"></canvas>
       <div class="page-blur"></div>
 
-      <!-- HERO (content layer) — large player + portrait bleeding off the top-right -->
+      <!-- HERO (content layer) — large player with a small round portrait beside it -->
       <header class="hero">
-        <div class="laura-circle">
-          <img src="assets/laura-at-mic.jpg" alt="Laura Cox" />
-        </div>
-        <div
-          class="hero-v2-content"
-        >
-          <div>
-            <h1 class="hero-title reveal">Laura Cox</h1>
-          </div>
+        <div class="hero-content">
+          <h1 class="hero-title reveal">Laura Cox</h1>
           <div class="reveal d1">
             <p class="hero-body">
               A warm, natural British voice for audiobooks, narration,
@@ -367,7 +374,7 @@
               independent productions.
             </p>
           </div>
-          <div class="hero-v2-player reveal d2">
+          <div class="laura-hero-row reveal d2">
             <div
               class="player player-lg player--dark"
               data-player="laura-demo-reel"
@@ -376,6 +383,9 @@
               data-label="DEMO REEL"
               data-color="c1"
             ></div>
+            <div class="laura-circle">
+              <img src="assets/laura-at-mic.jpg" alt="Laura Cox" />
+            </div>
           </div>
         </div>
 
