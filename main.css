@@ -493,7 +493,7 @@ button {
 
 .hero-scroll {
   position: fixed;
-  bottom: 2rem;
+  bottom: calc(var(--footer-h) + 2rem); /* clear the fixed footer overlay */
   right: 2.5rem;
   z-index: 3;
   display: flex;
@@ -1135,45 +1135,67 @@ button {
 }
 
 /* Footer V2 — Figma Layout/Footer (3-col, 128px tall)
-   Left: bear icon + copyright  |  spacer  |  nav links  */
+   Left: bear icon + copyright  |  spacer  |  nav links
+
+   hill-footer experiment: the footer is a fixed overlay pinned to the
+   viewport bottom, always visible. Its live height is written to
+   --footer-h on <html> by initFooterOverlay() in main.js; body reserves
+   that much bottom padding so the last content can scroll clear of it. */
+:root {
+  --footer-h: 213px; /* hill SVG height */
+}
+body {
+  padding-bottom: var(--footer-h);
+}
+/* On pages with a .page-canvas, reserve the space inside the canvas instead,
+   so the blurred background carries on behind the hill's transparent sky
+   rather than stopping short and leaving a flat band. */
+body:has(.page-canvas) {
+  padding-bottom: 0;
+}
+.page-canvas {
+  padding-bottom: var(--footer-h);
+}
 .footer {
-  position: relative;
-  background: var(--light-black);
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 90; /* under the nav (100) and its mobile menu (101), consent (200) */
+  /* Hill silhouette instead of a solid block — pinned bottom-right at its
+     natural 1750×213 size (deliberately not scaled with the viewport yet).
+     The footer is the hill's full height; .footer-v2 runs along the
+     bottom edge, on the solid strip of hill. */
+  background: url("assets/Pages/footer-hill-bears-web.svg") right bottom / auto no-repeat;
+  height: 213px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   padding: 0;
   border-top: none;
 }
-/* Bear mascot sitting on top of the footer, at the edge like the hairline
-   divider mascots (.wi-bear-left/-right). .footer is already full-bleed
-   (no centred max-width wrapper), so the inset applies directly — no
-   viewport-breakout calc needed. Per-instance inset set via --bear-inset. */
-.footer-bear {
-  position: absolute;
-  bottom: 100%;
-  width: 56px;
-  height: auto;
-  pointer-events: none;
-}
-.footer-bear.reveal.visible {
-  opacity: 0.7;
-}
-.footer-bear-left {
-  left: var(--bear-inset, 25px);
-}
-.footer-bear-right {
-  right: var(--bear-inset, 25px);
-}
-
 .footer-v2 {
   display: flex;
   align-items: center;
-  height: 128px;
-  padding: 0 64px;
+  justify-content: flex-start;
+  /* Tucked into the bottom corners: a small inset keeps the text off
+     the very edge, plus the iOS home-indicator inset where there is one */
+  padding: 0 var(--sp-md) calc(var(--sp-sm) + env(safe-area-inset-bottom, 0px));
+  max-width: none; /* override .wrap's centred 1200px cap — span the full width */
+  margin: 0;
 }
 .footer-v2-brand {
   display: flex;
   align-items: center;
   gap: 12px;
-  flex-shrink: 0;
+  flex: 1; /* full footer width, so the links can be pushed to the far right */
+}
+/* Cookies/Privacy bottom-left, copyright bottom-right. The links are
+   injected after the copyright by js/analytics.js, so reorder visually:
+   the copyright moves last and takes up the slack */
+.footer-v2-copyright {
+  order: 1;
+  margin-left: auto;
 }
 .footer-v2-brand img {
   width: 24px;
@@ -1228,7 +1250,7 @@ button {
   color: var(--cream-50);
   background: none;
   border: 0;
-  padding: 0;
+  padding: 6px 0; /* taller hit area (~24px) now the links sit in the corner */
   cursor: pointer;
   text-decoration: underline;
   text-decoration-color: var(--red);
@@ -1302,26 +1324,6 @@ button {
 .consent-btn--accept:hover {
   background: var(--cream);
   border-color: var(--cream);
-}
-
-/* Below ~1000px the brand row and the footer links no longer fit side by
-   side (they ran off-screen on tablets), so stack them on two lines */
-@media (max-width: 1000px) {
-  .footer-v2 {
-    flex-wrap: wrap;
-    height: auto;
-    min-height: 128px;
-    padding-top: 40px;
-    padding-bottom: 40px;
-    row-gap: 20px;
-  }
-  .footer-v2-spacer {
-    display: none;
-  }
-  .footer-v2-nav {
-    flex-wrap: wrap;
-    gap: 16px 32px;
-  }
 }
 
 @media (max-width: 620px) {

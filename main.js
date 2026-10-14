@@ -129,6 +129,20 @@ function initDownloads() {
   });
 }
 
+/* ===== FOOTER OVERLAY =====
+   The footer is position: fixed (hill-footer experiment). Its height changes
+   across breakpoints (128px desktop, wraps to auto ≤1000px), so measure it and
+   publish --footer-h for the body bottom padding and the scroll cue offset. */
+function initFooterOverlay() {
+  const footer = document.querySelector(".footer");
+  if (!footer) return;
+  const root = document.documentElement;
+  const sync = () => root.style.setProperty("--footer-h", `${footer.offsetHeight}px`);
+  sync();
+  if ("ResizeObserver" in window) new ResizeObserver(sync).observe(footer);
+  else window.addEventListener("resize", sync);
+}
+
 /* ===== INIT ===== */
 function init() {
   document.documentElement.dataset.theme = TWEAK_DEFAULTS.theme;
@@ -139,6 +153,7 @@ function init() {
   updateParallax();
   initNavToggle();
   initAnalytics();
+  initFooterOverlay();
 }
 
 // Script is at end of <body> so DOM is ready; DOMContentLoaded may have already fired
