@@ -6,12 +6,13 @@
    single rotate() about the pole. Cheaper and crisper than moving DOM dots,
    and avoids the huge composited layer a rotating oversized SVG would need.
 
-   The pole sits just off-screen to the right, below centre, so on screen the
-   stars trace arcs rather than an obvious spin. Rotation is anticlockwise, as the
-   northern sky turns around Polaris. */
+   The pole sits just off-screen to the right, above centre, so on screen the
+   stars trace arcs rather than an obvious spin. Rotation is clockwise as you
+   scroll down (set by DIRECTION). */
 
-const POLE = {x: 1.1, y: 0.7}; // pole position as fractions of the viewport
+const POLE = {x: 1.1, y: 0.4}; // pole position as fractions of the viewport
 const DEG_PER_SCREEN = 3.5; // rotation per viewport-height scrolled
+const DIRECTION = 1; // 1 = clockwise as you scroll down, -1 = anticlockwise
 const DENSITY = 1 / 5200; // stars per px² of sky
 const SEED = 20261014; // fixed seed: the same sky on every visit
 
@@ -41,7 +42,9 @@ export function initSky() {
   let ticking = false;
 
   const rotationAt = (scrollY) =>
-    reducedMotion.matches ? 0 : -((scrollY / H) * DEG_PER_SCREEN * Math.PI) / 180;
+    reducedMotion.matches
+      ? 0
+      : (DIRECTION * (scrollY / H) * DEG_PER_SCREEN * Math.PI) / 180;
 
   // Seed only the sector of sky that can ever pass through the viewport:
   // the viewport's angular span as seen from the pole, widened by the most
@@ -62,16 +65,28 @@ export function initSky() {
       [W, H],
     ].map(([x, y]) => [x - pole.x, y - pole.y]);
     const dists = corners.map(([x, y]) => Math.hypot(x, y));
-    const angles = corners.map(([x, y]) => Math.atan2(y, x));
-    const rMin = Math.max(0, Math.min(...dists) - 40);
+    // Measure corner angles relative to the direction of the screen centre,
+    // so the range never straddles atan2's ±π seam (which it would whenever
+    // the pole sits level with the screen, leaving a starless wedge)
+    const ref = Math.atan2(H / 2 - pole.y, W / 2 - pole.x);
+    const angles = corners.map(([x, y]) => {
+      let d = Math.atan2(y, x) - ref;
+      d -= Math.round(d / (2 * Math.PI)) * 2 * Math.PI;
+      return ref + d;
+    });
+    // Inner radius: distance from the pole to the nearest point of the
+    // viewport (often on an edge, not a corner)
+    const nearX = Math.min(Math.max(pole.x, 0), W);
+    const nearY = Math.min(Math.max(pole.y, 0), H);
+    const rMin = Math.max(0, Math.hypot(nearX - pole.x, nearY - pole.y) - 40);
     const rMax = Math.max(...dists) + 40;
 
     const maxScroll = Math.max(0, document.documentElement.scrollHeight - H);
     const maxTurn = Math.abs(rotationAt(maxScroll));
-    // Sky turns anticlockwise (angle decreasing), so stars seen late in the
-    // page start at larger angles — widen the sector on that side
-    const aMin = Math.min(...angles) - 0.05;
-    const aMax = Math.max(...angles) + maxTurn + 0.05;
+    // Stars seen late in the page start "behind" the direction of travel —
+    // widen the sector on that side (smaller angles when turning clockwise)
+    const aMin = Math.min(...angles) - (DIRECTION > 0 ? maxTurn : 0) - 0.05;
+    const aMax = Math.max(...angles) + (DIRECTION < 0 ? maxTurn : 0) + 0.05;
 
     const area = ((aMax - aMin) / 2) * (rMax * rMax - rMin * rMin);
     const count = Math.round(area * DENSITY);
