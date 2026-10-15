@@ -10,7 +10,10 @@
    stars trace arcs rather than an obvious spin. Rotation is clockwise as you
    scroll down (set by DIRECTION). */
 
-const POLE = {x: 1.1, y: 0.4}; // pole position as fractions of the viewport
+// Pole position as fractions of the canvas. The canvas is bottom-anchored at
+// a constant (large-viewport) height, so y is effectively fixed relative to
+// the window bottom and the footer hill: 0.4 = 60% of that height above it.
+const POLE = {x: 1.1, y: 0.4};
 const DEG_PER_SCREEN = 3.5; // rotation per viewport-height scrolled
 const DIRECTION = 1; // 1 = clockwise as you scroll down, -1 = anticlockwise
 const DENSITY = 1 / 5200; // stars per px² of sky

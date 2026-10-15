@@ -1143,7 +1143,10 @@ button {
    .footer-hill and drops to z-index -1 (below). */
 .sky-stars {
   position: fixed;
-  top: 0;
+  /* Pinned to the window's bottom edge, like .footer-hill, so the sky never
+     moves relative to the hill — when a mobile toolbar shows, the canvas
+     slides up with the hill and its top runs off-screen instead. */
+  bottom: 0;
   left: 0;
   width: 100%;
   /* The large viewport, not inset: 0 — so the canvas (and js/sky.js's
