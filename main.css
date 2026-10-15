@@ -1190,12 +1190,20 @@ button {
      DOM order (so above it), below the z-index:1 content sections */
   z-index: 0;
   /* The art, raised by --hill-lift, with a solid black band filling the
-     lift gap beneath it (same width as the art) */
+     lift gap beneath it (same width as the art). On screens wider than the
+     art, a third layer fills the space to its left with black at the height
+     of the art's left edge (its ground starts at y≈161.8 of 213, so 24.18%
+     of --hill-h, plus the lift). 1px wider than the gap so it tucks under
+     the art's anti-aliased edge; max() keeps the size valid (≥0) when the
+     art is wider than the screen. */
   background:
     url("assets/Pages/footer-hill-bears-web.svg") right top /
       var(--hill-w) var(--hill-h) no-repeat,
     linear-gradient(#000, #000) right bottom / var(--hill-w) var(--hill-lift)
-      no-repeat;
+      no-repeat,
+    linear-gradient(#000, #000) left bottom /
+      max(0px, 100% - var(--hill-w) + 1px)
+      calc(var(--hill-h) * 0.2418 + var(--hill-lift)) no-repeat;
   pointer-events: none;
 }
 /* Pages without a .page-canvas (404, about, privacy) have unpositioned
