@@ -46,57 +46,47 @@ export function initSky() {
       ? 0
       : (DIRECTION * (scrollY / H) * DEG_PER_SCREEN * Math.PI) / 180;
 
-  // Seed only the sector of sky that can ever pass through the viewport:
-  // the viewport's angular span as seen from the pole, widened by the most
-  // the sky will turn over the page's full scroll.
+  // Geometry comes from the canvas's own CSS box, which main.css sizes to the
+  // *large* viewport (100lvh). On mobile the browser toolbar showing/hiding
+  // changes window.innerHeight and fires resize, but not this box — so the
+  // pole, the rotation rate and the stars all stay put instead of jumping.
+  const measure = () => [canvas.clientWidth, canvas.clientHeight];
+
+  // Seed a full ring of sky around the pole: every star that could ever be
+  // on screen at this canvas size, whatever the scroll. Nothing depends on
+  // the page's length, so late layout changes (fonts, images) can't reshuffle
+  // the sky. Off-screen stars are culled when drawing.
   function seed() {
+    [W, H] = measure();
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    W = window.innerWidth;
-    H = window.innerHeight;
     canvas.width = Math.round(W * dpr);
     canvas.height = Math.round(H * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     pole = {x: W * POLE.x, y: H * POLE.y};
 
-    const corners = [
-      [0, 0],
-      [W, 0],
-      [0, H],
-      [W, H],
-    ].map(([x, y]) => [x - pole.x, y - pole.y]);
-    const dists = corners.map(([x, y]) => Math.hypot(x, y));
-    // Measure corner angles relative to the direction of the screen centre,
-    // so the range never straddles atan2's ±π seam (which it would whenever
-    // the pole sits level with the screen, leaving a starless wedge)
-    const ref = Math.atan2(H / 2 - pole.y, W / 2 - pole.x);
-    const angles = corners.map(([x, y]) => {
-      let d = Math.atan2(y, x) - ref;
-      d -= Math.round(d / (2 * Math.PI)) * 2 * Math.PI;
-      return ref + d;
-    });
     // Inner radius: distance from the pole to the nearest point of the
-    // viewport (often on an edge, not a corner)
+    // viewport (often on an edge, not a corner); outer: the farthest corner
     const nearX = Math.min(Math.max(pole.x, 0), W);
     const nearY = Math.min(Math.max(pole.y, 0), H);
     const rMin = Math.max(0, Math.hypot(nearX - pole.x, nearY - pole.y) - 40);
-    const rMax = Math.max(...dists) + 40;
+    const rMax =
+      Math.max(
+        ...[
+          [0, 0],
+          [W, 0],
+          [0, H],
+          [W, H],
+        ].map(([x, y]) => Math.hypot(x - pole.x, y - pole.y)),
+      ) + 40;
 
-    const maxScroll = Math.max(0, document.documentElement.scrollHeight - H);
-    const maxTurn = Math.abs(rotationAt(maxScroll));
-    // Stars seen late in the page start "behind" the direction of travel —
-    // widen the sector on that side (smaller angles when turning clockwise)
-    const aMin = Math.min(...angles) - (DIRECTION > 0 ? maxTurn : 0) - 0.05;
-    const aMax = Math.max(...angles) + (DIRECTION < 0 ? maxTurn : 0) + 0.05;
-
-    const area = ((aMax - aMin) / 2) * (rMax * rMax - rMin * rMin);
-    const count = Math.round(area * DENSITY);
+    const count = Math.round(Math.PI * (rMax * rMax - rMin * rMin) * DENSITY);
     const rand = rng(SEED);
 
     stars = [];
     for (let i = 0; i < count; i++) {
-      // Uniform over the annular sector's area
+      // Uniform over the ring's area
       const r = Math.sqrt(rand() * (rMax * rMax - rMin * rMin) + rMin * rMin);
-      const a = aMin + rand() * (aMax - aMin);
+      const a = rand() * Math.PI * 2;
       // Mostly faint pinpricks, a few brighter stars
       const mag = Math.pow(rand(), 3);
       stars.push({
@@ -112,22 +102,23 @@ export function initSky() {
 
   function draw() {
     ticking = false;
-    ctx.save();
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.restore();
-
-    ctx.save();
-    ctx.translate(pole.x, pole.y);
-    ctx.rotate(rotationAt(window.scrollY));
+    ctx.clearRect(0, 0, W, H);
+    // Rotate each star about the pole by hand (one sin/cos per frame) so
+    // stars outside the viewport can be skipped before any drawing
+    const rot = rotationAt(window.scrollY);
+    const cos = Math.cos(rot);
+    const sin = Math.sin(rot);
     ctx.fillStyle = "#f9f4ec"; // --dark-white
     for (const s of stars) {
+      const x = pole.x + s.x * cos - s.y * sin;
+      const y = pole.y + s.x * sin + s.y * cos;
+      if (x < -2 || y < -2 || x > W + 2 || y > H + 2) continue;
       ctx.globalAlpha = s.alpha;
       ctx.beginPath();
-      ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+      ctx.arc(x, y, s.size, 0, Math.PI * 2);
       ctx.fill();
     }
-    ctx.restore();
+    ctx.globalAlpha = 1;
   }
 
   const requestDraw = () => {
@@ -140,14 +131,11 @@ export function initSky() {
   seed();
   draw();
   window.addEventListener("scroll", requestDraw, {passive: true});
+  // Only reseed when the canvas box itself changes (window width, desktop
+  // window resizes, rotation) — not for mobile toolbar show/hide
   window.addEventListener("resize", () => {
-    seed();
-    requestDraw();
-  });
-  // Page height can grow after load (fonts, images) — reseed so the sector
-  // covers the full scroll
-  window.addEventListener("load", () => {
-    seed();
+    const [w, h] = measure();
+    if (w !== W || h !== H) seed();
     requestDraw();
   });
   reducedMotion.addEventListener?.("change", requestDraw);
