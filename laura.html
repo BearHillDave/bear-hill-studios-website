@@ -96,9 +96,10 @@
         position: absolute;
         top: 0;
         left: 50%;
-        width: 100vw;
+        /* Same width as the centred column's text (780px minus its padding) */
+        width: calc(min(780px, 100%) - 2 * var(--col-pad));
         height: 1px;
-        background: var(--cream-20);
+        background: var(--cream-10);
         transform: translateX(-50%);
       }
 

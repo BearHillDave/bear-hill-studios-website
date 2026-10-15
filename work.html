@@ -61,12 +61,11 @@
       .wi-bear.reveal.visible {
         opacity: 0.7;
       }
-      /* Two-thirds of the way across the (full-viewport) divider, flipped to
-         face the other way. 50% is the centred column's middle = viewport
-         middle, so +16.667vw lands on 2/3; −28px centres the 56px bear.
+      /* Two-thirds of the way across the column-width divider, flipped to
+         face the other way; −28px centres the 56px bear.
          `scale` (not transform) so it composes with .reveal's transform. */
       .wi-bear-mid {
-        left: calc(50% + 16.667vw - 28px);
+        left: calc(66.667% - 28px);
         scale: -1 1;
       }
     </style>

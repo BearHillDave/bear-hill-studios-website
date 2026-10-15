@@ -82,7 +82,8 @@ Shared: `main.css`, `main.js` — linked from every page.
 Alpha tints (pre-defined variables):
 ```css
 --cream-50: rgba(246, 235, 218, 0.5);   /* muted text, muted icons */
---cream-20: rgba(246, 235, 218, 0.2);   /* hairline dividers */
+--cream-20: rgba(246, 235, 218, 0.2);   /* form/contact borders */
+--cream-10: rgba(246, 235, 218, 0.1);   /* hairline dividers between items */
 --lb-50:    rgba(33, 30, 26, 0.5);      /* muted on light bg */
 ```
 
@@ -313,23 +314,24 @@ Uses `requestAnimationFrame` with a ticking flag for performance. Called inside 
 ### Hairline dividers
 
 - Only between items, never at top or bottom of a list
-- Use adjacent-sibling pseudo-element for full-viewport width:
+- **Same width as the centred column's text** (not full-viewport), colour `--cream-10` (`rgba(246,235,218,0.1)`)
+- Between items inside `.wi-list` (`.wi`, `.wi-large-video`): adjacent-sibling pseudo-element at `left: 0; width: 100%`:
 
 ```css
-.item + .item {
-  position: relative;
-}
+.item + .item { position: relative; }
 .item + .item::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 50%;
-  width: 100vw;
+  left: 0;
+  width: 100%;
   height: 1px;
-  background: var(--cream-20);   /* rgba(246,235,218,0.2) */
-  transform: translateX(-50%);
+  background: var(--cream-10);
 }
 ```
+
+- Section-level dividers (`.laura-quote-section`, `.facility-section` — full-width sections) are centred with `left: 50%; transform: translateX(-50%)` and `width: calc(min(780px, 100%) - 2 * var(--col-pad))`. `--col-pad` (64px, 24px ≤620px) mirrors `.wi-list`'s side padding.
+- Bears on dividers are positioned relative to the column line: Work `left: calc(66.667% - 28px)`; Production `left: calc(50% - (min(780px, 100%) - 128px) / 2 + var(--bear-inset))`.
 
 ### Link baseline reset
 

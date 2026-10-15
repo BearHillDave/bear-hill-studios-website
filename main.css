@@ -19,6 +19,8 @@
   /* ── Alpha tints ── */
   --cream-50: rgba(246, 235, 218, 0.5);
   --cream-20: rgba(246, 235, 218, 0.2);
+  --cream-10: rgba(246, 235, 218, 0.1); /* hairline dividers between items */
+  --col-pad: 64px; /* .wi-list side padding (24px ≤620px) */
   --lb-50: rgba(33, 30, 26, 0.5);
 
   /* ── Legacy aliases (keep for backward compat during rebuild) ── */
@@ -680,7 +682,7 @@ button {
 }
 
 /* ── Work item wrapper — all three component types use this ──
-   py=40px, gap=8px, full-width hairline BETWEEN items only */
+   py=40px, gap=8px, column-width hairline BETWEEN items only */
 .wi {
   padding: 40px 0;
   display: flex;
@@ -692,11 +694,10 @@ button {
   content: "";
   position: absolute;
   top: 0;
-  left: 50%;
-  width: 100vw;
+  left: 0;
+  width: 100%;
   height: 1px;
-  background: var(--cream-20);
-  transform: translateX(-50%);
+  background: var(--cream-10);
 }
 
 /* ── Eyebrows ── */
@@ -899,6 +900,9 @@ button {
 /* ── Narrow / mobile: stack the media row — cover (or video thumbnail) on top,
    body copy + streaming links below it (Figma "Audiobook with Cover/Mobile"). ── */
 @media (max-width: 620px) {
+  :root {
+    --col-pad: 24px;
+  }
   .wi-list,
   .wi-list--narrow {
     padding: 0 24px;
@@ -951,11 +955,10 @@ button {
   content: "";
   position: absolute;
   top: 0;
-  left: 50%;
-  width: 100vw;
+  left: 0;
+  width: 100%;
   height: 1px;
-  background: var(--cream-20);
-  transform: translateX(-50%);
+  background: var(--cream-10);
 }
 /* Full-width 16:9 YouTube embed */
 .wi-yt-full {
