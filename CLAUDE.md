@@ -621,7 +621,7 @@ Full V2 — implemented from Figma node `352:7144`.
 
 **Hero** — uses the shared 780px `.hero-content` column like the other pages (title + 3 `.hero-body` paragraphs), then a **player row** (`.laura-hero-row`, 64px below the copy): the `player-lg` "Demo reel" player with the round portrait (`.laura-circle`, `assets/laura-at-mic.jpg`, `object-position: center 15%`) to its right.
 
-- Portrait is **296px** (twice the player's 148px disc), `aspect-ratio: 1`, `max-width: 100%`; the row is `align-items: center`, gap `--sp-xl`. The player is `flex-shrink: 0` so its ring is never squeezed.
+- Portrait is **296px** (twice the player's 148px disc), `aspect-ratio: 1`, `max-width: 100%`, with a 10px `--cream-50` ring outside the photo (`box-shadow: 0 0 0 10px`, so no layout shift); the row is `align-items: center`, gap `--sp-xl`. The player is `flex-shrink: 0` so its ring is never squeezed.
 - **≤640px** (where the pair no longer fits side by side) the row becomes a column with the portrait **above** the player (`order: -1`).
 - Replaced the old 600px absolutely-positioned circle that the title/copy overlapped (and which was hidden ≤900px).
 

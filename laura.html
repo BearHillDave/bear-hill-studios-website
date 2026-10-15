@@ -74,6 +74,10 @@
         aspect-ratio: 1;
         border-radius: 50%;
         overflow: hidden;
+        /* 10px ring outside the photo (its inner edge meets the image edge).
+           A spread shadow, not a border, so the photo keeps its full size
+           and the layout doesn't shift. */
+        box-shadow: 0 0 0 10px var(--cream-50);
       }
       .laura-circle img {
         display: block;
