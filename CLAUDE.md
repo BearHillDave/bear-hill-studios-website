@@ -331,7 +331,7 @@ Uses `requestAnimationFrame` with a ticking flag for performance. Called inside 
 ```
 
 - Section-level dividers (`.laura-quote-section`, `.facility-section` — full-width sections) are centred with `left: 50%; transform: translateX(-50%)` and `width: calc(min(780px, 100%) - 2 * var(--col-pad))`. `--col-pad` (64px, 24px ≤620px) mirrors `.wi-list`'s side padding.
-- Bears on dividers are positioned relative to the column line: Work `left: calc(66.667% - 28px)`; Production `left: calc(50% - (min(780px, 100%) - 128px) / 2 + var(--bear-inset))`.
+- Bears on dividers are positioned relative to the column line: Work `left: calc(66.667% - 28px)`; Production `left: calc(50% - (min(780px, 100%) - 2 * var(--col-pad)) / 2 + var(--bear-inset))`.
 
 ### Link baseline reset
 
