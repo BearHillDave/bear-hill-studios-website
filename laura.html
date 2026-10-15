@@ -74,10 +74,18 @@
         aspect-ratio: 1;
         border-radius: 50%;
         overflow: hidden;
-        /* 10px ring outside the photo (its inner edge meets the image edge).
-           A spread shadow, not a border, so the photo keeps its full size
-           and the layout doesn't shift. */
-        box-shadow: 0 0 0 10px var(--cream-50);
+        position: relative;
+      }
+      /* 10px ring inside the photo's edge — same outer diameter as the image.
+         An overlay, since an inset shadow on the wrapper would paint under
+         the <img>. */
+      .laura-circle::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        box-shadow: inset 0 0 0 10px var(--cream-50);
+        pointer-events: none;
       }
       .laura-circle img {
         display: block;
