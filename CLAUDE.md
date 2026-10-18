@@ -289,7 +289,8 @@ Full-height heroes risk a "false bottom" — the first screen reads as the whole
 - Home: `moss-blur-light.jpg`
 - Work: `yellow-and-black-blur.jpg`
 - Laura: `velvet-blur.jpg`
-- Production: `sky-blur.jpg`
+- Production: `forest-blur.jpg`
+- Friends: `flowers-blur.jpg`
 - Contact: `stream-blur.jpg`
 
 The blur layer uses `mix-blend-mode: lighten; opacity: 0.5` (not a flat opacity). The JPEG has a gradient-to-black baked in on the text side; `mix-blend-mode: lighten` makes the black areas transparent against the `--light-black` canvas background. Using JPEGs avoids needing PNG transparency. (All pages, Contact included, now use `lighten`.)
@@ -594,8 +595,10 @@ Photos used per page (hero photo layer removed — these are the only background
 | `meadow-blur.jpg` | Previous Work blur layer — currently unused |
 | `velvet-blur.jpg` | Laura blur layer (`page-blur`) |
 | `stream-blur.jpg` | Contact blur layer (`page-blur`) |
-| `sky-blur.jpg` | Production blur layer (`page-blur`) |
-| `tulip-blur.jpg` | Friends blur layer (`page-blur`) |
+| `forest-blur.jpg` | Production blur layer (`page-blur`) — 900×2571 progressive JPEG, optimised from a 1750×5000 original |
+| `flowers-blur.jpg` | Friends blur layer (`page-blur`) — 900×2571 progressive JPEG, optimised from a 1750×5000 original |
+| `sky-blur.jpg` | Previous Production blur layer — currently unused |
+| `tulip-blur.jpg` | Previous Friends blur layer — currently unused |
 | `og-image.jpg` | 1200×630 social share image (all pages' `og:image`) |
 | `apple-touch-icon.png`, `icon-192.png`, `icon-512.png` | Home-screen / manifest icons |
 | `VR Cover 3000x3000.png` | Velveteen Rabbit audiobook cover |
@@ -689,7 +692,7 @@ CSS rule that spaces categories: `.wi-list--narrow .wi-eyebrow:not(:first-of-typ
 
 Full V2 — implemented from Figma node `352:7513`.
 
-Hero uses `sky-blur.jpg` as the blur layer (no hero photo — see **Page layer stack**). Same layer stack and vignette as other pages.
+Hero uses `forest-blur.jpg` as the blur layer (no hero photo — see **Page layer stack**). Same layer stack and vignette as other pages.
 
 **Sections in order:**
 1. Hero — "Production" title + Cormorant Light 24px/40lh body (4 sentences)
