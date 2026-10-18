@@ -12,12 +12,31 @@
 
 // Pole position as fractions of the canvas. The canvas is bottom-anchored at
 // a constant (large-viewport) height, so y is effectively fixed relative to
-// the window bottom and the footer hill: 0.4 = 60% of that height above it.
-const POLE = {x: 1.1, y: 0.4};
+// the window bottom and the footer hill: 0.1 = 90% of that height above it.
+const POLE = {x: 1.1, y: 0.1};
 const DEG_PER_SCREEN = 3.5; // rotation per viewport-height scrolled
 const DIRECTION = 1; // 1 = clockwise as you scroll down, -1 = anticlockwise
-const DENSITY = 1 / 5200; // stars per px² of sky
+const DENSITY = 1 / 3467; // stars per px² of sky
 const SEED = 20261014; // fixed seed: the same sky on every visit
+
+// Subtle star colours, weighted roughly like the real night sky: mostly
+// white, then warm yellow-whites and cool blue-whites, a few orange and the
+// odd reddish one. All kept pale so the field still reads as white.
+const STAR_COLOURS = [
+  ["#f9f4ec", 38], // --dark-white
+  ["#fff3dc", 18], // yellow-white (G)
+  ["#e4ebff", 16], // blue-white (A)
+  ["#d4e0ff", 8], //  pale blue (B)
+  ["#ffe4b8", 11], // pale gold (K)
+  ["#ffd2a6", 7], //  orange (K/M)
+  ["#ffbfa8", 2], //  reddish (M)
+];
+const COLOUR_TOTAL = STAR_COLOURS.reduce((t, [, w]) => t + w, 0);
+const pickColour = (r) => {
+  let n = r * COLOUR_TOTAL;
+  for (const [c, w] of STAR_COLOURS) if ((n -= w) < 0) return c;
+  return STAR_COLOURS[0][0];
+};
 
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
@@ -84,6 +103,8 @@ export function initSky() {
 
     const count = Math.round(Math.PI * (rMax * rMax - rMin * rMin) * DENSITY);
     const rand = rng(SEED);
+    // Separate stream for colour, so positions match the uncoloured sky
+    const randColour = rng(SEED + 1);
 
     stars = [];
     for (let i = 0; i < count; i++) {
@@ -99,6 +120,7 @@ export function initSky() {
         // Low floor: the faint majority sits around 0.1–0.2 opacity while
         // the few bright stars (mag near 1) still reach ~0.9
         alpha: 0.08 + mag * 0.82,
+        colour: pickColour(randColour()),
       });
     }
   }
@@ -111,12 +133,12 @@ export function initSky() {
     const rot = rotationAt(window.scrollY);
     const cos = Math.cos(rot);
     const sin = Math.sin(rot);
-    ctx.fillStyle = "#f9f4ec"; // --dark-white
     for (const s of stars) {
       const x = pole.x + s.x * cos - s.y * sin;
       const y = pole.y + s.x * sin + s.y * cos;
       if (x < -2 || y < -2 || x > W + 2 || y > H + 2) continue;
       ctx.globalAlpha = s.alpha;
+      ctx.fillStyle = s.colour;
       ctx.beginPath();
       ctx.arc(x, y, s.size, 0, Math.PI * 2);
       ctx.fill();
@@ -131,15 +153,28 @@ export function initSky() {
     }
   };
 
-  seed();
-  draw();
+  // Until main.css applies, the canvas's box is just its own bitmap size
+  // (300×150 by default). Seeding from that left a tiny bitmap that CSS then
+  // stretched over the viewport — big, blurry stars on some first loads —
+  // and resizing the bitmap to the box would feed back on itself. So only
+  // seed once the stylesheet has positioned the canvas.
+  const styled = () => getComputedStyle(canvas).position === "fixed";
+
+  if (styled()) {
+    seed();
+    draw();
+  }
   window.addEventListener("scroll", requestDraw, {passive: true});
-  // Only reseed when the canvas box itself changes (window width, desktop
-  // window resizes, rotation) — not for mobile toolbar show/hide
-  window.addEventListener("resize", () => {
+  // Reseed whenever the canvas box itself changes (CSS arriving, window
+  // width, desktop window resizes, rotation) — not for mobile toolbar
+  // show/hide, which leaves this box alone
+  new ResizeObserver(() => {
+    if (!styled()) return;
     const [w, h] = measure();
-    if (w !== W || h !== H) seed();
-    requestDraw();
-  });
+    if (w !== W || h !== H) {
+      seed();
+      requestDraw();
+    }
+  }).observe(canvas);
   reducedMotion.addEventListener?.("change", requestDraw);
 }
