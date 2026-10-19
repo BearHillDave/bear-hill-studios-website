@@ -135,6 +135,10 @@ Loaded from Google Fonts. Request weight range `0,300;0,400;0,500;0,600;1,300;1,
 
 /* Layout */
 --text-desc-w: 520px;   /* Work Item/Copy max-width (Figma: Text Description width) */
+
+/* Image shadow — on every image site-wide */
+--img-shadow:      0 12px 48px rgba(0,0,0,0.55);              /* box-shadow: covers, thumbs, video frames, photos, logo cards */
+--img-drop-shadow: drop-shadow(0 12px 48px rgba(0,0,0,0.55)); /* filter: bear mascots (transparent PNGs, follows the shape) */
 ```
 
 ---
@@ -612,6 +616,7 @@ Photos used per page (hero photo layer removed — these are the only background
 | `bear-sit-side.png` | Bear mascot — Work (top divider, ⅔ across, flipped) |
 | `bear-walk.png` | Bear mascot — Laura (on the cable car photo) |
 | `bear-face-away.png` | Bear mascot — Friends ("Get in Touch" CTA button) |
+| `jenna-brown.jpeg` | Jenna Brown portrait — Friends (Bristol Voice Care entry) |
 | `assets/icons/Spotify.svg` | Streaming icon |
 | `assets/icons/Apple Books.svg` | Streaming icon |
 | `assets/icons/Audible.svg` | Streaming icon |

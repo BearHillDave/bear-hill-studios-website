@@ -52,6 +52,11 @@
   --sp-xl: 40px;
   --sp-2xl: 64px;
 
+  /* Soft, heavily blurred drop shadow shared by photos / covers / video frames */
+  --img-shadow: 0 12px 48px rgba(0, 0, 0, 0.55);
+  /* Same shadow for transparent cut-outs (bear mascots) — follows the shape, not the box */
+  --img-drop-shadow: drop-shadow(0 12px 48px rgba(0, 0, 0, 0.55));
+
   /* ── Layout tokens (Figma) ── */
   --text-desc-w: 520px;
 
@@ -782,6 +787,7 @@ button {
   cursor: pointer;
   background: #000;
   text-decoration: none;
+  box-shadow: var(--img-shadow);
 }
 .wi-yt-thumb img {
   width: 100%;
@@ -844,7 +850,13 @@ button {
   overflow: hidden;
   flex-shrink: 0;
   margin-right: var(--sp-lg);
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.35);
+  box-shadow: var(--img-shadow);
+}
+/* Bear mascots (transparent PNGs) — shape-following version of --img-shadow */
+.cta-bear,
+.wi-bear,
+.laura-bear {
+  filter: var(--img-drop-shadow);
 }
 .wi-cover img {
   width: 100%;
@@ -968,6 +980,7 @@ button {
   overflow: hidden;
   background: #000;
   border-radius: 4px;
+  box-shadow: var(--img-shadow);
 }
 .wi-yt-full iframe {
   position: absolute;
